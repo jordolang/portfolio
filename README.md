@@ -1,4 +1,4 @@
-# 🚀 Muhammad Ramazan - Portfolio
+# 🚀 Jordan Lang - Portfolio
 
 A stunning, modern portfolio website built with cutting-edge technologies and beautiful animations inspired by Aceternity UI design principles.
 
@@ -80,7 +80,7 @@ A stunning, modern portfolio website built with cutting-edge technologies and be
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/lightify97/portfolio.git
+   git clone https://github.com/jordolang/portfolio.git
    cd portfolio
    ```
 
@@ -248,16 +248,16 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/lightify97/portfolio/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/jordolang/portfolio/issues).
 
 ## 👨‍💻 Author
 
-**Muhammad Ramazan**
+**Jordan Lang**
 
-- Portfolio: [https://mramazan.dev](https://mramazan.dev)
-- GitHub: [@lightify97](https://github.com/lightify97)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/m-ramazan)
-- Email: mramazan1@yahoo.com
+- Portfolio: [https://jordolang.dev](https://jordolang.dev)
+- GitHub: [@jordolang](https://github.com/jordolang)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/jordolang)
+- Email: jordolang@gmail.com
 
 ## 🙏 Acknowledgments
 

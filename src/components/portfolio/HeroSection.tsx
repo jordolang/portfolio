@@ -46,7 +46,7 @@ export default function HeroSection() {
           transition={{ delay: 0.2, duration: 0.6 }}
         >
           <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent z-10">
-            Muhammad Ramazan
+            Jordan Lang
           </span>
         </motion.h1>
 
@@ -60,10 +60,10 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
-          Crafting exceptional digital experiences with clean code and thoughtful design
+          Creating beautiful, accessible websites that engage users and drive results
         </motion.p>
 
-        {/* Social Links - keeping exactly the same */}
+        {/* Social Links */}
         <motion.div
           className="flex flex-wrap gap-3 justify-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -71,9 +71,11 @@ export default function HeroSection() {
           transition={{ delay: 1.0 }}
         >
           {[
-            { href: "https://github.com/lightify97", icon: "simple-icons:github", label: "GitHub", color: "hover:text-gray-900 dark:hover:text-white" },
-            { href: "https://linkedin.com/in/m-ramazan", icon: "skill-icons:linkedin", label: "LinkedIn", color: "hover:text-blue-600" },
-            { href: "mailto:lightify6@gmail.com", icon: "material-icon-theme:email", label: "Email", color: "hover:text-green-600" }
+            { href: "https://facebook.com/jordolang", icon: "simple-icons:facebook", label: "Facebook", color: "hover:text-blue-600" },
+            { href: "https://x.com/jordolang", icon: "simple-icons:x", label: "X (Twitter)", color: "hover:text-gray-900 dark:hover:text-white" },
+            { href: "https://linkedin.com/in/jordolang", icon: "simple-icons:linkedin", label: "LinkedIn", color: "hover:text-blue-700" },
+            { href: "https://github.com/jordolang", icon: "simple-icons:github", label: "GitHub", color: "hover:text-gray-900 dark:hover:text-white" },
+            { href: "mailto:jordolang@gmail.com", icon: "material-icon-theme:email", label: "Email", color: "hover:text-green-600" }
           ].map((link) => (
             <motion.div key={link.label} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
@@ -88,18 +90,18 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Skills Preview */}
-        {/* <motion.div
+        <motion.div
           className="flex flex-wrap justify-center gap-3 mb-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2 }}
         >
           {[
-            { icon: "skill-icons:react-dark", label: "React" },
-            { icon: "skill-icons:typescript", label: "TypeScript" },
-            { icon: "skill-icons:nextjs-dark", label: "Next.js" },
-            { icon: "skill-icons:nodejs-dark", label: "Node.js" },
-            { icon: "skill-icons:tailwindcss-dark", label: "Tailwind" }
+            { icon: "skill-icons:html", label: "HTML/CSS" },
+            { icon: "skill-icons:wordpress", label: "WordPress" },
+            { icon: "vscode-icons:file-type-figma", label: "UI/UX Design" },
+            { icon: "material-symbols:responsive-layout", label: "Responsive Design" },
+            { icon: "mdi:web-check", label: "Web Accessibility" }
           ].map((skill, index) => (
             <motion.div
               key={skill.label}
@@ -113,7 +115,7 @@ export default function HeroSection() {
               <span className="text-sm text-gray-700 dark:text-gray-300">{skill.label}</span>
             </motion.div>
           ))}
-        </motion.div> */}
+        </motion.div>
 
         {/* Status */}
         <motion.div
@@ -129,7 +131,7 @@ export default function HeroSection() {
           />
           <Link href="#contact">
             <span className="text-green-700 dark:text-green-300 text-sm font-medium">
-              Available for projects
+              Available for contract web design & IT projects
             </span>
           </Link>
         </motion.div>
