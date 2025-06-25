@@ -7,72 +7,140 @@ import SectionHeader from "./SectionHeader";
 
 const projects = [
   {
-    title: "Checkersvip.com",
-    subtitle: "Professional Online Checkers Platform",
-    description: "A comprehensive multiplayer American checkers platform designed for competitive play with real-time communication capabilities. Currently undergoing official recognition process with the American Checkers Federation (ACF).",
+    title: "World Auto Net",
+    subtitle: "Automotive Marketplace Website",
+    description: "Modern, responsive website design for an automotive marketplace platform. Created a comprehensive digital presence with intuitive navigation, advanced search capabilities, and mobile-first design approach to connect car buyers and sellers efficiently.",
     features: [
-      "Real-time multiplayer gameplay with WebSocket technology",
-      "Advanced drag-and-drop game mechanics using DnDKit",
-      "Live chat system with emoji support and moderation",
-      "Player ranking and tournament management system",
-      "Spectator mode with real-time game observation",
-      "Mobile-responsive design for cross-platform play",
-      "Game replay and analysis tools",
-      "Social features including friend lists and challenges"
+      "Responsive design optimized for all devices",
+      "Vehicle inventory system with advanced filtering",
+      "Search functionality with location-based results",
+      "Interactive image galleries and virtual tours",
+      "User-friendly contact forms and lead generation",
+      "SEO-optimized content structure",
+      "Performance optimization for fast loading",
+      "Cross-browser compatibility testing"
     ],
     deliverables: [
-      "Fully functional web application deployed on production",
-      "Real-time multiplayer game engine",
-      "User authentication and profile management",
-      "Admin dashboard for game moderation",
-      "Tournament management system",
-      "Mobile-optimized responsive interface",
-      "Integration with payment systems for premium features"
+      "Fully responsive website design",
+      "Custom vehicle listing templates",
+      "Mobile-optimized user interface",
+      "Search and filter functionality",
+      "Contact form integration",
+      "SEO implementation and optimization",
+      "Performance optimization",
+      "Browser compatibility testing"
     ],
-    tech: ["Next.js", "NextUI", "Tailwind CSS", "DnDKit", "Fastify", "Redis", "Socket.io", "PostgreSQL", "Prisma", "JWT Authentication", "Stripe API"],
+    tech: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "jQuery", "PHP", "MySQL", "Photoshop", "Figma", "WordPress", "SEO Tools", "Google Analytics"],
     github: "https://github.com",
-    live: "https://checkersvip.com",
-    gradient: "from-blue-500 to-cyan-500",
+    live: "https://worldautonet.com",
+    gradient: "from-blue-600 to-indigo-600",
     status: "Live",
-    category: "Web Application",
+    category: "Web Design",
     highlight: "Featured",
-    timeline: "6 months",
-    clientType: "Gaming Industry"
+    timeline: "3 months",
+    clientType: "Automotive Industry"
   },
   {
-    title: "AskRudy.ai",
-    subtitle: "AI-Powered Document Intelligence Platform",
-    description: "An advanced RAG-based AI chatbot that revolutionizes document interaction through multilingual translation and intelligent conversation capabilities. Features cutting-edge OpenAI multimodal technology for screenshot analysis and real-time text translation.",
+    title: "Neff Paving",
+    subtitle: "Professional Paving Services Website",
+    description: "Complete website redesign for a professional paving contractor, featuring modern design principles, service showcases, and lead generation optimization. Focused on converting visitors into qualified leads through strategic design and clear calls-to-action.",
     features: [
-      "RAG (Retrieval-Augmented Generation) architecture for accurate responses",
-      "Multi-format document support (PDF, DOCX, TXT, images)",
-      "OpenAI GPT-4 Vision integration for screenshot analysis",
-      "Real-time multilingual translation (50+ languages)",
-      "Intelligent document chunking and vector embeddings",
-      "Conversational AI with context-aware responses",
-      "Document highlighting and annotation tools",
-      "Export capabilities for translations and summaries",
-      "Collaborative workspace for team document analysis"
+      "Professional brand identity design",
+      "Service portfolio with before/after galleries",
+      "Mobile-responsive design",
+      "Lead generation contact forms",
+      "Google Maps integration",
+      "Testimonials and reviews section",
+      "Fast-loading optimized images",
+      "Local SEO optimization"
     ],
     deliverables: [
-      "Production-ready AI chatbot platform",
-      "Document processing pipeline with OCR capabilities",
-      "Multi-language translation engine",
-      "User dashboard with document management",
-      "Subscription management with Stripe integration",
-      "API documentation and integration guides",
-      "Mobile-responsive Progressive Web App",
-      "Analytics dashboard for usage tracking"
+      "Complete website redesign",
+      "Custom service page templates",
+      "Photo gallery implementation",
+      "Contact form development",
+      "Mobile optimization",
+      "Local SEO setup",
+      "Google My Business integration",
+      "Performance optimization"
     ],
-    tech: ["Next.js", "NextUI", "Vercel AI SDK", "React-PDF", "Firebase", "LangChain", "OpenAI GPT-4", "Pinecone", "Stripe", "Tesseract.js", "PDF.js", "Zustand"],
+    tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "Photoshop", "Illustrator", "Google Maps API", "Contact Form 7", "Yoast SEO", "GTmetrix", "PageSpeed Insights"],
     github: "https://github.com",
-    live: "https://askrudy.ai",
-    gradient: "from-purple-500 to-pink-500",
+    live: "https://neffpaving.com",
+    gradient: "from-orange-500 to-red-500",
     status: "Live",
-    category: "AI Platform",
+    category: "Web Design",
     highlight: "Featured",
-    timeline: "8 months",
-    clientType: "EdTech & Enterprise"
+    timeline: "2 months",
+    clientType: "Construction Services"
+  },
+  {
+    title: "First Baptist Church",
+    subtitle: "Church Community Website",
+    description: "Comprehensive church website design focused on community engagement and information accessibility. Created a welcoming digital space that reflects the church's values while providing essential information for members and visitors.",
+    features: [
+      "Welcoming and accessible design",
+      "Event calendar and announcements",
+      "Sermon archive and media gallery",
+      "Community outreach information",
+      "Mobile-friendly responsive layout",
+      "Contact and location information",
+      "Social media integration",
+      "Newsletter signup functionality"
+    ],
+    deliverables: [
+      "Custom church website design",
+      "Event management system",
+      "Media gallery implementation",
+      "Newsletter integration",
+      "Mobile-responsive design",
+      "Social media connectivity",
+      "Contact information setup",
+      "Content management training"
+    ],
+    tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "MailChimp", "Photoshop", "Illustrator", "Google Fonts", "Social Media APIs", "Calendar Plugins", "Accessibility Tools"],
+    github: "https://github.com",
+    live: "https://firstbaptistchurch.org",
+    gradient: "from-green-500 to-teal-500",
+    status: "Live",
+    category: "Web Design",
+    highlight: "Community Focus",
+    timeline: "2.5 months",
+    clientType: "Religious Organization"
+  },
+  {
+    title: "Ohio Interests",
+    subtitle: "Local Interest & Tourism Website",
+    description: "Engaging website design showcasing Ohio's attractions, events, and local interests. Developed with tourism and local business promotion in mind, featuring interactive maps, event listings, and comprehensive resource directories.",
+    features: [
+      "Interactive attraction maps",
+      "Local business directory",
+      "Event calendar and listings",
+      "Photo galleries of attractions",
+      "Travel guides and recommendations",
+      "Mobile-optimized browsing experience",
+      "Social sharing capabilities",
+      "Search functionality for quick access"
+    ],
+    deliverables: [
+      "Tourism-focused website design",
+      "Interactive map implementation",
+      "Business directory system",
+      "Event calendar development",
+      "Photo gallery creation",
+      "Mobile optimization",
+      "SEO for local searches",
+      "Social media integration"
+    ],
+    tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "Google Maps API", "Photoshop", "Lightbox", "Event Calendar", "Directory Plugins", "Social Share", "Local SEO Tools"],
+    github: "https://github.com",
+    live: "https://ohiointerests.com",
+    gradient: "from-purple-500 to-blue-500",
+    status: "Live",
+    category: "Web Design",
+    highlight: "Local Focus",
+    timeline: "4 months",
+    clientType: "Tourism & Local Business"
   }
 ];
 
@@ -155,7 +223,7 @@ export default function ProjectsSection() {
           tagText="Portfolio Showcase"
           tagIcon="solar:code-square-bold"
           heading="Featured Projects"
-          description="Discover my latest work in web development, AI integration, and digital innovation"
+          description="Explore my web design portfolio featuring modern, responsive websites and digital solutions for diverse industries"
           showUnderline={true}
           centered={true}
         />
@@ -182,17 +250,17 @@ export default function ProjectsSection() {
                   {/* Floating tech icons - hidden on mobile */}
                   <div className="hidden md:block absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-500">
                     {[
-                      { icon: "logos:react", pos: { top: "15%", left: "80%" } },
-                      { icon: "logos:nextjs-icon", pos: { top: "60%", right: "4%" } },
-                      { icon: "logos:typescript-icon", pos: { bottom: "20%", left: "75%" } },
-                      { icon: "logos:nodejs-icon", pos: { top: "25%", right: "15%" } },
-                      { icon: "logos:tailwindcss-icon", pos: { bottom: "30%", left: "85%" } },
-                      { icon: "logos:postgresql", pos: { top: "40%", right: "20%" } },
-                      { icon: "simple-icons:langchain", pos: { bottom: "10%", left: "70%" } },
-                      { icon: "logos:redis", pos: { top: "20%", right: "25%" } },
-                      { icon: "logos:socket-io", pos: { bottom: "25%", left: "90%" } },
-                      { icon: "logos:stripe", pos: { top: "30%", right: "30%" } },
-                      { icon: "logos:vercel-icon", pos: { bottom: "15%", left: "65%" } },
+                      { icon: "logos:html-5", pos: { top: "15%", left: "80%" } },
+                      { icon: "logos:css-3", pos: { top: "60%", right: "4%" } },
+                      { icon: "logos:javascript", pos: { bottom: "20%", left: "75%" } },
+                      { icon: "logos:wordpress-icon", pos: { top: "25%", right: "15%" } },
+                      { icon: "logos:bootstrap", pos: { bottom: "30%", left: "85%" } },
+                      { icon: "logos:php", pos: { top: "40%", right: "20%" } },
+                      { icon: "logos:adobe-photoshop", pos: { bottom: "10%", left: "70%" } },
+                      { icon: "logos:mysql", pos: { top: "20%", right: "25%" } },
+                      { icon: "logos:figma", pos: { bottom: "25%", left: "90%" } },
+                      { icon: "logos:google-analytics", pos: { top: "30%", right: "30%" } },
+                      { icon: "logos:jquery", pos: { bottom: "15%", left: "65%" } },
                     ].map((item, i) => (
                       <motion.div
                         key={i}

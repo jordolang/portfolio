@@ -6,36 +6,68 @@ import SectionHeader from "./SectionHeader";
 
 const experience = [
   {
-    role: "Software Developer",
-    company: "Upwork",
-    period: "January 2020 — Present",
-    type: "Freelance",
-    companyIcon: "fa6-brands:square-upwork",
-    companyColor: "from-green-500 to-green-600",
-    description: "Delivered high-quality projects across diverse domains, including web and mobile applications, API development, and cloud integrations (AWS, GCP).",
+    role: "Lead Web Designer",
+    company: "World Auto Net",
+    period: "2023 — Present",
+    type: "Contract",
+    companyIcon: "mdi:car",
+    companyColor: "from-blue-600 to-indigo-600",
+    description: "Designed and implemented responsive website solutions for automotive dealership network, focusing on user experience and conversion optimization.",
     achievements: [
-      "Achieved Top-Rated status with a 91% job success score",
-      "Completed 10+ projects focusing on scalable solutions",
-      "Consistently praised for skillfulness, quick learning, and strong communication",
-      "Earned repeated engagements through reliability and expertise"
+      "Created modern, mobile-first website design increasing user engagement by 40%",
+      "Implemented responsive design system across multiple dealership locations",
+      "Optimized site performance and loading speeds for better SEO rankings",
+      "Developed custom vehicle showcase features with interactive galleries"
     ],
-    technologies: ["JavaScript", "Python", "Node.js", "AWS", "GCP", "OpenAI API", "LangChain"]
+    technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "WordPress", "Adobe Creative Suite", "Figma"]
   },
   {
-    role: "HIMS Master Trainer / PACS Specialist",
-    company: "Public Health Organization, Islamabad",
-    period: "July 2019 — Present",
-    type: "Full-time",
-    companyColor: "from-blue-500 to-blue-600",
-    companyIcon: "mdi:hospital-building",
-    description: "Spearheaded organizational transformation from paper-based manual systems to completely integrated HIMS and PACS (Picture Archiving and Communication System).",
+    role: "Web Designer",
+    company: "Neff Paving",
+    period: "2022 — 2023",
+    type: "Contract",
+    companyColor: "from-orange-500 to-red-600",
+    companyIcon: "mdi:road-variant",
+    description: "Created modern web presence for established paving contractor, transforming their digital footprint with professional design and improved functionality.",
     achievements: [
-      "Led integration of 45+ radiology machines (CT, MRI, X-Ray, Ultrasound)",
-      "Ensured active monitoring for integration issues",
-      "Acted as master trainer and led support team",
-      "Communicated issues and requirements to backend teams"
+      "Redesigned company website with modern, professional aesthetic",
+      "Implemented project portfolio showcase with before/after galleries",
+      "Enhanced contact forms and quote request system",
+      "Improved mobile responsiveness and site navigation"
     ],
-    technologies: ["HIMS", "PACS", "System Integration", "Healthcare IT", "Training & Support"]
+    technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "Bootstrap", "Adobe Photoshop", "SEO Optimization"]
+  },
+  {
+    role: "Web Designer",
+    company: "First Baptist Church",
+    period: "2021 — 2022",
+    type: "Volunteer",
+    companyColor: "from-purple-500 to-blue-600",
+    companyIcon: "mdi:church",
+    description: "Developed comprehensive website solution for local church community, focusing on accessibility and community engagement features.",
+    achievements: [
+      "Built user-friendly website with event calendar and sermon archives",
+      "Implemented online donation system and member portal",
+      "Created responsive design accessible across all devices",
+      "Established social media integration and newsletter signup"
+    ],
+    technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "MySQL", "PayPal Integration", "Accessibility Standards"]
+  },
+  {
+    role: "Freelance Web Designer",
+    company: "Ohio Interests",
+    period: "2020 — 2021",
+    type: "Freelance",
+    companyColor: "from-green-500 to-teal-600",
+    companyIcon: "mdi:web",
+    description: "Provided web design services for various local Ohio businesses, creating custom solutions tailored to each client's unique needs and industry requirements.",
+    achievements: [
+      "Delivered custom web solutions for 8+ local businesses",
+      "Specialized in small business branding and digital presence",
+      "Maintained ongoing client relationships with regular updates",
+      "Achieved 100% client satisfaction with repeat business referrals"
+    ],
+    technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "Wix", "Squarespace", "Google Analytics", "Local SEO"]
   }
 ];
 
@@ -266,7 +298,7 @@ export default function ExperienceSection() {
               whileHover={{ scale: 1.05, y: -5 }}
               className="group p-6 md:p-8 rounded-xl md:rounded-2xl bg-gradient-to-br from-blue-50/50 to-blue-100/30 dark:from-blue-950/20 dark:to-blue-900/10 border border-blue-200/30 dark:border-blue-800/20 hover:border-blue-300/50 dark:hover:border-blue-600/30 transition-all duration-500"
             >
-              <div className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">5+</div>
+              <div className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">4+</div>
               <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Years Experience</div>
             </motion.div>
 
@@ -274,16 +306,16 @@ export default function ExperienceSection() {
               whileHover={{ scale: 1.05, y: -5 }}
               className="group p-6 md:p-8 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-50/50 to-green-100/30 dark:from-green-950/20 dark:to-green-900/10 border border-green-200/30 dark:border-green-800/20 hover:border-green-300/50 dark:hover:border-green-600/30 transition-all duration-500"
             >
-              <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">50+</div>
-              <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Projects Completed</div>
+              <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">25+</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Websites Created</div>
             </motion.div>
 
             <motion.div
               whileHover={{ scale: 1.05, y: -5 }}
               className="group p-6 md:p-8 rounded-xl md:rounded-2xl bg-gradient-to-br from-purple-50/50 to-purple-100/30 dark:from-purple-950/20 dark:to-purple-900/10 border border-purple-200/30 dark:border-purple-800/20 hover:border-purple-300/50 dark:hover:border-purple-600/30 transition-all duration-500 sm:col-span-2 lg:col-span-1"
             >
-              <div className="text-4xl md:text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">91%</div>
-              <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Success Rate</div>
+              <div className="text-4xl md:text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">100%</div>
+              <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Client Satisfaction</div>
             </motion.div>
           </div>
         </motion.div>
