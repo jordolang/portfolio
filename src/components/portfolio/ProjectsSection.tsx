@@ -135,7 +135,7 @@ const projects = [
     ],
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "MailChimp", "Photoshop", "Illustrator", "Google Fonts", "Social Media APIs", "Calendar Plugins", "Accessibility Tools"],
     github: "https://github.com",
-    live: "https://jordolang.github.io/First-Baptist.index.html",
+    live: "https://jordolang.github.io/First-Baptist/index.html",
     gradient: "from-green-500 to-teal-500",
     status: "Live",
     category: "Web Design",
