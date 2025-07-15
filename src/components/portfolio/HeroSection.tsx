@@ -3,6 +3,7 @@
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import TypewriterRole from "./TypewriterRole";
 
 export default function HeroSection() {
@@ -80,6 +81,7 @@ export default function HeroSection() {
             <motion.div key={link.label} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href={link.href}
+                onClick={() => trackEvent(AnalyticsEvents.SOCIAL_LINK_CLICKED, { platform: link.label })}
                 className={`inline-flex items-center gap-2 px-4 py-2 bg-white/80 hover:bg-white dark:bg-gray-800/80 dark:hover:bg-gray-800 backdrop-blur-sm rounded-full text-sm transition-all duration-300 border border-gray-300/50 dark:border-gray-600/50 shadow-lg hover:shadow-xl ${link.color}`}
               >
                 <Icon icon={link.icon} width={18} height={18} />

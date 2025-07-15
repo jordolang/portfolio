@@ -4,17 +4,27 @@ import { usePathname, useSearchParams } from "next/navigation"
 import posthog from "posthog-js"
 import { PostHogProvider as PHProvider, usePostHog } from "posthog-js/react"
 import { Suspense, useEffect } from "react"
+import { initializeVisitorTracking } from "../lib/analytics"
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
-      api_host: "/ingest",
-      ui_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      capture_pageview: false, // We capture pageviews manually
-      capture_pageleave: true, // Enable pageleave capture
-      capture_exceptions: true, // This enables capturing exceptions using Error Tracking, set to false if you don't want this
-      debug: process.env.NODE_ENV === "development",
-    })
+    // Only initialize PostHog if the key is available
+    const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    if (posthogKey) {
+      posthog.init(posthogKey, {
+        api_host: "/ingest",
+        ui_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+        capture_pageview: false, // We capture pageviews manually
+        capture_pageleave: true, // Enable pageleave capture
+        capture_exceptions: true, // This enables capturing exceptions using Error Tracking, set to false if you don't want this
+        debug: process.env.NODE_ENV === "development",
+      })
+      
+      // Initialize visitor tracking after PostHog is ready
+      initializeVisitorTracking();
+    } else if (process.env.NODE_ENV === "development") {
+      console.warn("PostHog key not found. Analytics will be disabled.")
+    }
   }, [])
 
   return (

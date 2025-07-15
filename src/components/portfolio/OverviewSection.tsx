@@ -138,10 +138,10 @@ export default function OverviewSection() {
                   <div className="border-t border-gray-200/50 dark:border-gray-700/50 pt-4 md:pt-6">
                     <h4 className="font-bold text-gray-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
                       <Icon icon="solar:lightning-bold" className="text-yellow-500 w-4 md:w-5 h-4 md:h-5" width={20} height={20} />
-                      Core Technologies
+                      Core Competencies (10+ Years Experience)
                     </h4>
                     <div className="flex flex-wrap gap-2 md:gap-3">
-                      {["Adobe Creative Suite", "WordPress", "Figma", "Sketch", "HTML/CSS", "JavaScript", "Responsive Design", "Brand Identity", "User Experience"].map((skill, index) => (
+                      {["Adobe Creative Suite", "HTML/CSS", "Javascript", "Full Stack Development", "Brand Identity", "Small-Business Marketing", "Digital Media (TV/Radio/Print)", "Responsive Design", "User Experience", "WordPress"].map((skill, index) => (
                         <motion.span
                           key={skill}
                           initial={{ opacity: 0, scale: 0 }}
@@ -156,61 +156,32 @@ export default function OverviewSection() {
                       ))}
                     </div>
                   </div>
+
+                  {/* Emerging Sectors Section */}
+                  <div className="border-t border-gray-200/50 dark:border-gray-700/50 pt-4 md:pt-6">
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
+                      <Icon icon="solar:book-2-bold" className="text-orange-500 w-4 md:w-5 h-4 md:h-5" width={20} height={20} />
+                      Emerging Sectors of Focus (Less than 5 Years Experience or Education)
+                    </h4>
+                    <div className="flex flex-wrap gap-2 md:gap-3">
+                      {["AI/Machine Learning", "Cloud Computing", "DevOps", "Mobile Development", "Progressive Web Apps", "Open-Source Projects", "Self-Hosted Solutions", "Small-Business Technology Independence", "FREE FOREVER TECHNOLOGY"].map((skill, index) => (
+                        <motion.span
+                          key={skill}
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 1.6 + index * 0.1 }}
+                          whileHover={{ scale: 1.05, y: -1 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 text-gray-800 dark:text-gray-200 rounded-lg md:rounded-xl border border-orange-200/50 dark:border-orange-800/30 hover:shadow-lg transition-all duration-300"
+                        >
+                          {skill}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* Professional Roles Grid */}
-              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                <motion.div
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-gradient-to-br from-blue-50/80 to-blue-100/50 dark:from-blue-950/30 dark:to-blue-900/20 backdrop-blur-sm border border-blue-200/50 dark:border-blue-800/30 shadow-xl flex flex-col"
-                >
-                  <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                    <div className="p-2 md:p-3 bg-blue-500 rounded-lg md:rounded-xl shadow-lg">
-                      <Icon icon="solar:palette-bold" className="text-white w-5 md:w-6 h-5 md:h-6" width={24} height={24} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 dark:text-white text-base md:text-lg">Senior Web Designer</h4>
-                      <p className="text-blue-600 dark:text-blue-400 font-medium text-sm md:text-base">Creative Digital Agency</p>
-                      <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mt-1">2018 — Present</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300 text-xs md:text-sm leading-relaxed mb-2 md:mb-3 flex-1">
-                    Leading creative projects for Fortune 500 clients, specializing in responsive web design,
-                    brand identity development, and user experience optimization.
-                  </p>
-                  <div className="flex items-center gap-2 text-xs md:text-sm mt-auto">
-                    <Icon icon="solar:star-bold" className="text-yellow-500 w-3 md:w-4 h-3 md:h-4" width={16} height={16} />
-                    <span className="font-semibold text-green-600 dark:text-green-400">Award Winner • 98% Client Satisfaction</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.02, y: -5 }}
-                  className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-50/80 to-green-100/50 dark:from-green-950/30 dark:to-green-900/20 backdrop-blur-sm border border-green-200/50 dark:border-green-800/30 shadow-xl flex flex-col"
-                >
-                  <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                    <div className="p-2 md:p-3 bg-green-500 rounded-lg md:rounded-xl shadow-lg">
-                      <Icon icon="solar:laptop-bold" className="text-white w-5 md:w-6 h-5 md:h-6" width={24} height={24} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 dark:text-white text-base md:text-lg">Freelance Web Designer</h4>
-                      <p className="text-green-600 dark:text-green-400 font-medium text-sm md:text-base">Independent Consultant</p>
-                      <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mt-1">2012 — Present</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300 text-xs md:text-sm leading-relaxed mb-2 md:mb-3 flex-1">
-                    Building custom websites and digital solutions for small to medium businesses,
-                    helping them establish a strong online presence and grow their digital footprint.
-                  </p>
-                  <div className="flex items-center gap-2 text-xs md:text-sm mt-auto">
-                    <Icon icon="solar:shield-check-bold" className="text-blue-500 w-3 md:w-4 h-3 md:h-4" width={16} height={16} />
-                    <span className="font-semibold text-blue-600 dark:text-blue-400">100+ Successful Projects</span>
-                  </div>
-                </motion.div>
-              </div>
             </div>
           </motion.div>
 
@@ -257,7 +228,7 @@ export default function OverviewSection() {
                     <Icon icon="solar:map-point-bold" className="text-white w-4 h-4" width={16} height={16} />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-gray-900 dark:text-white">San Francisco, CA</div>
+                    <div className="text-sm font-bold text-gray-900 dark:text-white">Zanesville, OH</div>
                   </div>
                 </motion.div>
               </div>
@@ -271,9 +242,9 @@ export default function OverviewSection() {
               </h4>
               <div className="space-y-4">
                 {[
-                  { icon: "solar:star-bold", text: "Awwwards Site of the Day", color: "text-yellow-600" },
+                  { icon: "solar:star-bold", text: "Head Robotics Build (2000s)", color: "text-yellow-600" },
                   { icon: "solar:palette-bold", text: "98% Client Satisfaction Rate", color: "text-blue-600" },
-                  { icon: "solar:code-square-bold", text: "150+ Websites Designed", color: "text-green-600" },
+                  { icon: "solar:code-square-bold", text: "10+ Websites Deployed", color: "text-green-600" },
                 ].map((achievement, index) => (
                   <motion.div
                     key={index}
@@ -311,8 +282,8 @@ export default function OverviewSection() {
                   transition={{ delay: 2.2 }}
                   className="flex items-center gap-3 p-3 rounded-lg bg-green-100/70 dark:bg-gray-800/30  transition-all duration-300 group border border-white/20 dark:border-gray-700/30"
                 >
-                  <Icon icon="solar:planet-2-bold" className="text-cyan-600 w-5 h-5" width={20} height={20} />
-                  <span className="text-sm font-medium text-gray-800 dark:text-gray-300">Open to Relocation</span>
+                  <Icon icon="solar:map-point-bold" className="text-cyan-600 w-5 h-5" width={20} height={20} />
+                  <span className="text-sm font-medium text-gray-800 dark:text-gray-300">On-site Service in Zanesville, OH</span>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -320,13 +291,45 @@ export default function OverviewSection() {
                   transition={{ delay: 2.4 }}
                   className="flex items-center gap-3 p-3 rounded-lg bg-green-100/70 dark:bg-gray-800/30  transition-all duration-300 group border border-white/20 dark:border-gray-700/30"
                 >
-                  <Icon icon="solar:clock-circle-bold" className="text-blue-600 w-5 h-5" width={20} height={20} />
-                  <span className="text-sm font-medium text-gray-800 dark:text-gray-300">Remote & On-site Available</span>
+                  <Icon icon="solar:global-bold" className="text-blue-600 w-5 h-5" width={20} height={20} />
+                  <span className="text-sm font-medium text-gray-800 dark:text-gray-300">Remote Service Nationwide</span>
                 </motion.div>
               </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Professional Role - Full Width */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.6 }}
+          whileHover={{ scale: 1.02, y: -5 }}
+          className="px-4 mt-6 md:mt-8"
+        >
+          <div className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-50/80 to-green-100/50 dark:from-green-950/30 dark:to-green-900/20 backdrop-blur-sm border border-green-200/50 dark:border-green-800/30 shadow-xl flex flex-col">
+            <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+              <div className="p-2 md:p-3 bg-green-500 rounded-lg md:rounded-xl shadow-lg">
+                <Icon icon="solar:laptop-bold" className="text-white w-5 md:w-6 h-5 md:h-6" width={24} height={24} />
+              </div>
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white text-base md:text-lg">Freelance Web Designer</h4>
+                <p className="text-green-600 dark:text-green-400 font-medium text-sm md:text-base">Independent Consultant</p>
+                <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mt-1">2015 — Present</p>
+              </div>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 text-xs md:text-sm leading-relaxed mb-2 md:mb-3 flex-1">
+              Building custom websites and digital solutions for small to medium businesses,
+              helping them establish a strong online presence and grow their digital footprint.
+              Offering expertise in domain and local server configurations, providing on-site support as a specialist, implementing budget-minded fixes, and combining
+              these with strategic marketing and advertising consulting.
+            </p>
+            <div className="flex items-center gap-2 text-xs md:text-sm mt-auto">
+              <Icon icon="solar:shield-check-bold" className="text-blue-500 w-3 md:w-4 h-3 md:h-4" width={16} height={16} />
+              <span className="font-semibold text-blue-600 dark:text-blue-400">50+ Satisfied Tech Clients</span>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
     </motion.section>
   );

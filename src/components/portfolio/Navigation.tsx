@@ -3,6 +3,7 @@
 import { useTheme } from "@/components/ThemeProvider";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 
 export default function Navigation() {
   const { theme, toggleTheme } = useTheme();
@@ -16,14 +17,15 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 dark:from-indigo-400 dark:via-purple-400 dark:to-violet-400 bg-clip-text text-transparent"
           >
-            MR
+            JL
           </motion.div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex items-center space-x-8">
-              {["Overview", "Stack", "Experience", "Projects", "Testimonials", "Certifications", "Contact"].map((item, index) => (
+              {["Overview", "Stack", "Experience", "Projects", "Testimonials", "Contact"].map((item, index) => (
                 <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
+                  onClick={() => trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item })}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}

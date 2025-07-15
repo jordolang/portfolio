@@ -29,42 +29,42 @@ interface FeaturedTestimonialProps {
 
 const testimonials = [
   {
-    content: "Ramzan is great! He is very skillful and fast learner, just what you need in a developer.",
-    author: "Mohammed Swellam",
+    content: "Jordan Lang transformed our business with his outstanding web design and strategic insights.",
+    author: "Fred Amir",
     role: "CEO",
-    company: "Geeky Air",
+    company: "World Auto Net",
     rating: 5,
-    project: "Events based Web App",
-    avatar: "MS",
+    project: "Lead Sales, Finance, and Marketing Management",
+    avatar: "FA",
     featured: true
   },
   {
-    content: "Ramzan produced some really amazing work on the backend. He demonstrated his proficiency and efficiency by using Node.js and Javascript to successfully import a very large dataset into a MySQL database.",
-    author: "Arnel Bisnar",
-    role: "Product Manager",
-    company: "Solid Lift Parts Inc",
+    content: "Jordan's attention to detail and creativity took our brand to new heights. His web design perfectly captured our company's vision and transformed how we present our services online.",
+    author: "Clint Berkfield",
+    role: "Owner",
+    company: "Neff Paving",
     rating: 5,
-    project: "Backend Development",
+    project: "Web Design and Branding",
+    avatar: "CB"
+  },
+  {
+    content: "Working with Jordan was exceptional. He delivered exactly what we needed to showcase our paving projects professionally and helped establish our strong digital presence.",
+    author: "Austin Berkfield",
+    role: "Owner",
+    company: "Neff Paving",
+    rating: 5,
+    project: "Web Design and Branding",
     avatar: "AB"
   },
   {
-    content: "It's been great to work with him! Fast, active and hardworking! Ramzan architected checkersvip.com from ground up with great attention to detail and great design. He is a great team player and a great developer.",
-    author: "Gilberto Cisneros",
-    role: "CEO",
-    company: "Checkersvip.com",
+    content: "Jordan created a beautiful and fantastic website for our church while he was a member. Unfortunately, life had different plans and we were unable to make all additions permanent.",
+    author: "David Nuhfer",
+    role: "Pastor",
+    company: "First Baptist Church",
     rating: 5,
-    project: "JavaScript Applications",
-    avatar: "MR"
-  },
-  {
-    content: "We had a fantastic experience working with him on a recent project. He consistently delivered high-quality work, showed exceptional attention to detail, and communicated effectively throughout the process.",
-    author: "Jacek Jllaskowski",
-    role: "Project Manger ",
-    company: "Golem",
-    rating: 5,
-    project: "Full Stack Development",
-    avatar: "ED"
-  },
+    project: "Community Website Development",
+    avatar: "DN"
+  }
 
 ];
 

@@ -3,9 +3,44 @@
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import SectionHeader from "./SectionHeader";
 
 const projects = [
+  {
+    title: "Zanesville.store",
+    subtitle: "Local E-commerce Platform",
+    description: "Currently developing a comprehensive e-commerce platform designed to connect local Zanesville businesses with customers. This modern web application features intuitive navigation, secure payment processing, and a responsive design optimized for both desktop and mobile shopping experiences.",
+    features: [
+      "Modern responsive design for all devices",
+      "Local business directory integration",
+      "Secure payment processing system",
+      "Advanced product search and filtering",
+      "User account management and profiles",
+      "Mobile-first shopping experience",
+      "SEO optimization for local searches",
+      "Performance optimization for fast loading"
+    ],
+    deliverables: [
+      "Complete e-commerce platform design",
+      "Local business onboarding system",
+      "Payment gateway integration",
+      "Product management interface",
+      "Mobile-responsive design",
+      "Local SEO implementation",
+      "Performance optimization",
+      "Security implementation"
+    ],
+    tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB", "Stripe", "Vercel", "Figma", "Local SEO", "PWA", "Analytics"],
+    github: "https://github.com/jordanlang/zanesville-store",
+    live: "https://zanesville.store",
+    gradient: "from-emerald-600 to-teal-600",
+    status: "In Development",
+    category: "Web Design",
+    highlight: "Current Project",
+    timeline: "Ongoing",
+    clientType: "Local E-commerce"
+  },
   {
     title: "World Auto Net",
     subtitle: "Automotive Marketplace Website",
@@ -100,7 +135,7 @@ const projects = [
     ],
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "MailChimp", "Photoshop", "Illustrator", "Google Fonts", "Social Media APIs", "Calendar Plugins", "Accessibility Tools"],
     github: "https://github.com",
-    live: "https://firstbaptistchurch.org",
+    live: "https://jordolang.github.io/First-Baptist.index.html",
     gradient: "from-green-500 to-teal-500",
     status: "Live",
     category: "Web Design",
@@ -237,6 +272,7 @@ export default function ProjectsSection() {
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 300 }}
               className="group"
+              onClick={() => trackEvent(AnalyticsEvents.PROJECT_CLICKED, { project: project.title })}
             >
               <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl md:rounded-3xl border border-white/30 dark:border-gray-700/40 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-500 overflow-hidden shadow-lg md:shadow-xl hover:shadow-xl md:hover:shadow-2xl">
 
@@ -339,6 +375,7 @@ export default function ProjectsSection() {
                     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                       <Link
                         href={project.github}
+                        onClick={() => trackEvent(AnalyticsEvents.PROJECT_LINK_CLICKED, { destination: 'github', project: project.title })}
                         className="flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-white/20 backdrop-blur-sm border border-white/30 text-white rounded-lg md:rounded-xl hover:bg-white/30 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl active:scale-95"
                       >
                         <Icon icon="solar:code-bold" width={18} height={18} className="md:w-5 md:h-5" />
@@ -347,6 +384,7 @@ export default function ProjectsSection() {
 
                       <Link
                         href={project.live}
+                        onClick={() => trackEvent(AnalyticsEvents.PROJECT_LINK_CLICKED, { destination: 'demo', project: project.title })}
                         className="flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-white text-gray-900 rounded-lg md:rounded-xl hover:bg-gray-100 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl active:scale-95"
                       >
                         <Icon icon="solar:arrow-up-outline" width={18} height={18} className="md:w-5 md:h-5" />

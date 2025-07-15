@@ -2,7 +2,6 @@
 
 import {
   Background,
-  CertificationsSection,
   ContactSection,
   ExperienceSection,
   Footer,
@@ -41,9 +40,6 @@ export default function Portfolio() {
 
         {/* Testimonials Section */}
         <TestimonialsSection />
-
-        {/* Certifications Section */}
-        <CertificationsSection />
 
         {/* Contact Section */}
         <ContactSection />

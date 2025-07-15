@@ -6,25 +6,9 @@ import SectionHeader from "./SectionHeader";
 
 const experience = [
   {
-    role: "Lead Web Designer",
-    company: "World Auto Net",
-    period: "2023 — Present",
-    type: "Contract",
-    companyIcon: "mdi:car",
-    companyColor: "from-blue-600 to-indigo-600",
-    description: "Designed and implemented responsive website solutions for automotive dealership network, focusing on user experience and conversion optimization.",
-    achievements: [
-      "Created modern, mobile-first website design increasing user engagement by 40%",
-      "Implemented responsive design system across multiple dealership locations",
-      "Optimized site performance and loading speeds for better SEO rankings",
-      "Developed custom vehicle showcase features with interactive galleries"
-    ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "WordPress", "Adobe Creative Suite", "Figma"]
-  },
-  {
     role: "Web Designer",
     company: "Neff Paving",
-    period: "2022 — 2023",
+    period: "2022 — Current",
     type: "Contract",
     companyColor: "from-orange-500 to-red-600",
     companyIcon: "mdi:road-variant",
@@ -36,22 +20,6 @@ const experience = [
       "Improved mobile responsiveness and site navigation"
     ],
     technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "Bootstrap", "Adobe Photoshop", "SEO Optimization"]
-  },
-  {
-    role: "Web Designer",
-    company: "First Baptist Church",
-    period: "2021 — 2022",
-    type: "Volunteer",
-    companyColor: "from-purple-500 to-blue-600",
-    companyIcon: "mdi:church",
-    description: "Developed comprehensive website solution for local church community, focusing on accessibility and community engagement features.",
-    achievements: [
-      "Built user-friendly website with event calendar and sermon archives",
-      "Implemented online donation system and member portal",
-      "Created responsive design accessible across all devices",
-      "Established social media integration and newsletter signup"
-    ],
-    technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "MySQL", "PayPal Integration", "Accessibility Standards"]
   },
   {
     role: "Freelance Web Designer",
@@ -68,6 +36,38 @@ const experience = [
       "Achieved 100% client satisfaction with repeat business referrals"
     ],
     technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "Wix", "Squarespace", "Google Analytics", "Local SEO"]
+  },
+  {
+    role: "Web Designer",
+    company: "First Baptist Church",
+    period: "2023",
+    type: "Volunteer",
+    companyColor: "from-purple-500 to-blue-600",
+    companyIcon: "mdi:church",
+    description: "Developed comprehensive website solution for local church community, focusing on accessibility and community engagement features.",
+    achievements: [
+      "Built user-friendly website with event calendar and sermon archives",
+      "Implemented online donation system and member portal",
+      "Created responsive design accessible across all devices",
+      "Established social media integration and newsletter signup"
+    ],
+    technologies: ["HTML5", "CSS3", "JavaScript", "WordPress", "MySQL", "PayPal Integration", "Accessibility Standards"]
+  },
+  {
+    role: "Lead Sales, Finance, and Marketing Manager",
+    company: "World Auto Net",
+    period: "2020 — 2021",
+    type: "Contract",
+    companyIcon: "mdi:car",
+    companyColor: "from-blue-600 to-indigo-600",
+    description: "Managed multiple roles including sales, finance, and marketing. Created and managed the company's website, leading to significant achievements in customer engagement and sales growth.",
+    achievements: [
+      "Increased website traffic by 60% through targeted marketing campaigns",
+      "Streamlined finance operations, resulting in a 20% improvement in efficiency",
+      "Developed a digital sales strategy that boosted sales by 30%",
+      "Handled customer inquiries and support, improving satisfaction rates by 25%"
+    ],
+    technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Adobe Creative Suite"]
   }
 ];
 
