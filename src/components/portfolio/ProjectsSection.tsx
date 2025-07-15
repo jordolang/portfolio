@@ -101,7 +101,7 @@ const projects = [
     ],
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "Photoshop", "Illustrator", "Google Maps API", "Contact Form 7", "Yoast SEO", "GTmetrix", "PageSpeed Insights"],
     github: "https://github.com",
-    live: "https://neffpaving.com",
+    live: "https://neff-paving.vercel.app",
     gradient: "from-orange-500 to-red-500",
     status: "Live",
     category: "Web Design",
