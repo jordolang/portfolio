@@ -67,7 +67,7 @@ const projects = [
     ],
     tech: ["HTML5", "CSS3", "JavaScript", "Bootstrap", "jQuery", "PHP", "MySQL", "Photoshop", "Figma", "WordPress", "SEO Tools", "Google Analytics"],
     github: "https://github.com",
-    live: "https://worldautonet.com",
+    live: "https:/web.archive.org/web/20210508120122/https://www.worldautonet.com",
     gradient: "from-blue-600 to-indigo-600",
     status: "Live",
     category: "Web Design",
