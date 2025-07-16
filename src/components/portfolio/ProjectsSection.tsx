@@ -169,7 +169,7 @@ const projects = [
     ],
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "Google Maps API", "Photoshop", "Lightbox", "Event Calendar", "Directory Plugins", "Social Share", "Local SEO Tools"],
     github: "https://github.com",
-    live: "https://ohiointerests.com",
+    live: "https://web.archive.org/web/20230816090905/https://ohiointerests.com/",
     gradient: "from-purple-500 to-blue-500",
     status: "Live",
     category: "Web Design",
