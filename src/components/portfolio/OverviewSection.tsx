@@ -216,7 +216,7 @@ export default function OverviewSection() {
                     <Icon icon="solar:global-bold" className="text-white w-4 h-4" width={16} height={16} />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-gray-900 dark:text-white">jordolang.dev</div>
+                    <div className="text-sm font-bold text-gray-900 dark:text-white">jlang.dev</div>
                   </div>
                 </motion.div>
 

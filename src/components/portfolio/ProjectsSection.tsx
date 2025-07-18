@@ -42,6 +42,40 @@ const projects = [
     clientType: "Local E-commerce"
   },
   {
+    title: "Homesh.app",
+    subtitle: "Self-Hosted Home Dashboard",
+    description: "A comprehensive self-hosted home dashboard solution designed for home automation enthusiasts and privacy-conscious users. Features a modern, customizable interface for monitoring and controlling smart home devices, displaying real-time data, and integrating with various home automation platforms while keeping all data locally stored.",
+    features: [
+      "Fully self-hosted with complete data privacy",
+      "Customizable dashboard widgets and layouts",
+      "Integration with popular home automation platforms",
+      "Real-time device monitoring and control",
+      "Weather and calendar widget integration",
+      "Energy consumption tracking and analytics",
+      "Mobile-responsive design for all devices",
+      "Docker container deployment support"
+    ],
+    deliverables: [
+      "Self-hosted dashboard application",
+      "Docker compose configuration",
+      "Widget library and customization tools",
+      "API integration framework",
+      "Mobile-responsive interface",
+      "Installation and setup documentation",
+      "Security configuration guidelines",
+      "Backup and restore functionality"
+    ],
+    tech: ["React", "TypeScript", "Node.js", "Docker", "WebSockets", "Chart.js", "Tailwind CSS", "SQLite", "MQTT", "Home Assistant API", "OpenWeatherMap API", "PWA"],
+    github: "https://github.com/jordanlang/homesh-app",
+    live: "https://homesh.app",
+    gradient: "from-indigo-600 to-purple-600",
+    status: "In Development",
+    category: "Web Design",
+    highlight: "Current Project",
+    timeline: "Ongoing",
+    clientType: "Self-Hosted Solutions"
+  },
+  {
     title: "World Auto Net",
     subtitle: "Automotive Marketplace Website",
     description: "Modern, responsive website design for an automotive marketplace platform. Created a comprehensive digital presence with intuitive navigation, advanced search capabilities, and mobile-first design approach to connect car buyers and sellers efficiently.",
