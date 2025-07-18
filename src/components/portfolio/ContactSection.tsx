@@ -16,6 +16,7 @@ export default function ContactSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submittedName, setSubmittedName] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -25,8 +26,23 @@ export default function ContactSection() {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Basic Validation Checks
+    if (!formData.name.trim()) {
+        alert('Please enter your name.');
+        return;
+    }
+    if (!formData.email.trim() || !formData.email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+    if (!formData.message.trim()) {
+        alert('Please enter a message.');
+        return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -44,7 +60,7 @@ export default function ContactSection() {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
-          to_email: 'jordolang@gmail.com', // Your email
+          to_email: 'jordan@jlang.dev', // Your email
         },
         publicKey
       );
@@ -62,10 +78,25 @@ export default function ContactSection() {
       });
       
       setSubmitStatus('success');
+      // Keep the name temporarily for the thank you message
+      const submittedName = formData.name;
       setFormData({ name: "", email: "", message: "" });
+      // Store the name for the success message
+      setSubmittedName(submittedName);
 
     } catch (error) {
       console.error('Failed to send email:', error);
+      console.error('EmailJS Configuration:', {
+        serviceId,
+        templateId,
+        publicKey: publicKey.substring(0, 10) + '...',
+      });
+      console.error('Form data being sent:', {
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message.substring(0, 50) + '...',
+        to_email: 'jordan@jlang.dev',
+      });
       
       // Track form submission failure
       trackEvent(AnalyticsEvents.CONTACT_FORM_SUBMITTED, { 
@@ -218,22 +249,39 @@ export default function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="relative mt-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl"
+                  className="relative mt-4 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl"
                 >
-                  <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
-                    <Icon icon="solar:check-circle-bold" width={20} height={20} />
-                    <span className="font-medium">Message sent successfully!</span>
+                  <div className="flex items-center gap-2 text-green-700 dark:text-green-400 mb-3">
+                    <Icon icon="solar:check-circle-bold" width={24} height={24} />
+                    <span className="font-semibold text-lg">Message sent successfully!</span>
                   </div>
-                  <p className="text-green-600 text-left dark:text-green-500 text-sm mt-1">
-                    Thank you for reaching out. I&apos;ll get back to you soon!
+                  <p className="text-green-600 dark:text-green-500 mb-4">
+                    Thank you, <span className="font-medium">{submittedName}</span>! Your message has been delivered and I&apos;ll get back to you as soon as possible.
                   </p>
-                  {/* add a button to close the message */}
-                  <button
-                    onClick={() => setSubmitStatus('idle')}
-                    className="absolute top-1 right-1  text-red-500 rounded-md"
-                  >
-                    <Icon icon="solar:close-circle-bold" width={20} height={20} />
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <motion.button
+                      onClick={() => {
+                        setSubmitStatus('idle');
+                        setSubmittedName('');
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+                    >
+                      <Icon icon="solar:letter-outline" width={18} height={18} />
+                      Send Another Message
+                    </motion.button>
+                    <button
+                      onClick={() => {
+                        setSubmitStatus('idle');
+                        setSubmittedName('');
+                      }}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-medium transition-all duration-300"
+                    >
+                      <Icon icon="solar:close-circle-outline" width={18} height={18} />
+                      Close
+                    </button>
+                  </div>
                 </motion.div>
               )}
 
@@ -283,20 +331,9 @@ export default function ContactSection() {
                 Send Email
               </Link>
             </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href="/CV.pdf"
-                onClick={() => trackEvent(AnalyticsEvents.CV_DOWNLOADED, { method: 'download_link' })}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-2 border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg"
-              >
-                <Icon icon="solar:download-outline" width={18} height={18} />
-                Download CV
-              </Link>
-            </motion.div>
           </div>
         </motion.div>
       </div>
     </motion.section>
   );
-} 
+}

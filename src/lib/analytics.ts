@@ -11,7 +11,6 @@ export enum AnalyticsEvents {
   CONTACT_FORM_OPENED = "contact_form_opened",
   CONTACT_FORM_SUBMITTED = "contact_form_submitted",
   SOCIAL_LINK_CLICKED = "social_link_clicked",
-  CV_DOWNLOADED = "cv_downloaded",
   SECTION_TIME_SPENT = "section_time_spent",
   SCROLL_DEPTH = "scroll_depth",
 }
