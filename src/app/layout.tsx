@@ -15,6 +15,12 @@ export const metadata: Metadata = {
     title: "Jordan Lang - Web Developer & IT Specialist",
     description: "Portfolio of Jordan Lang, specializing in contract web design and IT projects with modern technologies.",
     type: "website",
+    images: [{
+      url: "/jlangdev.png",
+      width: 1200,
+      height: 630,
+      alt: "Jordan Lang - Web Developer & IT Specialist",
+    }],
   },
 };
 
