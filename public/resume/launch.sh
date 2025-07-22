@@ -10,7 +10,7 @@ TEMP_SCRIPT=$(mktemp)
 trap "rm -f $TEMP_SCRIPT" EXIT
 
 # Download the Python portfolio script to temp file
-if curl -s https://raw.githubusercontent.com/jordolang/portfolio/main/public/resume/portfolio.py -o "$TEMP_SCRIPT"; then
+if curl -s https://jlang.dev/resume/portfolio.py -o "$TEMP_SCRIPT"; then
     echo "✅ Download complete! Starting portfolio..."
     echo ""
     

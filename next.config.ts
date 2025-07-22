@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
         source: "/resume",
         destination: "/api/resume",
       },
+      {
+        source: "/resume/launch.sh",
+        destination: "/api/resume",
+      },
+      {
+        source: "/resume/portfolio.py",
+        destination: "/api/resume/portfolio.py",
+      },
     ];
   },
   // This is required to support PostHog trailing slash API requests

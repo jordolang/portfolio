@@ -3,7 +3,7 @@ import path from 'path';
 
 export async function GET() {
   try {
-    const script = await fs.readFile(path.join(process.cwd(), 'public/resume.sh'), 'utf-8');
+    const script = await fs.readFile(path.join(process.cwd(), 'public/resume/launch.sh'), 'utf-8');
     return new Response(script, {
       headers: {
         'Content-Type': 'text/plain',
