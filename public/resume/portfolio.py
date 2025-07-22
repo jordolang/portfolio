@@ -93,12 +93,16 @@ def get_single_keypress():
     # Check if we're in an interactive environment
     if not is_interactive_terminal():
         # Fallback to regular input for non-interactive environments
-        print(f"\n{Colors.WARNING}Non-interactive environment detected. Using fallback input method.{Colors.ENDC}")
-        print(f"{Colors.CYAN}Press Enter to continue, 'q' to quit: {Colors.ENDC}", end="")
-        user_input = input().strip().lower()
-        if user_input == 'q' or user_input == 'quit':
+        try:
+            print(f"\n{Colors.WARNING}Non-interactive environment detected. Using fallback input method.{Colors.ENDC}")
+            print(f"{Colors.CYAN}Press Enter to continue, 'q' to quit: {Colors.ENDC}", end="")
+            user_input = input().strip().lower()
+            if user_input == 'q' or user_input == 'quit':
+                return 'ESC'
+            return 'ENTER'
+        except (EOFError, KeyboardInterrupt):
+            # No input available or user interrupted - gracefully exit
             return 'ESC'
-        return 'ENTER'
     
     if os.name == 'nt':  # Windows
         try:
