@@ -95,13 +95,15 @@ def get_single_keypress():
         # Fallback to regular input for non-interactive environments
         try:
             print(f"\n{Colors.WARNING}Non-interactive environment detected. Using fallback input method.{Colors.ENDC}")
-            print(f"{Colors.CYAN}Press Enter to continue, 'q' to quit: {Colors.ENDC}", end="")
+            print(f"{Colors.CYAN}Please press Enter to continue (or type 'q' and press Enter to quit): {Colors.ENDC}")
+            sys.stdout.flush()  # Ensure prompt is displayed
             user_input = input().strip().lower()
             if user_input == 'q' or user_input == 'quit':
                 return 'ESC'
             return 'ENTER'
         except (EOFError, KeyboardInterrupt):
             # No input available or user interrupted - gracefully exit
+            print(f"\n{Colors.WARNING}Input unavailable. Exiting gracefully...{Colors.ENDC}")
             return 'ESC'
     
     if os.name == 'nt':  # Windows
@@ -127,10 +129,17 @@ def get_single_keypress():
             return key.decode('utf-8', errors='ignore')
         except ImportError:
             # Fallback if msvcrt is not available
-            user_input = input().strip().lower()
-            if user_input == 'q' or user_input == 'quit':
+            print(f"\n{Colors.WARNING}Windows terminal interaction unavailable. Using fallback input method.{Colors.ENDC}")
+            print(f"{Colors.CYAN}Please press Enter to continue (or type 'q' and press Enter to quit): {Colors.ENDC}")
+            sys.stdout.flush()  # Ensure prompt is displayed
+            try:
+                user_input = input().strip().lower()
+                if user_input == 'q' or user_input == 'quit':
+                    return 'ESC'
+                return 'ENTER'
+            except (EOFError, KeyboardInterrupt):
+                print(f"\n{Colors.WARNING}Input unavailable. Exiting gracefully...{Colors.ENDC}")
                 return 'ESC'
-            return 'ENTER'
     else:  # Unix/Linux/macOS
         try:
             fd = sys.stdin.fileno()
@@ -160,11 +169,16 @@ def get_single_keypress():
         except (termios.error, OSError, AttributeError):
             # Fallback to regular input for non-terminal environments
             print(f"\n{Colors.WARNING}Terminal interaction unavailable. Using fallback input method.{Colors.ENDC}")
-            print(f"{Colors.CYAN}Press Enter to continue, 'q' to quit: {Colors.ENDC}", end="")
-            user_input = input().strip().lower()
-            if user_input == 'q' or user_input == 'quit':
+            print(f"{Colors.CYAN}Please press Enter to continue (or type 'q' and press Enter to quit): {Colors.ENDC}")
+            sys.stdout.flush()  # Ensure prompt is displayed
+            try:
+                user_input = input().strip().lower()
+                if user_input == 'q' or user_input == 'quit':
+                    return 'ESC'
+                return 'ENTER'
+            except (EOFError, KeyboardInterrupt):
+                print(f"\n{Colors.WARNING}Input unavailable. Exiting gracefully...{Colors.ENDC}")
                 return 'ESC'
-            return 'ENTER'
 
 
 def display_menu(menu_items: List[Tuple], selected_index: int = 0, title: str = "NAVIGATION MENU"):
