@@ -824,8 +824,40 @@ def main():
     
     # Show initial welcome screen
     show_welcome_screen()
+    
+    # Check if we can get any input at all - if not, show a demo mode
     try:
-        get_single_keypress()
+        # Try to detect if input is available
+        if not sys.stdin.isatty():
+            # Non-interactive mode detected - show demo and exit
+            print(f"\n{Colors.WARNING}🎭 Demo Mode: Non-interactive environment detected.{Colors.ENDC}")
+            print(f"{Colors.CYAN}This would normally wait for your input to continue.{Colors.ENDC}")
+            print(f"{Colors.OKGREEN}In a real terminal, you'd press any key to explore the interactive portfolio!{Colors.ENDC}")
+            print(f"\n{Colors.HEADER}✨ Portfolio Features Preview:{Colors.ENDC}")
+            print(f"  • Interactive navigation with arrow keys")
+            print(f"  • Multiple sections: Introduction, Resume, Projects, Contact")
+            print(f"  • Comprehensive keyboard shortcuts and help system")
+            print(f"  • Professional presentation with colors and ASCII art")
+            print(f"\n{Colors.WARNING}💡 To experience the full interactive portfolio:{Colors.ENDC}")
+            print(f"  • Run directly: python3 portfolio.py")
+            print(f"  • Or use: ./launch.sh (downloads and runs)")
+            print(f"  • Avoid piping to maintain terminal interaction")
+            
+            time.sleep(2)  # Brief pause so users can read
+            
+            # Show exit message without clearing screen
+            print(f"\n{Colors.CYAN}{'═' * 80}{Colors.ENDC}")
+            print(f"{Colors.BOLD}Jordan Lang - Full-Stack Developer{Colors.ENDC}")
+            print(f"{Colors.OKGREEN}Feel free to reach out anytime: jordan@jlang.dev{Colors.ENDC}")
+            print(f"{Colors.CYAN}GitHub: github.com/jordolang | LinkedIn: linkedin.com/in/jordolang{Colors.ENDC}")
+            print(f"\n{Colors.WARNING}💼 Remember:{Colors.ENDC} Great code is just the beginning - let's build something amazing together!")
+            print(f"{Colors.HEADER}Have a fantastic day! 👋{Colors.ENDC}")
+            return
+        
+        result = get_single_keypress()
+        if result == 'ESC':
+            show_exit_screen()
+            return
     except KeyboardInterrupt:
         show_exit_screen()
         return
