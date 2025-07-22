@@ -19,62 +19,53 @@ try:
 except ImportError:
     TERMIOS_AVAILABLE = False
 
-# Color codes for terminal output - conditionally enabled based on terminal capability
+# Color codes for terminal output
 class Colors:
-    def __init__(self):
-        # Check if we should use colors (only for proper terminals)
-        self.use_colors = sys.stdout.isatty() and os.getenv('TERM') != 'dumb'
+    # Check if we should use colors (only for proper terminals)
+    _use_colors = sys.stdout.isatty() and os.getenv('TERM') != 'dumb'
+    
+    if _use_colors:
+        HEADER = '\033[95m'
+        OKBLUE = '\033[94m'
+        OKCYAN = '\033[96m'
+        OKGREEN = '\033[92m'
+        WARNING = '\033[93m'
+        FAIL = '\033[91m'
+        ENDC = '\033[0m'
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
         
-        if self.use_colors:
-            self.HEADER = '\033[95m'
-            self.OKBLUE = '\033[94m'
-            self.OKCYAN = '\033[96m'
-            self.OKGREEN = '\033[92m'
-            self.WARNING = '\033[93m'
-            self.FAIL = '\033[91m'
-            self.ENDC = '\033[0m'
-            self.BOLD = '\033[1m'
-            self.UNDERLINE = '\033[4m'
-            
-            # Additional colors for variety
-            self.PURPLE = '\033[35m'
-            self.YELLOW = '\033[33m'
-            self.RED = '\033[31m'
-            self.GREEN = '\033[32m'
-            self.BLUE = '\033[34m'
-            self.CYAN = '\033[36m'
-            self.WHITE = '\033[37m'
-        else:
-            # No colors - all empty strings
-            self.HEADER = ''
-            self.OKBLUE = ''
-            self.OKCYAN = ''
-            self.OKGREEN = ''
-            self.WARNING = ''
-            self.FAIL = ''
-            self.ENDC = ''
-            self.BOLD = ''
-            self.UNDERLINE = ''
-            self.PURPLE = ''
-            self.YELLOW = ''
-            self.RED = ''
-            self.GREEN = ''
-            self.BLUE = ''
-            self.CYAN = ''
-            self.WHITE = ''
-
-# Create a global instance
-Colors = Colors()
+        # Additional colors for variety
+        PURPLE = '\033[35m'
+        YELLOW = '\033[33m'
+        RED = '\033[31m'
+        GREEN = '\033[32m'
+        BLUE = '\033[34m'
+        CYAN = '\033[36m'
+        WHITE = '\033[37m'
+    else:
+        # No colors - all empty strings
+        HEADER = ''
+        OKBLUE = ''
+        OKCYAN = ''
+        OKGREEN = ''
+        WARNING = ''
+        FAIL = ''
+        ENDC = ''
+        BOLD = ''
+        UNDERLINE = ''
+        PURPLE = ''
+        YELLOW = ''
+        RED = ''
+        GREEN = ''
+        BLUE = ''
+        CYAN = ''
+        WHITE = ''
 
 
 def clear_screen():
     """Clear the terminal screen."""
-    # Only clear screen if we're in a proper interactive terminal
-    if sys.stdout.isatty() and is_interactive_terminal():
-        os.system('cls' if os.name == 'nt' else 'clear')
-    else:
-        # Just add some spacing instead of clearing
-        print("\n" * 3)
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def print_border(width: int = 80, char: str = '═'):
