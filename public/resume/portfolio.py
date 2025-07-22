@@ -7,6 +7,7 @@ A modular terminal-based portfolio showcasing skills, experience, and projects.
 import os
 import sys
 import time
+import select
 from datetime import datetime
 from typing import Dict, List, Callable, Tuple
 
