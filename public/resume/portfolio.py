@@ -7,10 +7,16 @@ A modular terminal-based portfolio showcasing skills, experience, and projects.
 import os
 import sys
 import time
-import termios
-import tty
 from datetime import datetime
 from typing import Dict, List, Callable, Tuple
+
+# Try to import terminal handling modules, but handle gracefully if they fail
+try:
+    import termios
+    import tty
+    TERMIOS_AVAILABLE = True
+except ImportError:
+    TERMIOS_AVAILABLE = False
 
 # Color codes for terminal output
 class Colors:
@@ -62,53 +68,99 @@ def typewriter_effect(text: str, delay: float = 0.03):
     print()
 
 
+def is_interactive_terminal():
+    """Check if running in an interactive terminal environment."""
+    try:
+        # Check if stdin is a terminal
+        if not sys.stdin.isatty():
+            return False
+        # Check if we have termios support on Unix-like systems
+        if os.name != 'nt' and not TERMIOS_AVAILABLE:
+            return False
+        # Additional check for terminal capabilities
+        if os.name != 'nt':
+            try:
+                import termios
+                termios.tcgetattr(sys.stdin.fileno())
+            except (termios.error, OSError):
+                return False
+        return True
+    except (AttributeError, OSError):
+        return False
+
 def get_single_keypress():
     """Get a single keypress from stdin without pressing Enter."""
-    if os.name == 'nt':  # Windows
-        import msvcrt
-        key = msvcrt.getch()
-        if key == b'\xe0':  # Special key prefix on Windows
-            key = msvcrt.getch()
-            if key == b'H':  # Up arrow
-                return 'UP'
-            elif key == b'P':  # Down arrow
-                return 'DOWN'
-            elif key == b'K':  # Left arrow
-                return 'LEFT'
-            elif key == b'M':  # Right arrow
-                return 'RIGHT'
-        elif key == b'\r':  # Enter
-            return 'ENTER'
-        elif key == b'\x1b':  # Escape
+    # Check if we're in an interactive environment
+    if not is_interactive_terminal():
+        # Fallback to regular input for non-interactive environments
+        print(f"\n{Colors.WARNING}Non-interactive environment detected. Using fallback input method.{Colors.ENDC}")
+        print(f"{Colors.CYAN}Press Enter to continue, 'q' to quit: {Colors.ENDC}", end="")
+        user_input = input().strip().lower()
+        if user_input == 'q' or user_input == 'quit':
             return 'ESC'
-        elif key == b'\x03':  # Ctrl+C
-            raise KeyboardInterrupt
-        return key.decode('utf-8', errors='ignore')
-    else:  # Unix/Linux/macOS
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
+        return 'ENTER'
+    
+    if os.name == 'nt':  # Windows
         try:
-            tty.setraw(sys.stdin.fileno())
-            key = sys.stdin.read(1)
-            
-            if key == '\x1b':  # ESC sequence
-                key += sys.stdin.read(2)
-                if key == '\x1b[A':  # Up arrow
+            import msvcrt
+            key = msvcrt.getch()
+            if key == b'\xe0':  # Special key prefix on Windows
+                key = msvcrt.getch()
+                if key == b'H':  # Up arrow
                     return 'UP'
-                elif key == '\x1b[B':  # Down arrow
+                elif key == b'P':  # Down arrow
                     return 'DOWN'
-                elif key == '\x1b[C':  # Right arrow
-                    return 'RIGHT'
-                elif key == '\x1b[D':  # Left arrow
+                elif key == b'K':  # Left arrow
                     return 'LEFT'
-                return 'ESC'
-            elif key == '\r' or key == '\n':  # Enter
+                elif key == b'M':  # Right arrow
+                    return 'RIGHT'
+            elif key == b'\r':  # Enter
                 return 'ENTER'
-            elif key == '\x03':  # Ctrl+C
+            elif key == b'\x1b':  # Escape
+                return 'ESC'
+            elif key == b'\x03':  # Ctrl+C
                 raise KeyboardInterrupt
-            return key
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            return key.decode('utf-8', errors='ignore')
+        except ImportError:
+            # Fallback if msvcrt is not available
+            user_input = input().strip().lower()
+            if user_input == 'q' or user_input == 'quit':
+                return 'ESC'
+            return 'ENTER'
+    else:  # Unix/Linux/macOS
+        try:
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+                tty.setraw(sys.stdin.fileno())
+                key = sys.stdin.read(1)
+                
+                if key == '\x1b':  # ESC sequence
+                    key += sys.stdin.read(2)
+                    if key == '\x1b[A':  # Up arrow
+                        return 'UP'
+                    elif key == '\x1b[B':  # Down arrow
+                        return 'DOWN'
+                    elif key == '\x1b[C':  # Right arrow
+                        return 'RIGHT'
+                    elif key == '\x1b[D':  # Left arrow
+                        return 'LEFT'
+                    return 'ESC'
+                elif key == '\r' or key == '\n':  # Enter
+                    return 'ENTER'
+                elif key == '\x03':  # Ctrl+C
+                    raise KeyboardInterrupt
+                return key
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+        except (termios.error, OSError, AttributeError):
+            # Fallback to regular input for non-terminal environments
+            print(f"\n{Colors.WARNING}Terminal interaction unavailable. Using fallback input method.{Colors.ENDC}")
+            print(f"{Colors.CYAN}Press Enter to continue, 'q' to quit: {Colors.ENDC}", end="")
+            user_input = input().strip().lower()
+            if user_input == 'q' or user_input == 'quit':
+                return 'ESC'
+            return 'ENTER'
 
 
 def display_menu(menu_items: List[Tuple], selected_index: int = 0, title: str = "NAVIGATION MENU"):
