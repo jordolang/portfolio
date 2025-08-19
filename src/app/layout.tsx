@@ -33,14 +33,14 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <head>
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TGRCMF1F23"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEV08XTBLL"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-TGRCMF1F23');
+              gtag('config', 'G-GEV08XTBLL');
             `,
           }}
         />
