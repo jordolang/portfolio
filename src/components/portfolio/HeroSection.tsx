@@ -106,7 +106,7 @@ export default function HeroSection() {
             { href: "https://x.com/jordolang", icon: "simple-icons:x", label: "X (Twitter)", color: "hover:text-gray-900 dark:hover:text-white" },
             { href: "https://linkedin.com/in/jordolang", icon: "simple-icons:linkedin", label: "LinkedIn", color: "hover:text-blue-700" },
             { href: "https://github.com/jordolang", icon: "simple-icons:github", label: "GitHub", color: "hover:text-gray-900 dark:hover:text-white" },
-            { href: "mailto:jordolang@gmail.com", icon: "material-icon-theme:email", label: "Email", color: "hover:text-green-600" }
+            { href: "mailto:jordan@jlang.dev", icon: "material-icon-theme:email", label: "Email", color: "hover:text-green-600" }
           ].map((link) => (
             <motion.div key={link.label} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
@@ -163,7 +163,7 @@ export default function HeroSection() {
           />
           <Link href="#contact">
             <span className="text-green-700 dark:text-green-300 text-sm font-medium">
-              Available for contract web design & IT projects
+              Available for contract web design & App Development & Various IT projects
             </span>
           </Link>
         </motion.div>

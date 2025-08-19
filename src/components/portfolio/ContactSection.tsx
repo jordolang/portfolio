@@ -297,7 +297,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <span className="font-medium">Failed to send message</span>
                   </div>
                   <p className="text-red-600 text-left dark:text-red-500 text-sm mt-1">
-                    Please try again or contact me directly at jordolang@gmail.com
+                    Please try again or contact me directly at jordan@jlang.dev
                   </p>
                   {/* add a button to close the message */}
                   <button
