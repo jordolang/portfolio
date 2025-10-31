@@ -8,6 +8,66 @@ import SectionHeader from "./SectionHeader";
 
 const projects = [
   {
+    title: "Jose Madrid Salsa",
+    subtitle: "Premium Gourmet Salsa – E-commerce & Marketing Site",
+    description: "Modern marketing and e‑commerce experience for an Ohio‑made gourmet salsa brand. Highlights include heat‑level guided shopping, fundraising and wholesale pathways, and a clean, mobile‑first design deployed on Vercel.",
+    features: [
+      "Heat-level browsing (Mild, Medium, Hot)",
+      "Fundraising and wholesale information flows",
+      "Responsive, performance‑optimized pages",
+      "Clear CTAs for shopping and subscriptions"
+    ],
+    deliverables: [
+      "Landing and category page UX",
+      "Information architecture & navigation",
+      "Responsive UI implementation",
+      "Deployment and analytics wiring"
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    github: "",
+    live: "https://josemadridsalsa.vercel.app",
+    gradient: "from-rose-600 to-red-600",
+    status: "Live",
+    category: "Web Design",
+    highlight: "Latest Update",
+    timeline: "2025",
+    clientType: "Food & Beverage"
+  },
+  {
+    title: "Amplinks",
+    subtitle: "Self-Hosted iOS/Web Music Platform",
+    description: "A comprehensive self-hosted iOS/Web application for seamless music downloading directly to iPhone as MP3 files without any user interaction. Features a Linktree-style sharing page for real-time music streaming with friends, integrated web music player, and full music management system. Designed for future expansion with additional social and streaming features.",
+    features: [
+      "Automatic iOS MP3 downloads with zero clicks",
+      "Linktree-style sharing pages for friends",
+      "Real-time streaming and chat with friends",
+      "Fully featured web music player application",
+      "Complete music library management system",
+      "Social listening features and guest sharing",
+      "Cross-platform synchronization (iOS/Web)",
+      "Self-hosted with complete privacy control"
+    ],
+    deliverables: [
+      "Native iOS application development",
+      "Progressive web application (PWA)",
+      "Real-time streaming infrastructure",
+      "Social music sharing system",
+      "User management and authentication",
+      "API development and integration",
+      "Cross-platform data synchronization",
+      "Music library management tools"
+    ],
+    tech: ["React", "React Native", "Node.js", "TypeScript", "WebRTC", "Socket.io", "Swift", "iOS", "MongoDB", "Redis", "Docker", "Tailwind CSS"],
+    github: "https://github.com/jordolang/amplinks",
+    live: "",
+    gradient: "from-purple-600 to-blue-600",
+    status: "In Development",
+    category: "Mobile & Web Apps",
+    highlight: "Current Project",
+    timeline: "Ongoing",
+    clientType: "Mobile & Web Apps"
+  },
+  {
     title: "Zanesville.store",
     subtitle: "Local E-commerce Platform",
     description: "Currently developing a comprehensive e-commerce platform designed to connect local Zanesville businesses with customers. This modern web application features intuitive navigation, secure payment processing, and a responsive design optimized for both desktop and mobile shopping experiences.",
@@ -76,6 +136,40 @@ const projects = [
     clientType: "Self-Hosted Solutions"
   },
   {
+    title: "Apple-Sider",
+    subtitle: "Self-Hosted Apple Music Library Downloader",
+    description: "A 1-click self-hosted web application to download your entire Apple Music Library using a Library.xml file. Features a clean Apple-inspired interface with real-time progress tracking, concurrent downloads, and automatic metadata enhancement including album artwork. Docker-ready with comprehensive CLI management tools.",
+    features: [
+      "Single-page web interface with drag-and-drop",
+      "Real-time progress tracking and console output",
+      "Concurrent downloads with queue management",
+      "High-quality MP3s with metadata enhancement",
+      "Automatic album artwork from iTunes API",
+      "Docker container deployment support",
+      "WebSocket streaming for real-time updates",
+      "Smart parsing of Apple Music libraries"
+    ],
+    deliverables: [
+      "Docker container deployment",
+      "Web interface development",
+      "CLI management tools",
+      "Configuration system",
+      "Download queue management",
+      "Metadata enhancement system",
+      "Real-time progress tracking",
+      "Cross-platform compatibility"
+    ],
+    tech: ["Python", "Flask", "Docker", "WebSockets", "yt-dlp", "JavaScript", "HTML5", "CSS3", "MusicBrainz", "iTunes API", "pip", "Docker Compose"],
+    github: "https://github.com/jordolang/Apple-Sider",
+    live: "https://jordolang.github.io/Apple-Sider/",
+    gradient: "from-red-500 to-pink-500",
+    status: "Live",
+    category: "Self-Hosted Solutions",
+    highlight: "Featured",
+    timeline: "Ongoing",
+    clientType: "Self-Hosted Solutions"
+  },
+  {
     title: "World Auto Net",
     subtitle: "Automotive Marketplace Website",
     description: "Modern, responsive website design for an automotive marketplace platform. Created a comprehensive digital presence with intuitive navigation, advanced search capabilities, and mobile-first design approach to connect car buyers and sellers efficiently.",
@@ -136,7 +230,7 @@ const projects = [
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "Photoshop", "Illustrator", "Google Maps API", "Contact Form 7", "Yoast SEO", "GTmetrix", "PageSpeed Insights"],
     github: "https://github.com",
     live: "https://neff-paving.co",
-    gradient: "from-orange-500 to1-1red-500",
+      gradient: "from-orange-500 to-red-500",
     status: "Live",
     category: "Web Design",
     highlight: "Featured",
@@ -416,14 +510,16 @@ export default function ProjectsSection() {
                         <span>View Repository</span>
                       </Link>
 
-                      <Link
-                        href={project.live}
-                        onClick={() => trackEvent(AnalyticsEvents.PROJECT_LINK_CLICKED, { destination: 'demo', project: project.title })}
-                        className="flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-white text-gray-900 rounded-lg md:rounded-xl hover:bg-gray-100 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl active:scale-95"
-                      >
-                        <Icon icon="solar:arrow-up-outline" width={18} height={18} className="md:w-5 md:h-5" />
-                        <span>Live Demo</span>
-                      </Link>
+                      {project.live && (
+                        <Link
+                          href={project.live}
+                          onClick={() => trackEvent(AnalyticsEvents.PROJECT_LINK_CLICKED, { destination: 'demo', project: project.title })}
+                          className="flex items-center justify-center gap-2 md:gap-3 px-4 py-2.5 md:px-6 md:py-3 bg-white text-gray-900 rounded-lg md:rounded-xl hover:bg-gray-100 transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-xl active:scale-95"
+                        >
+                          <Icon icon="solar:arrow-up-outline" width={18} height={18} className="md:w-5 md:h-5" />
+                          <span>Live Demo</span>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

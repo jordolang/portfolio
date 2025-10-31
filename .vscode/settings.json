@@ -6,16 +6,8 @@
         "statusBarItem.warningForeground": "#000000",
         "statusBarItem.warningHoverBackground": "#3cc7dd",
         "statusBarItem.warningHoverForeground": "#00000090",
-        "statusBarItem.remoteBackground": "#49d4ea",
-        "statusBarItem.remoteForeground": "#000000",
         "statusBarItem.remoteHoverBackground": "#56e1f7",
         "statusBarItem.remoteHoverForeground": "#00000090",
-        "statusBar.background": "#3cc7dd",
-        "statusBar.foreground": "#000000",
-        "statusBar.border": "#3cc7dd",
-        "statusBar.debuggingBackground": "#3cc7dd",
-        "statusBar.debuggingForeground": "#000000",
-        "statusBar.debuggingBorder": "#3cc7dd",
         "statusBar.noFolderBackground": "#3cc7dd",
         "statusBar.noFolderForeground": "#000000",
         "statusBar.noFolderBorder": "#3cc7dd",
@@ -37,9 +29,7 @@
         "pickerGroup.foreground": "#49d4ea",
         "list.activeSelectionBackground": "#3cc7dd4d",
         "panelTitle.activeBorder": "#49d4ea",
-        "activityBar.activeBorder": "#3cc7dd",
-        "activityBarBadge.foreground": "#000000",
-        "activityBarBadge.background": "#3cc7dd"
+        "activityBar.activeBorder": "#3cc7dd"
     },
     "cSpell.words": [
         "Berkfield",
