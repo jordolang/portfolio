@@ -1,0 +1,135 @@
+---
+title: "90‑Day Post‑Launch Checklist"
+date: "2025-11-09"
+excerpt: "A comprehensive week-by-week tactical plan for the first 90 days after launching your website, including a ROI calculator spreadsheet."
+image: "/images/blog/90-day-checklist.png"
+tags: ["Launch", "Websites", "Development", "Checklist"]
+author: "Jordan Lang"
+readTime: "8 min read"
+---
+# 90‑Day Post‑Launch Checklist 
+Use this as a week-by-week tactical plan. For each task, add owner, status, date completed, and evidence (links/screenshots).
+
+## Launch day (Day 0)
+
+- DNS & HTTPS verified (owner: Ops). Acceptance: site loads on production URL over HTTPS; no mixed content.
+- Smoke test core flows (owner: QA): home, services, contact form, primary CTA. Acceptance: flows succeed in staging & prod.
+- Analytics & tracking deployed (owner: Analytics): GA4/GTM, server-side if used. Acceptance: events show in real-time dashboard.
+- Backups & rollback tested (owner: Ops): working backup, rollback steps documented.
+- Error monitoring enabled (owner: DevOps): Sentry / LogRocket / similar receiving errors.
+
+## Week 1 — Stabilize & Monitor (Days 1–7)
+
+- Daily uptime check (owner: Ops): verify 24/7 uptime, add alerting.
+- Monitor errors & fix P0 bugs (owner: Dev). Priority: any crash, broken forms, production JS errors.
+- Validate form submissions (owner: Ops/Dev): confirm leads reach CRM/email & test spam/honeypot.
+- Lighthouse snapshot baseline (owner: Dev): run mobile + desktop; archive report.
+- Accessibility smoke test (owner: QA): run axe or Lighthouse a11y; fix critical issues.
+- Search Console verification & submit sitemap (owner: SEO).
+
+## Week 2 — Data & UX Validation (Days 8–14)
+
+- Verify analytics accuracy (owner: Analytics): pageviews, conversions, campaign UTM tagging.
+- Session recordings & heatmaps (owner: UX): install Hotjar/FullStory and review 10 key sessions.
+- First UX adjustments (owner: Design/Dev): quick fixes for obvious friction (mobile nav, CTA placement).
+- Speed tuning (owner: Dev): check LCP, TTFB, optimize any blocking issues (fonts/images).
+- Security sweep (owner: DevOps): verify CSP, cookies flags, server headers.
+
+## Weeks 3–4 — Fixes, Content, SEO (Days 15–30)
+
+- Prioritized bug backlog (owner: Dev): resolve P1 issues — layout breaks, minor JS issues.
+- Content audit & update (owner: Content): ensure H1s, meta, schema on all pages; publish missing pages.
+- On‑page SEO optimizations (owner: SEO): internal linking, metadata fixes, add structured data for key pages.
+- Email automation check (owner: Ops): confirm autoresponders & CRM tagging work.
+- Performance re-run (owner: Dev): implement caching, image optimization, preconnects if needed.
+
+## Month 2 — Optimization & Growth (Days 31–60)
+
+- A/B test plan (owner: Growth): design 1–2 simple experiments (hero copy, CTA color, lead form length).
+- Implement first A/B test (owner: Dev/Growth): run for minimum sample size or 2–4 weeks.
+- Conversion funnel review (owner: Analytics): track drop-off points, set micro-conversions.
+- Accessibility remediation (owner: QA/Dev): fix medium-priority issues; retest with axe.
+- Content calendar (owner: Content): publish 2–4 SEO-driven posts or landing pages.
+- Marketing integrations (owner: Ops): email lists, ad tracking, retargeting setup tested.
+
+## Month 3 — Iterate & Scale (Days 61–90)
+
+- Evaluate A/B test results & roll winners (owner: Growth/Dev).
+- Technical debt sprint (owner: Dev): refactor slow components, remove unused scripts.
+- SEO performance check (owner: SEO): organic impressions, clicks, ranking changes — refine content.
+- Lead quality review (owner: Sales): review lead-to-customer conversion and adjust qualification if needed.
+- Automation & workflow improvements (owner: Ops): refine CRM tags, lead routing, slack/email alerts.
+- Plan next quarter roadmap (owner: Product/Stakeholder): prioritize features (client portal, e-commerce, additional integrations).
+
+### Ongoing checks (daily / weekly / monthly)
+
+- Daily: uptime, critical errors, form deliveries.
+- Weekly: analytics trends, top pages, conversion trends, backlog grooming.
+- Monthly: Lighthouse + accessibility report, backup restore test, monthly metrics meeting.
+
+### KPIs to track (first 90 days)
+
+- Technical: LCP, CLS, TTFB, accessibility score.
+- Acquisition: organic sessions, paid sessions (if running), referral traffic.
+- Conversion: leads per month, conversion rate per landing page, cost per lead.
+- Business: qualified leads, MQL→SQL rates, revenue attributed to site.
+
+### Escalation & rollback plan (documented)
+
+- Who to call for P0 issues.
+- How to rollback to previous deployment (steps & timing).
+- Communication template for outages to stakeholders/customers.
+
+### Deliverables to produce during 90 days
+
+- Weekly status reports (metrics + issues + actions).
+- 2x Lighthouse + a11y reports (baseline & week 4; final at day 90).
+- A/B test results summary.
+- Final 90‑day performance & ROI summary.
+---
+
+# Simple ROI Calculator Spreadsheet
+Below is a simple, copy-friendly spreadsheet you can paste into Excel/Google Sheets. 
+Column A = Label, Column B = Value / Formula. 
+Paste as CSV into a sheet or create a two-column sheet and copy these rows in.
+
+## CSV (paste into a new sheet — formulas work in Excel/Google Sheets):
+
+```csv
+"Label","Value / Formula" "Current monthly visitors",5000 "Current conversion rate (as decimal)",0.015 "Average customer value (LTV) $",800 "Profit margin (as decimal)",0.30 "One-time build cost $",5000 "Monthly hosting $",50 "Monthly maintenance & marketing $",100 "Traffic lift (%) (decimal)",0.20 "Conversion lift (%) (decimal)",0.10 "Evaluation horizon (months)",12 "","" "Current monthly leads","=B1_B2" "Current monthly revenue $","=B11_B3" "Projected monthly visitors","=B1_(1+B8)" "Projected conversion rate (decimal)","=B2_(1+B9)" "Projected monthly leads","=B14_B15" "Projected monthly revenue $","=B16_B3" "Monthly incremental revenue $","=B17-B12" "Monthly incremental profit $","=B18_B4" "Monthly net incremental (profit - recurring costs) $","=B19-(B6+B7)" "Total net incremental over horizon $","=B20_B10" "Total project cost over horizon $","=B5 + (B6+B7)*B10" "Net benefit over horizon $","=B21 - B5" "ROI (as decimal)","=B23/B5" "Payback period (months)","=IF(B20>0, B5/B20, "N/A")"
+```
+## Notes on the spreadsheet and formulas
+
+- Cells referenced above: Column B numbers assume B1..B10 are the input rows indicated.
+- Current monthly leads = visitors * conversion rate.
+- LTV = average revenue (or lifetime value) per customer — use your realistic number (can be one-time sale value OR average lifetime revenue).
+- Profit margin should reflect gross margin on revenue attributable to website leads (not net business profit).
+- Traffic lift and conversion lift should be your expected percentage improvements (as decimals, e.g., 0.20 for 20%).
+- Monthly net incremental takes incremental profit and subtracts recurring hosting+maintenance to show net monthly gain.
+- Net benefit over horizon equals net incremental over horizon minus one-time build cost. ROI uses build cost as denominator.
+- Payback period shows months to recoup the one‑time build cost from monthly net incremental (if positive).
+
+## Example (with the sample values above)
+
+- Current leads: 5000 * 0.015 = 75 leads/month
+- Current monthly revenue: 75 * $800 = $60,000
+- Projected visitors: 5000 * 1.20 = 6,000
+- Projected conversion: 1.015? No — projected conv = 0.015 * 1.10 = 0.0165
+- Projected leads: 6,000 * 0.0165 = 99 leads
+- Projected revenue: 99 * $800 = $79,200
+- Monthly incremental revenue = $19,200
+- Monthly incremental profit (30% margin) = $5,760
+- Monthly net incremental = $5,760 - ($50+$100) = $5,610
+- Total net incremental over 12 months = $67,320
+- Total project cost over horizon = $5,000 + ($150 * 12) = $6,800
+- Net benefit over horizon = $67,320 - $5,000 = $62,320
+- ROI = $62,320 / $5,000 = 12.46 (1,246%)
+- Payback period = $5,000 / $5,610 ≈ 0.9 months (very quick in this illustrative example)
+
+## How to use it responsibly
+
+- Replace sample inputs (B1..B10) with your real numbers.
+- If you expect incremental changes to ramp (not full-lift month 1), model month-by-month:
+    - Add rows Month1..Month12 with ramp percentages, apply lifts per month and sum.
+- Use conservative / likely / optimistic scenarios (duplicate sheet tabs) to see range.
+- To make it clearer to stakeholders, add a small assumptions block describing LTV definition, margin used, and whether leads are qualified.

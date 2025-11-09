@@ -40,9 +40,9 @@ export function getAllBlogPosts(): BlogPost[] {
 
     const fileNames = fs.readdirSync(BLOG_DIRECTORY);
     const posts = fileNames
-      .filter((name) => name.endsWith('.mdx'))
+      .filter((name) => name.endsWith('.mdx') || name.endsWith('.md'))
       .map((name) => {
-        const slug = name.replace(/\.mdx$/, '');
+        const slug = name.replace(/\.(mdx?|md)$/, '');
         const fullPath = path.join(BLOG_DIRECTORY, name);
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = matter(fileContents);
@@ -54,10 +54,10 @@ export function getAllBlogPosts(): BlogPost[] {
           title: frontmatter.title,
           date: frontmatter.date,
           excerpt: frontmatter.excerpt,
-          image: frontmatter.image,
-          tags: frontmatter.tags,
-          author: frontmatter.author,
-          readTime: frontmatter.readTime,
+          image: frontmatter.image || '/images/blog/default.svg',
+          tags: frontmatter.tags || [],
+          author: frontmatter.author || 'Jordan Lang',
+          readTime: frontmatter.readTime || '5 min read',
           content,
         };
       })
@@ -72,7 +72,11 @@ export function getAllBlogPosts(): BlogPost[] {
 
 export async function getBlogPost(slug: string) {
   try {
-    const fullPath = path.join(BLOG_DIRECTORY, `${slug}.mdx`);
+    // Try both .mdx and .md extensions
+    let fullPath = path.join(BLOG_DIRECTORY, `${slug}.mdx`);
+    if (!fs.existsSync(fullPath)) {
+      fullPath = path.join(BLOG_DIRECTORY, `${slug}.md`);
+    }
     
     if (!fs.existsSync(fullPath)) {
       return null;
