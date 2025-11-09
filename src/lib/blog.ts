@@ -1,6 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export interface BlogPost {
   slug: string;
@@ -65,9 +70,60 @@ export function getAllBlogPosts(): BlogPost[] {
   }
 }
 
+export async function getBlogPost(slug: string) {
+  try {
+    const fullPath = path.join(BLOG_DIRECTORY, `${slug}.mdx`);
+    
+    if (!fs.existsSync(fullPath)) {
+      return null;
+    }
+
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+    
+    const frontmatter = data as BlogFrontmatter;
+
+    // Compile MDX with plugins
+    const { content: mdxContent } = await compileMDX({
+      source: content,
+      options: {
+        parseFrontmatter: false,
+        mdxOptions: {
+          remarkPlugins: [remarkGfm],
+          rehypePlugins: [
+            rehypeHighlight,
+            rehypeSlug,
+            [rehypeAutolinkHeadings, { behavior: 'wrap' }],
+          ],
+        },
+      },
+    });
+
+    return {
+      slug,
+      ...frontmatter,
+      content,
+      mdxContent,
+    };
+  } catch (error) {
+    console.error('Error reading blog post:', error);
+    return null;
+  }
+}
+
 export function getLatestBlogPosts(limit: number = 3): BlogPost[] {
   const allPosts = getAllBlogPosts();
   return allPosts.slice(0, limit);
+}
+
+export function getAdjacentPosts(currentSlug: string) {
+  const allPosts = getAllBlogPosts();
+  const currentIndex = allPosts.findIndex(post => post.slug === currentSlug);
+  
+  return {
+    previous: currentIndex > 0 ? allPosts[currentIndex - 1] : null,
+    next: currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null,
+  };
 }
 
 export function formatDate(dateString: string): string {

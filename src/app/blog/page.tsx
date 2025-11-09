@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
@@ -30,8 +30,10 @@ function formatDate(dateString: string): string {
 export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  useEffect(() => {
+useEffect(() => {
     async function fetchPosts() {
       try {
         const response = await fetch('/api/blog');
@@ -51,6 +53,29 @@ export default function BlogPage() {
     fetchPosts();
   }, []);
 
+  // Get all unique tags
+  const allTags = useMemo(() => {
+    const tagSet = new Set<string>();
+    posts.forEach(post => {
+      post.tags.forEach(tag => tagSet.add(tag));
+    });
+    return Array.from(tagSet).sort();
+  }, [posts]);
+
+  // Filter posts based on search and tag
+  const filteredPosts = useMemo(() => {
+    return posts.filter(post => {
+      const matchesSearch = searchQuery === '' || 
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      
+      const matchesTag = !selectedTag || post.tags.includes(selectedTag);
+      
+      return matchesSearch && matchesTag;
+    });
+  }, [posts, searchQuery, selectedTag]);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-950 flex items-center justify-center">
@@ -59,37 +84,134 @@ export default function BlogPage() {
     );
   }
 
-  return (
+return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
       {/* Header */}
       <header className="border-b border-gray-200 dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-4 py-8">
           <Link 
             href="/#blog" 
-            className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
+            className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors mb-6 inline-block"
           >
             <Icon icon="solar:arrow-left-outline" width={20} height={20} />
-            <span>Back to Portfolio</span>
+            <span className="font-medium">Back to Portfolio</span>
           </Link>
-          <h1 className="text-4xl md:text-5xl font-bold mt-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             Blog Posts
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">
+          <p className="text-gray-600 dark:text-gray-400 text-lg mb-8">
             Thoughts on web development, self-hosting, mobile apps, and technology trends
           </p>
+
+          {/* Search Bar */}
+          <div className="max-w-2xl">
+            <div className="relative">
+              <Icon 
+                icon="solar:magnifer-outline" 
+                width={20} 
+                height={20} 
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              />
+              <input
+                type="text"
+                placeholder="Search posts by title, content, or tags..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent transition-all text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                >
+                  <Icon icon="solar:close-circle-bold" width={20} height={20} />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Tag Filters */}
+          {allTags.length > 0 && (
+            <div className="mt-6">
+              <div className="flex items-center gap-2 mb-3">
+                <Icon icon="solar:tag-bold" width={20} height={20} className="text-gray-500 dark:text-gray-400" />
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Filter by tag:</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => setSelectedTag(null)}
+                  className={`px-4 py-2 rounded-xl font-medium transition-all ${
+                    selectedTag === null
+                      ? 'bg-indigo-600 text-white shadow-lg'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  All Posts
+                </button>
+                {allTags.map((tag) => (
+                  <button
+                    key={tag}
+                    onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
+                    className={`px-4 py-2 rounded-xl font-medium transition-all ${
+                      selectedTag === tag
+                        ? 'bg-indigo-600 text-white shadow-lg'
+                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    }`}
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Results Count */}
+          <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
+            {filteredPosts.length === posts.length ? (
+              <span>Showing all {posts.length} post{posts.length !== 1 ? 's' : ''}</span>
+            ) : (
+              <span>Found {filteredPosts.length} post{filteredPosts.length !== 1 ? 's' : ''} out of {posts.length}</span>
+            )}
+          </div>
         </div>
       </header>
 
       {/* Blog Posts Grid */}
       <main className="max-w-7xl mx-auto px-4 py-12">
-        {posts.length === 0 ? (
-          <div className="text-center py-20">
+        {filteredPosts.length === 0 ? (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-20"
+          >
             <Icon icon="solar:document-text-bold" className="mx-auto text-gray-400 mb-4" width={64} height={64} />
-            <p className="text-gray-600 dark:text-gray-400">No blog posts found.</p>
-          </div>
+            <p className="text-gray-600 dark:text-gray-400 text-lg mb-4">
+              {posts.length === 0 ? 'No blog posts found.' : 'No posts match your search criteria.'}
+            </p>
+            {(searchQuery || selectedTag) && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedTag(null);
+                }}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-colors"
+              >
+                <Icon icon="solar:refresh-outline" width={20} height={20} />
+                <span>Clear Filters</span>
+              </button>
+            )}
+          </motion.div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post, index) => (
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={`${searchQuery}-${selectedTag}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {filteredPosts.map((post, index) => (
               <motion.article
                 key={post.slug}
                 initial={{ opacity: 0, y: 40 }}
@@ -175,8 +297,9 @@ export default function BlogPage() {
                   </div>
                 </Link>
               </motion.article>
-            ))}
-          </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         )}
       </main>
     </div>
