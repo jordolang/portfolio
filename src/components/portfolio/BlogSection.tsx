@@ -46,8 +46,7 @@ export default function BlogSection() {
             image: "/images/blog/nextjs-typescript.svg",
             tags: ["Next.js", "TypeScript", "React", "Web Development"],
             author: "Jordan Lang",
-            readTime: "5 min read",
-            content: ""
+            readTime: "5 min read"
           },
           {
             slug: "self-hosted-solutions",
@@ -57,8 +56,7 @@ export default function BlogSection() {
             image: "/images/blog/self-hosted.svg",
             tags: ["Self-Hosting", "Privacy", "Docker", "Home Lab"],
             author: "Jordan Lang",
-            readTime: "7 min read",
-            content: ""
+            readTime: "7 min read"
           },
           {
             slug: "mobile-app-development",
@@ -68,8 +66,7 @@ export default function BlogSection() {
             image: "/images/blog/mobile-development.svg",
             tags: ["React Native", "iOS", "Swift", "Mobile Development"],
             author: "Jordan Lang",
-            readTime: "6 min read",
-            content: ""
+            readTime: "6 min read"
           }
         ];
         setPosts(staticPosts);
