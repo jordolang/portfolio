@@ -33,43 +33,15 @@ export default function BlogSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch blog posts client-side to avoid SSR issues with file system
+    // Fetch blog posts from API route
     async function fetchPosts() {
       try {
-        // For now, we'll use static data until you provide the actual MDX files
-        const staticPosts: BlogPost[] = [
-          {
-            slug: "building-modern-web-apps",
-            title: "Building Modern Web Applications with Next.js and TypeScript",
-            date: "2024-01-15",
-            excerpt: "Learn how to build scalable, modern web applications using Next.js 15, TypeScript, and best practices for performance optimization.",
-            image: "/images/blog/nextjs-typescript.svg",
-            tags: ["Next.js", "TypeScript", "React", "Web Development"],
-            author: "Jordan Lang",
-            readTime: "5 min read"
-          },
-          {
-            slug: "self-hosted-solutions",
-            title: "The Power of Self-Hosted Solutions: Taking Control of Your Data",
-            date: "2024-01-10",
-            excerpt: "Explore the benefits of self-hosted applications and how they can provide better privacy, control, and customization for your digital life.",
-            image: "/images/blog/self-hosted.svg",
-            tags: ["Self-Hosting", "Privacy", "Docker", "Home Lab"],
-            author: "Jordan Lang",
-            readTime: "7 min read"
-          },
-          {
-            slug: "mobile-app-development",
-            title: "Mobile App Development: React Native vs. Native Development",
-            date: "2024-01-05",
-            excerpt: "A comprehensive comparison of React Native and native iOS/Android development based on real-world project experience.",
-            image: "/images/blog/mobile-development.svg",
-            tags: ["React Native", "iOS", "Swift", "Mobile Development"],
-            author: "Jordan Lang",
-            readTime: "6 min read"
-          }
-        ];
-        setPosts(staticPosts);
+        const response = await fetch('/api/blog');
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        const data = await response.json();
+        setPosts(data);
       } catch (error) {
         console.error('Error fetching blog posts:', error);
         setPosts([]);

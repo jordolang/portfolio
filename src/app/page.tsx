@@ -27,6 +27,9 @@ export default function Portfolio() {
         {/* Hero Section */}
         <HeroSection />
 
+        {/* Blog Section */}
+        <BlogSection />
+
         {/* Overview Section */}
         <OverviewSection />
 
@@ -41,9 +44,6 @@ export default function Portfolio() {
 
         {/* Testimonials Section */}
         <TestimonialsSection />
-
-        {/* Blog Section */}
-        <BlogSection />
 
         {/* Contact Section */}
         <ContactSection />
