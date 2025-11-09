@@ -354,6 +354,29 @@ export default function ProjectsSection() {
     },
   };
 
+  // Image animation variants
+  const imageContainerVariants = {
+    hidden: { 
+      opacity: 0,
+      scale: 0.3,
+      rotateY: -90,
+      rotateX: 45,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      rotateY: 0,
+      rotateX: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        duration: 1.2,
+        delay: 0.3,
+      },
+    },
+  };
+
   return (
     <motion.section
       id="projects"
@@ -416,17 +439,80 @@ export default function ProjectsSection() {
 
                 {/* Project Header with Gradient */}
                 <div className={`relative bg-gradient-to-br ${project.gradient} p-4 sm:p-6 md:p-8 lg:p-10`}>
-                  {/* Project Screenshot - Top Right */}
+                  {/* Project Screenshot - Top Right with Animations */}
                   {project.image && (
-                    <div className="absolute top-4 right-4 md:top-8 md:right-8 w-32 h-24 sm:w-40 sm:h-28 md:w-56 md:h-40 lg:w-72 lg:h-48 rounded-lg md:rounded-xl overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm z-20">
-                      <Image
-                        src={project.image}
-                        alt={`${project.title} screenshot`}
-                        fill
-                        className="object-cover object-top"
-                        sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, (max-width: 1024px) 224px, 288px"
-                      />
-                    </div>
+                    <motion.div
+                      variants={imageContainerVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      whileHover={{ 
+                        scale: 1.15,
+                        rotateY: 5,
+                        rotateX: -5,
+                        z: 50,
+                        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+                        transition: { 
+                          type: "spring", 
+                          stiffness: 300, 
+                          damping: 20 
+                        }
+                      }}
+                      whileTap={{ 
+                        scale: 1.25,
+                        rotateY: 0,
+                        rotateX: 0,
+                        z: 100,
+                        boxShadow: "0 30px 60px -15px rgba(0, 0, 0, 0.6)",
+                        transition: { 
+                          type: "spring", 
+                          stiffness: 400, 
+                          damping: 15 
+                        }
+                      }}
+                      className="absolute top-4 right-4 md:top-8 md:right-8 w-32 h-24 sm:w-40 sm:h-28 md:w-56 md:h-40 lg:w-72 lg:h-48 rounded-lg md:rounded-xl overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm z-20 cursor-pointer"
+                      style={{ 
+                        perspective: 1000,
+                        transformStyle: "preserve-3d"
+                      }}
+                    >
+                      <motion.div
+                        className="relative w-full h-full"
+                        whileHover={{
+                          filter: "brightness(1.1) contrast(1.05)",
+                        }}
+                        animate={{
+                          boxShadow: [
+                            "0 0 20px rgba(255, 255, 255, 0.3)",
+                            "0 0 30px rgba(255, 255, 255, 0.5)",
+                            "0 0 20px rgba(255, 255, 255, 0.3)",
+                          ],
+                        }}
+                        transition={{
+                          boxShadow: {
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          },
+                        }}
+                      >
+                        <Image
+                          src={project.image}
+                          alt={`${project.title} screenshot`}
+                          fill
+                          className="object-cover object-top"
+                          sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, (max-width: 1024px) 224px, 288px"
+                        />
+                        {/* Animated border glow effect */}
+                        <motion.div
+                          className="absolute inset-0 border-2 border-white/0 rounded-lg md:rounded-xl"
+                          whileHover={{
+                            borderColor: "rgba(255, 255, 255, 0.6)",
+                            boxShadow: "inset 0 0 20px rgba(255, 255, 255, 0.3)",
+                          }}
+                        />
+                      </motion.div>
+                    </motion.div>
                   )}
 
                   {/* Animated background pattern */}
