@@ -3,6 +3,7 @@
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import SectionHeader from "./SectionHeader";
 
@@ -11,6 +12,7 @@ const projects = [
     title: "Jose Madrid Salsa",
     subtitle: "Premium Gourmet Salsa – E-commerce & Marketing Site",
     description: "Modern marketing and e‑commerce experience for an Ohio‑made gourmet salsa brand. Highlights include heat‑level guided shopping, fundraising and wholesale pathways, and a clean, mobile‑first design deployed on Vercel.",
+    image: "/images/projects/jose-madrid-salsa.png",
     features: [
       "Heat-level browsing (Mild, Medium, Hot)",
       "Fundraising and wholesale information flows",
@@ -25,7 +27,7 @@ const projects = [
     ],
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
     github: "",
-    live: "https://josemadridsalsa.vercel.app",
+    live: "https://josemadrid.net",
     gradient: "from-rose-600 to-red-600",
     status: "Live",
     category: "Web Design",
@@ -35,6 +37,7 @@ const projects = [
   },
   {
     title: "Amplinks",
+    image: "/images/projects/amplinks.png",
     subtitle: "Self-Hosted iOS/Web Music Platform",
     description: "A comprehensive self-hosted iOS/Web application for seamless music downloading directly to iPhone as MP3 files without any user interaction. Features a Linktree-style sharing page for real-time music streaming with friends, integrated web music player, and full music management system. Designed for future expansion with additional social and streaming features.",
     features: [
@@ -69,6 +72,7 @@ const projects = [
   },
   {
     title: "Zanesville.store",
+    image: "/images/projects/zanesville-store.png",
     subtitle: "Local E-commerce Platform",
     description: "Currently developing a comprehensive e-commerce platform designed to connect local Zanesville businesses with customers. This modern web application features intuitive navigation, secure payment processing, and a responsive design optimized for both desktop and mobile shopping experiences.",
     features: [
@@ -103,6 +107,7 @@ const projects = [
   },
   {
     title: "Homesh.app",
+    image: "/images/projects/homesh-app.png",
     subtitle: "Self-Hosted Home Dashboard",
     description: "A comprehensive self-hosted home dashboard solution designed for home automation enthusiasts and privacy-conscious users. Features a modern, customizable interface for monitoring and controlling smart home devices, displaying real-time data, and integrating with various home automation platforms while keeping all data locally stored.",
     features: [
@@ -137,6 +142,7 @@ const projects = [
   },
   {
     title: "Apple-Sider",
+    image: "/images/projects/apple-sider.png",
     subtitle: "Self-Hosted Apple Music Library Downloader",
     description: "A 1-click self-hosted web application to download your entire Apple Music Library using a Library.xml file. Features a clean Apple-inspired interface with real-time progress tracking, concurrent downloads, and automatic metadata enhancement including album artwork. Docker-ready with comprehensive CLI management tools.",
     features: [
@@ -171,6 +177,7 @@ const projects = [
   },
   {
     title: "World Auto Net",
+    image: "/images/projects/world-auto-net.png",
     subtitle: "Automotive Marketplace Website",
     description: "Modern, responsive website design for an automotive marketplace platform. Created a comprehensive digital presence with intuitive navigation, advanced search capabilities, and mobile-first design approach to connect car buyers and sellers efficiently.",
     features: [
@@ -205,6 +212,7 @@ const projects = [
   },
   {
     title: "Neff Paving",
+    image: "/images/projects/neff-paving.png",
     subtitle: "Professional Paving Services Website",
     description: "Complete website redesign for a professional paving contractor, featuring modern design principles, service showcases, and lead generation optimization. Focused on converting visitors into qualified leads through strategic design and clear calls-to-action.",
     features: [
@@ -229,7 +237,7 @@ const projects = [
     ],
     tech: ["HTML5", "CSS3", "JavaScript", "WordPress", "PHP", "Photoshop", "Illustrator", "Google Maps API", "Contact Form 7", "Yoast SEO", "GTmetrix", "PageSpeed Insights"],
     github: "https://github.com",
-    live: "https://neff-paving.co",
+    live: "https://neffpaving.co",
       gradient: "from-orange-500 to-red-500",
     status: "Live",
     category: "Web Design",
@@ -239,6 +247,7 @@ const projects = [
   },
   {
     title: "First Baptist Church",
+    image: "/images/projects/first-baptist.png",
     subtitle: "Church Community Website",
     description: "Comprehensive church website design focused on community engagement and information accessibility. Created a welcoming digital space that reflects the church's values while providing essential information for members and visitors.",
     features: [
@@ -273,6 +282,7 @@ const projects = [
   },
   {
     title: "Ohio Interests",
+    image: "/images/projects/ohio-interests.png",
     subtitle: "Local Interest & Tourism Website",
     description: "Engaging website design showcasing Ohio's attractions, events, and local interests. Developed with tourism and local business promotion in mind, featuring interactive maps, event listings, and comprehensive resource directories.",
     features: [
@@ -406,6 +416,19 @@ export default function ProjectsSection() {
 
                 {/* Project Header with Gradient */}
                 <div className={`relative bg-gradient-to-br ${project.gradient} p-4 sm:p-6 md:p-8 lg:p-10`}>
+                  {/* Project Screenshot - Top Right */}
+                  {project.image && (
+                    <div className="absolute top-4 right-4 md:top-8 md:right-8 w-32 h-24 sm:w-40 sm:h-28 md:w-56 md:h-40 lg:w-72 lg:h-48 rounded-lg md:rounded-xl overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm z-20">
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} screenshot`}
+                        fill
+                        className="object-cover object-top"
+                        sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, (max-width: 1024px) 224px, 288px"
+                      />
+                    </div>
+                  )}
+
                   {/* Animated background pattern */}
                   <div className="absolute inset-0 opacity-10">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.3)_1px,transparent_1px)] bg-[length:20px_20px] md:bg-[length:30px_30px]" />
@@ -447,7 +470,7 @@ export default function ProjectsSection() {
 
                   <div className="relative z-10">
                     {/* Project Meta Info */}
-                    <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4 md:mb-6 pr-36 sm:pr-44 md:pr-60 lg:pr-80">
                       <motion.span
                         className="px-2.5 py-1.5 md:px-4 md:py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-xs md:text-sm font-semibold"
                         whileHover={{ scale: 1.05 }}
@@ -487,7 +510,7 @@ export default function ProjectsSection() {
                     </div>
 
                     {/* Project Title & Description */}
-                    <div className="mb-6 md:mb-8">
+                    <div className="mb-6 md:mb-8 pr-36 sm:pr-44 md:pr-60 lg:pr-80">
                       <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 leading-tight">
                         {project.title}
                       </h3>
