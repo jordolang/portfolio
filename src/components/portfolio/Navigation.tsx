@@ -15,16 +15,16 @@ export default function Navigation() {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 dark:from-indigo-400 dark:via-purple-400 dark:to-violet-400 bg-clip-text text-transparent"
+            className="flex items-center"
           >
-            JL
+            <img src="/favicon.png" alt="JL Logo" className="h-8 w-8" />
           </motion.div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex items-center space-x-8">
-              {["Overview", "Stack", "Experience", "Projects", "Testimonials", "Blog", "Contact"].map((item, index) => (
+              {["Overview", "Stack", "Experience", "Projects", "Services", "Testimonials", "Blog", "Contact"].map((item, index) => (
                 <motion.a
                   key={item}
-                  href={`#${item.toLowerCase()}`}
+                  href={item === "Services" ? "/services" : `#${item.toLowerCase()}`}
                   onClick={() => trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item })}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}

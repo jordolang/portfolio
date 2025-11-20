@@ -9,6 +9,7 @@ export { default as HeroSection } from './HeroSection';
 export { default as Navigation } from './Navigation';
 export { default as OverviewSection } from './OverviewSection';
 export { default as ProjectsSection } from './ProjectsSection';
+export { default as ServicesSection } from './ServicesSection';
 export { default as TechStackSection } from './TechStackSection';
 export { default as TestimonialsSection } from './TestimonialsSection';
 

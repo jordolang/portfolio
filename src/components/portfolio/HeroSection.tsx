@@ -4,9 +4,12 @@ import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { useTheme } from "@/components/ThemeProvider";
 import TypewriterRole from "./TypewriterRole";
 
 export default function HeroSection() {
+  const { theme } = useTheme();
+  
   return (
     <div className="relative min-h-[100dvh] flex items-center justify-center">
       {/* Subtle Background Pattern */}
@@ -38,6 +41,19 @@ export default function HeroSection() {
         transition={{ duration: 0.8 }}
         className="relative z-10 max-w-4xl mx-auto px-6 text-center -mb-8"
       >
+        {/* Logo Image */}
+        <motion.div
+          className="flex justify-center mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+        >
+          <img 
+            src={theme === "dark" ? "/Jlang-dev-dark.png" : "/Jlang-dev.png"} 
+            alt="JLang Dev" 
+            className="max-w-xs w-full" 
+          />
+        </motion.div>
 
         {/* Name */}
         <motion.h1

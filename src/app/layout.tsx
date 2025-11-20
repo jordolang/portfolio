@@ -7,10 +7,14 @@ import "./globals.css";
 const inter = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://jlang.dev"),
   title: "Jordan Lang - Web Developer & IT Specialist",
   description: "Portfolio of Jordan Lang, a passionate web developer and IT specialist focused on contract web design and IT projects, creating modern digital solutions.",
   keywords: "Jordan Lang, Web Developer, IT Specialist, Contract Web Design, Portfolio, Frontend Development",
   authors: [{ name: "Jordan Lang" }],
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     title: "Jordan Lang - Web Developer & IT Specialist",
     description: "Portfolio of Jordan Lang, specializing in contract web design and IT projects with modern technologies.",
@@ -32,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
         {/* Google tag (gtag.js) */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEV08XTBLL"></script>
         <script
