@@ -8,10 +8,51 @@ import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 import { AnalyticsEvents, identifyUser, trackEvent } from '@/lib/analytics';
 
-const packages = {
+interface AdditionalFeature {
+  icon: string;
+  name: string;
+  desc: string;
+  price: number;
+}
+
+interface Package {
+  name: string;
+  price: string;
+  basePrice: number | null;
+  gradient: string;
+  features: string[];
+}
+
+const additionalFeatures: AdditionalFeature[] = [
+  { icon: "solar:shop-bold", name: "E-commerce Integration", desc: "Shopping cart & payment processing", price: 299 },
+  { icon: "solar:document-text-bold", name: "Blog/CMS System", desc: "Manage your own content easily", price: 99 },
+  { icon: "solar:chat-round-bold", name: "Live Chat Widget", desc: "Real-time customer support", price: 99 },
+  { icon: "solar:calendar-bold", name: "Booking System", desc: "Appointment scheduling functionality", price: 199 },
+  { icon: "solar:letter-bold", name: "Email Marketing Integration", desc: "Newsletter and email campaigns", price: 49 },
+  { icon: "solar:users-group-rounded-bold", name: "User Authentication", desc: "Login and member areas", price: 99 },
+  { icon: "solar:translation-bold", name: "Multi-language Support", desc: "Reach international audiences", price: 199 },
+  { icon: "solar:database-bold", name: "Custom Database Integration", desc: "Connect to external data sources", price: 199 },
+  { icon: "solar:gallery-bold", name: "Advanced Photo Gallery", desc: "Professional image showcase", price: 39 },
+  { icon: "solar:video-frame-bold", name: "Video Background/Hero", desc: "Dynamic video presentation", price: 49 },
+  { icon: "solar:graph-new-bold", name: "Analytics Dashboard", desc: "Custom reporting & insights", price: 99 },
+  { icon: "solar:map-point-bold", name: "Interactive Maps", desc: "Location features & directions", price: 49 },
+  { icon: "solar:review-bold", name: "Review System", desc: "Customer reviews & ratings", price: 99 },
+  { icon: "solar:bell-bold", name: "Push Notifications", desc: "Real-time user notifications", price: 199 },
+  { icon: "solar:document-add-bold", name: "Advanced Forms", desc: "Custom forms & lead capture", price: 99 },
+  { icon: "solar:chart-bold", name: "Data Visualization", desc: "Charts, graphs & metrics", price: 99 },
+  { icon: "solar:share-bold", name: "Social Media Feed", desc: "Display your social content", price: 99 },
+  { icon: "solar:shield-check-bold", name: "Advanced Security", desc: "2FA, encryption & monitoring", price: 99 },
+  { icon: "solar:document-bold", name: "PDF Generation", desc: "Dynamic document creation", price: 99 },
+  { icon: "solar:box-bold", name: "Inventory Management", desc: "Track products & stock", price: 199 },
+  { icon: "solar:hashtag-bold", name: "Forum/Community", desc: "User discussion platform", price: 49 },
+  { icon: "solar:ticket-bold", name: "Event Ticketing", desc: "Sell & manage event tickets", price: 199 }
+];
+
+const packages: Record<string, Package> = {
   launchpad: {
     name: "Launchpad",
     price: "$499",
+    basePrice: 499,
     gradient: "from-blue-600 to-cyan-600",
     features: [
       "🖥️ Design & Development",
@@ -34,6 +75,7 @@ const packages = {
   professional: {
     name: "Professional",
     price: "Starting at $1,499+",
+    basePrice: 1499,
     gradient: "from-purple-600 to-pink-600",
     features: [
       "💻 Development & Design",
@@ -66,6 +108,7 @@ const packages = {
   enterprise: {
     name: "Enterprise",
     price: "Custom Pricing (Contact Sales)",
+    basePrice: null,
     gradient: "from-indigo-600 to-violet-600",
     features: [
       "💻 Platform & Development",
@@ -102,6 +145,7 @@ const packages = {
 
 export default function ServicesPage() {
   const [selectedPackage, setSelectedPackage] = useState<string>("launchpad");
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     businessName: "",
     contactName: "",
@@ -114,12 +158,24 @@ export default function ServicesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  // Get package from URL parameter
+  // Get package and feature from URL parameters
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const packageParam = params.get('package');
+    const featureParam = params.get('feature');
+    
     if (packageParam && packages[packageParam as keyof typeof packages]) {
       setSelectedPackage(packageParam);
+    }
+    
+    if (featureParam && additionalFeatures.find(f => f.name === featureParam)) {
+      setSelectedFeatures(prev => {
+        if (!prev.includes(featureParam)) {
+          trackEvent(AnalyticsEvents.FEATURE_ADDED, { feature_name: featureParam });
+          return [...prev, featureParam];
+        }
+        return prev;
+      });
     }
   }, []);
 
@@ -132,8 +188,40 @@ export default function ServicesPage() {
   };
 
   const handlePackageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedPackage(e.target.value);
-    trackEvent(AnalyticsEvents.PACKAGE_SELECTED, { package: e.target.value });
+    const newPackage = e.target.value;
+    setSelectedPackage(newPackage);
+    trackEvent(AnalyticsEvents.PACKAGE_SELECTED, { package: newPackage });
+    
+    // Clear features if switching to Professional or Enterprise (they include most features)
+    if (newPackage !== 'launchpad') {
+      setSelectedFeatures([]);
+    }
+  };
+
+  const toggleFeature = (featureName: string) => {
+    setSelectedFeatures(prev => {
+      if (prev.includes(featureName)) {
+        trackEvent(AnalyticsEvents.FEATURE_REMOVED, { feature_name: featureName });
+        return prev.filter(f => f !== featureName);
+      } else {
+        trackEvent(AnalyticsEvents.FEATURE_ADDED, { feature_name: featureName });
+        return [...prev, featureName];
+      }
+    });
+  };
+
+  const calculateTotalPrice = () => {
+    const pkg = packages[selectedPackage as keyof typeof packages];
+    if (!pkg.basePrice || selectedPackage !== 'launchpad') {
+      return null; // Don't calculate for Professional/Enterprise
+    }
+    
+    const featuresTotal = selectedFeatures.reduce((total, featureName) => {
+      const feature = additionalFeatures.find(f => f.name === featureName);
+      return total + (feature?.price || 0);
+    }, 0);
+    
+    return pkg.basePrice + featuresTotal;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -166,6 +254,13 @@ export default function ServicesPage() {
 
     try {
       const packageInfo = packages[selectedPackage as keyof typeof packages];
+      const totalPrice = calculateTotalPrice();
+      const selectedFeaturesList = selectedFeatures.map(featureName => {
+        const feature = additionalFeatures.find(f => f.name === featureName);
+        return feature ? `${feature.name} (+$${feature.price})` : featureName;
+      }).join(', ');
+      
+      const priceDisplay = totalPrice ? `$${totalPrice}` : packageInfo.price;
       
       const result = await emailjs.send(
         serviceId,
@@ -175,11 +270,12 @@ export default function ServicesPage() {
           from_email: formData.email,
           business_name: formData.businessName,
           phone: formData.phone,
-          selected_package: `${packageInfo.name} (${packageInfo.price})`,
+          selected_package: `${packageInfo.name} (${priceDisplay})`,
           project_description: formData.projectDescription,
           budget: formData.budget || 'Not specified',
           timeline: formData.timeline || 'Not specified',
-          message: `New Service Order Request\n\nBusiness: ${formData.businessName}\nContact: ${formData.contactName}\nPackage: ${packageInfo.name} (${packageInfo.price})\n\nProject Description:\n${formData.projectDescription}\n\nBudget: ${formData.budget || 'Not specified'}\nTimeline: ${formData.timeline || 'Not specified'}`,
+          additional_features: selectedFeaturesList || 'None',
+          message: `New Service Order Request\n\nBusiness: ${formData.businessName}\nContact: ${formData.contactName}\nPackage: ${packageInfo.name} (${priceDisplay})\n${selectedFeatures.length > 0 ? `\nAdditional Features:\n${selectedFeaturesList}` : ''}\n\nProject Description:\n${formData.projectDescription}\n\nBudget: ${formData.budget || 'Not specified'}\nTimeline: ${formData.timeline || 'Not specified'}`,
           to_email: 'jordan@jlang.dev',
         },
         publicKey
@@ -521,6 +617,56 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
+                {/* Selected Features Display - Only for Launchpad */}
+                {selectedPackage === 'launchpad' && selectedFeatures.length > 0 && (
+                  <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl border-2 border-blue-400 dark:border-blue-500 p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="font-bold text-gray-900 dark:text-white">Additional Features</h4>
+                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
+                        {selectedFeatures.length} selected
+                      </span>
+                    </div>
+                    
+                    <div className="space-y-2 mb-4">
+                      {selectedFeatures.map(featureName => {
+                        const feature = additionalFeatures.find(f => f.name === featureName);
+                        if (!feature) return null;
+                        
+                        return (
+                          <div key={featureName} className="flex items-center justify-between p-2 rounded-lg bg-gray-50 dark:bg-gray-900">
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              <Icon icon={feature.icon} className="text-blue-600 dark:text-blue-400 flex-shrink-0" width={16} height={16} />
+                              <span className="text-xs text-gray-700 dark:text-gray-300 truncate">{feature.name}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-semibold text-gray-900 dark:text-white">${feature.price}</span>
+                              <button
+                                onClick={() => toggleFeature(featureName)}
+                                className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
+                                aria-label="Remove feature"
+                              >
+                                <Icon icon="solar:close-circle-bold" className="text-red-500" width={16} height={16} />
+                              </button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    
+                    <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-bold text-gray-900 dark:text-white">Estimated Total:</span>
+                        <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                          ${calculateTotalPrice()}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                        Final price will be confirmed after reviewing your requirements
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 <div className="mt-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
                   <h4 className="font-bold text-gray-900 dark:text-white mb-4">Need Help Choosing?</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
@@ -551,57 +697,109 @@ export default function ServicesPage() {
               <h2 className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
                 Additional Features Available
               </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Enhance any package with these add-ons at a low one-time cost
+              <p className="text-gray-600 dark:text-gray-400 mb-2">
+                {selectedPackage === 'launchpad' 
+                  ? 'Click features to add them to your package estimate'
+                  : 'Most features are included in Professional and Enterprise packages at no extra cost'}
               </p>
+              {selectedPackage === 'launchpad' && (
+                <p className="text-sm text-blue-600 dark:text-blue-400">
+                  * Prices shown are one-time add-on costs for the Launchpad Package
+                </p>
+              )}
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[
-                { icon: "solar:shop-bold", name: "E-commerce Integration", desc: "Add shopping cart and payment processing" },
-                { icon: "solar:document-text-bold", name: "Blog/CMS System", desc: "Manage your own content easily" },
-                { icon: "solar:chat-round-bold", name: "Live Chat Widget", desc: "Real-time customer support" },
-                { icon: "solar:calendar-bold", name: "Booking System", desc: "Appointment scheduling functionality" },
-                { icon: "solar:letter-bold", name: "Email Marketing Integration", desc: "Newsletter and email campaigns" },
-                { icon: "solar:users-group-rounded-bold", name: "User Authentication", desc: "Login and member areas" },
-                { icon: "solar:translation-bold", name: "Multi-language Support", desc: "Reach international audiences" },
-                { icon: "solar:database-bold", name: "Custom Database Integration", desc: "Connect to external data sources" },
-                { icon: "solar:gallery-bold", name: "Advanced Photo Gallery", desc: "Professional image showcase" }
-              ].map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.05 }}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="flex-shrink-0 p-2 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600">
-                    <Icon icon={feature.icon} className="text-white" width={24} height={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">
-                      {feature.name}
-                    </h4>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                      {feature.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+              {additionalFeatures.map((feature, index) => {
+                const isSelected = selectedFeatures.includes(feature.name);
+                const isLaunchpad = selectedPackage === 'launchpad';
+                
+                return (
+                  <motion.button
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.6 + index * 0.02 }}
+                    onClick={() => isLaunchpad && toggleFeature(feature.name)}
+                    disabled={!isLaunchpad}
+                    whileHover={isLaunchpad ? { scale: 1.03, y: -3 } : {}}
+                    whileTap={isLaunchpad ? { scale: 0.98 } : {}}
+                    className={`flex flex-col gap-3 p-4 rounded-xl bg-white dark:bg-gray-800 transition-all duration-300 text-left ${
+                      isLaunchpad
+                        ? `cursor-pointer ${
+                            isSelected
+                              ? 'border-2 border-blue-500 dark:border-blue-400 shadow-lg shadow-blue-500/20'
+                              : 'border-2 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg'
+                          }`
+                        : 'border border-gray-200 dark:border-gray-700 cursor-not-allowed opacity-75'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className={`flex-shrink-0 p-2 rounded-lg transition-all ${
+                        isSelected && isLaunchpad
+                          ? 'bg-gradient-to-br from-blue-600 to-cyan-600 scale-110'
+                          : 'bg-gradient-to-br from-blue-600 to-cyan-600 opacity-70'
+                      }`}>
+                        <Icon icon={feature.icon} className="text-white" width={24} height={24} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1 text-sm flex items-center gap-2">
+                          {feature.name}
+                          {isSelected && isLaunchpad && (
+                            <Icon icon="solar:check-circle-bold" className="text-blue-600 dark:text-blue-400 flex-shrink-0" width={16} height={16} />
+                          )}
+                        </h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
+                          {feature.desc}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+                      {isLaunchpad ? (
+                        <>
+                          <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                            {isSelected ? 'Selected' : 'Click to add'}
+                          </span>
+                          <span className={`text-sm font-bold ${
+                            isSelected
+                              ? 'text-blue-600 dark:text-blue-400'
+                              : 'text-gray-700 dark:text-gray-300'
+                          }`}>
+                            +${feature.price}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-xs font-medium text-green-600 dark:text-green-400">
+                          ✓ Included in package
+                        </span>
+                      )}
+                    </div>
+                  </motion.button>
+                );
+              })}
             </div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.1 }}
-              className="text-center mt-8"
+              className="text-center mt-8 space-y-3"
             >
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                Interested in adding features to your package? Mention them in your project description above.
-              </p>
-              <p className="text-xs text-gray-500 dark:text-gray-500">
-                All add-ons are available at competitive one-time prices. Contact us for a custom quote.
-              </p>
+              {selectedPackage === 'launchpad' && selectedFeatures.length > 0 && (
+                <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                    {selectedFeatures.length} feature{selectedFeatures.length !== 1 ? 's' : ''} selected
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    View your estimate in the package summary above
+                  </p>
+                </div>
+              )}
+              <div className="p-4 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800">
+                <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                  💡 <strong>Professional & Enterprise packages</strong> include most of these features at no additional cost!
+                </p>
+              </div>
             </motion.div>
           </div>
         </motion.div>

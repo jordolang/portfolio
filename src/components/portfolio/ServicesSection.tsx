@@ -331,7 +331,7 @@ export default function ServicesSection() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.7 }}
         viewport={{ once: true }}
-        className="mb-16 max-w-4xl mx-auto"
+        className="mb-16 max-w-6xl mx-auto"
       >
         <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
           <div className="text-center mb-8">
@@ -339,53 +339,92 @@ export default function ServicesSection() {
               Additional Features Available
             </h3>
             <p className="text-gray-600 dark:text-gray-400">
-              Enhance any package with these add-ons at a low one-time cost
+              Enhance any package with these add-ons. Click a feature to explore it further!
+            </p>
+            <p className="text-sm text-blue-600 dark:text-blue-400 mt-2">
+              * Prices shown are for Launchpad Package add-ons. Professional and Enterprise packages include many features at no extra cost.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: "solar:shop-bold", name: "E-commerce Integration", desc: "Add shopping cart and payment processing" },
-              { icon: "solar:document-text-bold", name: "Blog/CMS System", desc: "Manage your own content easily" },
-              { icon: "solar:chat-round-bold", name: "Live Chat Widget", desc: "Real-time customer support" },
-              { icon: "solar:calendar-bold", name: "Booking System", desc: "Appointment scheduling functionality" },
-              { icon: "solar:letter-bold", name: "Email Marketing Integration", desc: "Newsletter and email campaigns" },
-              { icon: "solar:users-group-rounded-bold", name: "User Authentication", desc: "Login and member areas" },
-              { icon: "solar:translation-bold", name: "Multi-language Support", desc: "Reach international audiences" },
-              { icon: "solar:database-bold", name: "Custom Database Integration", desc: "Connect to external data sources" }
+              { icon: "solar:shop-bold", name: "E-commerce Integration", desc: "Shopping cart & payment processing", price: 299 },
+              { icon: "solar:document-text-bold", name: "Blog/CMS System", desc: "Manage your own content easily", price: 99 },
+              { icon: "solar:chat-round-bold", name: "Live Chat Widget", desc: "Real-time customer support", price: 99 },
+              { icon: "solar:calendar-bold", name: "Booking System", desc: "Appointment scheduling functionality", price: 199 },
+              { icon: "solar:letter-bold", name: "Email Marketing Integration", desc: "Newsletter and email campaigns", price: 49 },
+              { icon: "solar:users-group-rounded-bold", name: "User Authentication", desc: "Login and member areas", price: 99 },
+              { icon: "solar:translation-bold", name: "Multi-language Support", desc: "Reach international audiences", price: 199 },
+              { icon: "solar:database-bold", name: "Custom Database Integration", desc: "Connect to external data sources", price: 199 },
+              { icon: "solar:gallery-bold", name: "Advanced Photo Gallery", desc: "Professional image showcase", price: 39 },
+              { icon: "solar:video-frame-bold", name: "Video Background/Hero", desc: "Dynamic video presentation", price: 49 },
+              { icon: "solar:graph-new-bold", name: "Analytics Dashboard", desc: "Custom reporting & insights", price: 99 },
+              { icon: "solar:map-point-bold", name: "Interactive Maps", desc: "Location features & directions", price: 49 },
+              { icon: "solar:review-bold", name: "Review System", desc: "Customer reviews & ratings", price: 99 },
+              { icon: "solar:bell-bold", name: "Push Notifications", desc: "Real-time user notifications", price: 199 },
+              { icon: "solar:document-add-bold", name: "Advanced Forms", desc: "Custom forms & lead capture", price: 99 },
+              { icon: "solar:chart-bold", name: "Data Visualization", desc: "Charts, graphs & metrics", price: 99 },
+              { icon: "solar:share-bold", name: "Social Media Feed", desc: "Display your social content", price: 99 },
+              { icon: "solar:shield-check-bold", name: "Advanced Security", desc: "2FA, encryption & monitoring", price: 99 },
+              { icon: "solar:document-bold", name: "PDF Generation", desc: "Dynamic document creation", price: 99 },
+              { icon: "solar:box-bold", name: "Inventory Management", desc: "Track products & stock", price: 199 },
+              { icon: "solar:hashtag-bold", name: "Forum/Community", desc: "User discussion platform", price: 49 },
+              { icon: "solar:ticket-bold", name: "Event Ticketing", desc: "Sell & manage event tickets", price: 199 }
             ].map((feature, index) => (
-              <motion.div
+              <Link 
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+                href={`/services?package=launchpad&feature=${encodeURIComponent(feature.name)}`}
+                onClick={() => trackEvent(AnalyticsEvents.FEATURE_CLICKED, { feature_name: feature.name, feature_price: feature.price })}
               >
-                <div className="flex-shrink-0 p-2 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600">
-                  <Icon icon={feature.icon} className="text-white" width={24} height={24} />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                    {feature.name}
-                  </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {feature.desc}
-                  </p>
-                </div>
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.8 + (index * 0.02) }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex flex-col gap-3 p-4 rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-xl transition-all duration-300 cursor-pointer h-full"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 p-2 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600">
+                      <Icon icon={feature.icon} className="text-white" width={24} height={24} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-1 text-sm">
+                        {feature.name}
+                      </h4>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
+                        {feature.desc}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+                    <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                      Launchpad add-on
+                    </span>
+                    <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+                      +${feature.price}
+                    </span>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.6 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
             viewport={{ once: true }}
-            className="text-center mt-8"
+            className="text-center mt-8 space-y-3"
           >
+            <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+              <p className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                💡 <strong>Professional & Enterprise packages</strong> include most of these features at no additional cost!
+              </p>
+            </div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Contact us to discuss pricing for additional features tailored to your needs
+              Click any feature to add it to your project request form
             </p>
           </motion.div>
         </div>

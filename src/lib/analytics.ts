@@ -17,6 +17,9 @@ export enum AnalyticsEvents {
   FAQ_TOGGLED = "faq_toggled",
   PACKAGE_SELECTED = "package_selected",
   SERVICE_ORDER_SUBMITTED = "service_order_submitted",
+  FEATURE_CLICKED = "feature_clicked",
+  FEATURE_ADDED = "feature_added",
+  FEATURE_REMOVED = "feature_removed",
 }
 
 // Generate a unique visitor ID for anonymous users
