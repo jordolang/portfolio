@@ -21,7 +21,7 @@ export default function Navigation() {
           </motion.div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex items-center space-x-8">
-              {["Overview", "Stack", "Experience", "Projects", "Services", "Testimonials", "Blog", "Contact"].map((item, index) => (
+              {["Overview", "Blog", "Stack", "Experience", "Projects", "Services", "Testimonials", "Contact"].map((item, index) => (
                 <motion.a
                   key={item}
                   href={item === "Services" ? "/services" : `#${item.toLowerCase()}`}
