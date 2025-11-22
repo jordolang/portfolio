@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1029 1029">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 44px;
+      }
+
+      .cls-1, .cls-2 {
+        font-family: JetBrainsMonoNF-ExtraBoldItalic, 'JetBrainsMono Nerd Font';
+        font-style: italic;
+        font-weight: 700;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke: red;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-2, .cls-4, .cls-5 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        font-size: 67px;
+      }
+
+      .cls-3, .cls-5 {
+        stroke-width: 5px;
+      }
+    </style>
+  </defs>
+  <rect class="cls-3" x="2.5" y="2.5" width="1024" height="1024" rx="194.03" ry="194.03"/>
+  <path class="cls-5" d="M695.48,706.98l101.02-103.48h-177V120.5l-143.98,145.5,34.96,35.02v364.96s-106.98,108.02-106.98,108.02v134.5l201.3-200.84s81.94-.64,90.68-.68Z"/>
+  <path class="cls-5" d="M444.5,285.5v338.5l-61.5,61.5h-115c-.41,0-1.75,2.57-1.49-.49l104.99-106.01v-292.5l73-1Z"/>
+  <text class="cls-2" transform="translate(636.72 592.64) scale(1.29 1)"><tspan x="0" y="0">ANG</tspan></text>
+  <text class="cls-1" transform="translate(746.65 715.38) rotate(-45.51) scale(1.35 1)"><tspan x="0" y="0">DEV</tspan></text>
+  <rect class="cls-4" x="735.19" y="715.01" width="6.13" height="6.13" rx="1.54" ry="1.54" transform="translate(-291.52 732.34) rotate(-45)"/>
+</svg>

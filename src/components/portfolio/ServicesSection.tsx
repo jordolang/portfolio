@@ -108,7 +108,7 @@ const pricingPackages = [
 const faqs = [
   {
     question: "How long does a typical project take?",
-    answer: "Project timelines vary based on complexity. A Basic package typically takes 2-3 weeks, Professional packages take 4-6 weeks, and Enterprise solutions can take 8-12 weeks or more depending on custom requirements."
+    answer: "Project timelines vary based on complexity. A Launchpad package typically takes less than 24 hours, Professional packages take 1-4 weeks, and Enterprise solutions can typically take up to 90 days depending on custom requirements."
   },
   {
     question: "What's included in post-launch support?",
