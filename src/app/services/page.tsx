@@ -252,15 +252,16 @@ export default function ServicesPage() {
     const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
 
+    // Prepare package info outside try block for error logging
+    const packageInfo = packages[selectedPackage as keyof typeof packages];
+    const totalPrice = calculateTotalPrice();
+    const selectedFeaturesList = selectedFeatures.map(featureName => {
+      const feature = additionalFeatures.find(f => f.name === featureName);
+      return feature ? `${feature.name} (+$${feature.price})` : featureName;
+    }).join(', ');
+    const priceDisplay = totalPrice ? `$${totalPrice}` : packageInfo.price;
+
     try {
-      const packageInfo = packages[selectedPackage as keyof typeof packages];
-      const totalPrice = calculateTotalPrice();
-      const selectedFeaturesList = selectedFeatures.map(featureName => {
-        const feature = additionalFeatures.find(f => f.name === featureName);
-        return feature ? `${feature.name} (+$${feature.price})` : featureName;
-      }).join(', ');
-      
-      const priceDisplay = totalPrice ? `$${totalPrice}` : packageInfo.price;
       
       // Format message to match the contact form template structure
       const serviceMessage = `🎯 NEW SERVICE ORDER REQUEST
