@@ -28,11 +28,11 @@ export default function Portfolio() {
         {/* Hero Section */}
         <HeroSection />
 
-        {/* Blog Section */}
-        <BlogSection />
-
         {/* Overview Section */}
         <OverviewSection />
+
+        {/* Blog Section */}
+        <BlogSection />
 
         {/* Tech Stack Section */}
         <TechStackSection />
