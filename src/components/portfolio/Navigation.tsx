@@ -24,7 +24,7 @@ export default function Navigation() {
               {["Overview", "Blog", "Stack", "Experience", "Projects", "Services", "Testimonials", "Contact"].map((item, index) => (
                 <motion.a
                   key={item}
-                  href={item === "Services" ? "/services" : `#${item.toLowerCase()}`}
+                  href={item === "Services" ? "/services" : `/#${item.toLowerCase()}`}
                   onClick={() => trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item })}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
