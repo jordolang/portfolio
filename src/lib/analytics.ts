@@ -20,6 +20,7 @@ export enum AnalyticsEvents {
   FEATURE_CLICKED = "feature_clicked",
   FEATURE_ADDED = "feature_added",
   FEATURE_REMOVED = "feature_removed",
+  FEATURE_TOGGLED = "feature_toggled",
 }
 
 // Generate a unique visitor ID for anonymous users
