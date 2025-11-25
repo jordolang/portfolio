@@ -262,20 +262,32 @@ export default function ServicesPage() {
       
       const priceDisplay = totalPrice ? `$${totalPrice}` : packageInfo.price;
       
+      // Format message to match the contact form template structure
+      const serviceMessage = `🎯 NEW SERVICE ORDER REQUEST
+
+📋 Business Information:
+Business Name: ${formData.businessName}
+Contact Name: ${formData.contactName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+📦 Package Details:
+Selected Package: ${packageInfo.name}
+Price: ${priceDisplay}${selectedFeatures.length > 0 ? `\n\nAdditional Features:\n${selectedFeaturesList}` : ''}
+
+📝 Project Description:
+${formData.projectDescription}
+
+💰 Budget: ${formData.budget || 'Not specified'}
+⏱️ Timeline: ${formData.timeline || 'Not specified'}`;
+      
       const result = await emailjs.send(
         serviceId,
         templateId,
         {
           from_name: formData.contactName,
           from_email: formData.email,
-          business_name: formData.businessName,
-          phone: formData.phone,
-          selected_package: `${packageInfo.name} (${priceDisplay})`,
-          project_description: formData.projectDescription,
-          budget: formData.budget || 'Not specified',
-          timeline: formData.timeline || 'Not specified',
-          additional_features: selectedFeaturesList || 'None',
-          message: `New Service Order Request\n\nBusiness: ${formData.businessName}\nContact: ${formData.contactName}\nPackage: ${packageInfo.name} (${priceDisplay})\n${selectedFeatures.length > 0 ? `\nAdditional Features:\n${selectedFeaturesList}` : ''}\n\nProject Description:\n${formData.projectDescription}\n\nBudget: ${formData.budget || 'Not specified'}\nTimeline: ${formData.timeline || 'Not specified'}`,
+          message: serviceMessage,
           to_email: 'jordan@jlang.dev',
         },
         publicKey
@@ -310,6 +322,21 @@ export default function ServicesPage() {
 
     } catch (error) {
       console.error('Failed to send order form:', error);
+      console.error('EmailJS Configuration:', {
+        serviceId,
+        templateId,
+        publicKey: publicKey.substring(0, 10) + '...',
+      });
+      console.error('Form data being sent:', {
+        from_name: formData.contactName,
+        from_email: formData.email,
+        business_name: formData.businessName,
+        phone: formData.phone,
+        selected_package: `${packageInfo.name} (${priceDisplay})`,
+        budget: formData.budget || 'Not specified',
+        timeline: formData.timeline || 'Not specified',
+        additional_features: selectedFeaturesList || 'None',
+      });
       
       trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, { 
         package: selectedPackage,
