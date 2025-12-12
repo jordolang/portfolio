@@ -254,10 +254,10 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 **Jordan Lang**
 
-- Portfolio: [https://jordolang.dev](https://jordolang.dev)
+- Portfolio: [https://jlang.dev](https://jlang.dev)
 - GitHub: [@jordolang](https://github.com/jordolang)
 - LinkedIn: [LinkedIn](https://linkedin.com/in/jordolang)
-- Email: jordolang@gmail.com
+- Email: jordan@jlang.dev
 
 ## 🙏 Acknowledgments
 
