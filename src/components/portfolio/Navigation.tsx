@@ -3,6 +3,7 @@
 import { useTheme } from "@/components/ThemeProvider";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 
 export default function Navigation() {
@@ -17,7 +18,7 @@ export default function Navigation() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center"
           >
-            <img src="/favicon.png" alt="JL Logo" className="h-8 w-8" />
+            <Image src="/favicon.png" alt="JL Logo" width={32} height={32} className="h-8 w-8" />
           </motion.div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex items-center space-x-8">

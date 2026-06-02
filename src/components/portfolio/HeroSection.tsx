@@ -2,6 +2,7 @@
 
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 import { useTheme } from "@/components/ThemeProvider";
@@ -48,10 +49,14 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
-          <img 
-            src={theme === "dark" ? "/Jlang-dev-dark.png" : "/Jlang-dev.png"} 
-            alt="JLang Dev" 
-            className="max-w-xs w-full" 
+          <Image
+            src={theme === "dark" ? "/Jlang-dev-dark.png" : "/Jlang-dev.png"}
+            alt="JLang Dev"
+            width={1026}
+            height={432}
+            sizes="(max-width: 768px) 80vw, 320px"
+            priority
+            className="max-w-xs w-full h-auto"
           />
         </motion.div>
 
