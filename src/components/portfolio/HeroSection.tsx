@@ -5,9 +5,12 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { useTheme } from "@/components/ThemeProvider";
 import TypewriterRole from "./TypewriterRole";
 
 export default function HeroSection() {
+  const { theme } = useTheme();
+
   return (
     <div className="relative min-h-[100dvh] flex items-center justify-center">
       {/* Subtle Background Pattern */}
@@ -47,7 +50,7 @@ export default function HeroSection() {
           transition={{ delay: 0.1, duration: 0.6 }}
         >
           <Image
-            src="/JLang-Development.png"
+            src={theme === "dark" ? "/JLang-Development-Black.png" : "/JLang-Development.png"}
             alt="JLang Development"
             width={1254}
             height={1254}
