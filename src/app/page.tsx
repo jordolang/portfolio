@@ -1,25 +1,22 @@
-import dynamic from "next/dynamic";
 import Background from "@/components/portfolio/Background";
 import HeroSection from "@/components/portfolio/HeroSection";
 import Navigation from "@/components/portfolio/Navigation";
 import OverviewSection from "@/components/portfolio/OverviewSection";
-
-// Below-the-fold sections are code-split so their JS isn't part of the initial
-// payload. SSR stays enabled (default) so their content remains in the HTML for
-// SEO; only the JavaScript download/parse is deferred off the critical path.
-const BlogSection = dynamic(() => import("@/components/portfolio/BlogSection"));
-const TechStackSection = dynamic(() => import("@/components/portfolio/TechStackSection"));
-const ExperienceSection = dynamic(() => import("@/components/portfolio/ExperienceSection"));
-const ProjectsSection = dynamic(() => import("@/components/portfolio/ProjectsSection"));
-const ServicesSection = dynamic(() => import("@/components/portfolio/ServicesSection"));
-const TestimonialsSection = dynamic(() => import("@/components/portfolio/TestimonialsSection"));
-const ContactSection = dynamic(() => import("@/components/portfolio/ContactSection"));
-const Footer = dynamic(() => import("@/components/portfolio/Footer"));
+import ExperienceSection from "@/components/portfolio/ExperienceSection";
+import Footer from "@/components/portfolio/Footer";
+import {
+  LazyBlogSection,
+  LazyTechStackSection,
+  LazyProjectsSection,
+  LazyServicesSection,
+  LazyTestimonialsSection,
+  LazyContactSection,
+} from "@/components/portfolio/LazySections";
 
 export default function Portfolio() {
   return (
     <div className="min-h-screen text-gray-900 dark:text-white relative">
-      {/* Background */}
+      {/* Background (static, server) */}
       <Background />
 
       {/* Navigation */}
@@ -30,14 +27,15 @@ export default function Portfolio() {
         <HeroSection />
         <OverviewSection />
 
-        {/* Below the fold — lazily code-split */}
-        <BlogSection />
-        <TechStackSection />
+        {/* Below the fold — interactive sections lazy-mount on scroll;
+            Experience + Footer are static server components rendered directly. */}
+        <LazyBlogSection />
+        <LazyTechStackSection />
         <ExperienceSection />
-        <ProjectsSection />
-        <ServicesSection />
-        <TestimonialsSection />
-        <ContactSection />
+        <LazyProjectsSection />
+        <LazyServicesSection />
+        <LazyTestimonialsSection />
+        <LazyContactSection />
         <Footer />
       </div>
     </div>
