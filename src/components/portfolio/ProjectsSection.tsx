@@ -60,7 +60,7 @@ const projects: Project[] = [
     subtitle: "Premium Gourmet Salsa – E-commerce & Marketing Site",
     description:
       "Modern marketing and e‑commerce experience for an Ohio‑made gourmet salsa brand. Highlights include heat‑level guided shopping, fundraising and wholesale pathways, and a clean, mobile‑first design deployed on Vercel.",
-    image: "/images/projects/jose-madrid-salsa.png",
+    image: "/images/projects/josemadrid.png",
     features: [
       "Heat-level browsing (Mild, Medium, Hot)",
       "Fundraising and wholesale information flows",
