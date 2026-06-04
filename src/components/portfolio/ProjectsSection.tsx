@@ -111,7 +111,7 @@ const projects: Project[] = [
     ],
     tech: ["React", "React Native", "Node.js", "TypeScript", "WebRTC", "Socket.io", "Swift", "iOS", "MongoDB", "Redis", "Docker", "Tailwind CSS"],
     github: "https://github.com/jordolang/amplinks",
-    live: "",
+    live: "https://paddle-mobile-web-payments-starter-pi-nine.vercel.app",
     gradient: "from-purple-600 to-blue-600",
     status: "In Development",
     category: "Mobile & Web Apps",
