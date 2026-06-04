@@ -465,7 +465,7 @@ const projects: Project[] = [
   },
   {
     title: "Jose Madrid Salsa",
-    image: "/images/projects/josemadrid.png",
+    image: "/images/projects/josemadrid-ios.png",
     subtitle: "Mobile Shopping App (iOS & Android)",
     description:
       "A mobile commerce experience for the Ohio-made gourmet salsa brand. Browse by heat level, reorder favorites in a tap, and check out fast with a native, mobile-first storefront for iOS and Android.",

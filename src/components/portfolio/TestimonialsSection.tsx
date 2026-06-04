@@ -64,6 +64,24 @@ const testimonials = [
     rating: 5,
     project: "Community Website Development",
     avatar: "DN"
+  },
+  {
+    content: "Jordan gave our salsa brand the online presence it always deserved. We're so grateful for everything he's done to help our business grow.",
+    author: "Matt Harlin",
+    role: "Owner",
+    company: "Jose Madrid Salsa",
+    rating: 5,
+    project: "E-commerce & Marketing Site",
+    avatar: "MH"
+  },
+  {
+    content: "Working with Jordan was a true blessing for our company. He understood our vision and brought it to life beautifully — we couldn't be more thankful.",
+    author: "Michael Zakany",
+    role: "Owner",
+    company: "Jose Madrid Salsa",
+    rating: 5,
+    project: "E-commerce & Marketing Site",
+    avatar: "MZ"
   }
 
 ];
