@@ -23,6 +23,7 @@ interface Project {
   highlight: string;
   timeline: string;
   clientType: string;
+  group?: "desktop" | "mobile";
 }
 
 const projects: Project[] = [
@@ -46,7 +47,7 @@ const projects: Project[] = [
       "Deployment and analytics wiring on Vercel",
     ],
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
-    github: "",
+    github: "https://github.com/jordolang/muskingum-materials",
     live: "https://muskingum-materials.vercel.app",
     gradient: "from-amber-600 to-orange-600",
     status: "Live",
@@ -54,6 +55,64 @@ const projects: Project[] = [
     highlight: "Latest Project",
     timeline: "2026",
     clientType: "Construction Materials",
+  },
+  {
+    title: "Drug Finder",
+    image: "/images/projects/drug-finder.png",
+    subtitle: "Medication Search & Information Web App",
+    description:
+      "A fast, search-first web application for looking up medications and their key details. Built for clarity and speed, it helps users find the information they need across a clean, responsive interface deployed on Vercel.",
+    features: [
+      "Instant medication search and lookup",
+      "Clear, structured drug information display",
+      "Fast, responsive results as you type",
+      "Mobile-first, accessible interface",
+      "Deployed on Vercel for global performance",
+    ],
+    deliverables: [
+      "Search UI and results experience",
+      "Data integration and querying",
+      "Responsive, accessible interface",
+      "Deployment and analytics wiring on Vercel",
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
+    github: "",
+    live: "https://drug-finder.vercel.app",
+    gradient: "from-cyan-600 to-blue-600",
+    status: "Live",
+    category: "Web App",
+    highlight: "New",
+    timeline: "2026",
+    clientType: "Health & Information",
+  },
+  {
+    title: "Roam",
+    image: "/images/projects/roam.png",
+    subtitle: "AI Travel Agent & Trip Planner",
+    description:
+      "An AI-powered travel agent that turns a simple prompt into a complete trip. Roam helps users discover destinations, build itineraries, and plan the details through a conversational, mobile-first experience.",
+    features: [
+      "Conversational AI trip planning",
+      "Personalized destination recommendations",
+      "Itinerary building and organization",
+      "Responsive, mobile-first design",
+      "Fast, modern web experience",
+    ],
+    deliverables: [
+      "Conversational planning UX",
+      "AI integration and prompt design",
+      "Itinerary and results interface",
+      "Responsive UI implementation",
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "AI SDK", "Vercel"],
+    github: "",
+    live: "",
+    gradient: "from-teal-600 to-emerald-600",
+    status: "In Development",
+    category: "Web App",
+    highlight: "New",
+    timeline: "2026",
+    clientType: "Travel & Lifestyle",
   },
   {
     title: "Jose Madrid Salsa",
@@ -74,7 +133,7 @@ const projects: Project[] = [
       "Deployment and analytics wiring",
     ],
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel"],
-    github: "",
+    github: "https://github.com/jordolang/josemadrid",
     live: "https://josemadrid.net",
     gradient: "from-rose-600 to-red-600",
     status: "Live",
@@ -371,6 +430,101 @@ const projects: Project[] = [
     timeline: "4 months",
     clientType: "Tourism & Local Business",
   },
+  {
+    title: "Amplinks",
+    image: "/images/projects/amplinks.png",
+    subtitle: "Native iOS & Android Music App",
+    description:
+      "The native mobile companion to the Amplinks platform. Download music straight to your phone as MP3s with zero clicks, stream in real time, and share Linktree-style pages with friends — all from a self-hosted backend you control.",
+    features: [
+      "Zero-click MP3 downloads to your device",
+      "Real-time streaming and listening with friends",
+      "Linktree-style sharing pages on the go",
+      "Offline library and playback management",
+      "Push notifications for shared tracks",
+      "Cross-device sync with the web app",
+    ],
+    deliverables: [
+      "Native iOS application (Swift)",
+      "Android build via React Native",
+      "Real-time streaming integration",
+      "Offline-first music library",
+      "Authentication and account management",
+      "App store release preparation",
+    ],
+    tech: ["Swift", "React Native", "iOS", "Android", "WebRTC", "Socket.io", "Node.js", "TypeScript", "Redis"],
+    github: "https://github.com/jordolang/amplinks",
+    live: "https://paddle-mobile-web-payments-starter-pi-nine.vercel.app",
+    gradient: "from-purple-600 to-blue-600",
+    status: "In Development",
+    category: "Mobile App",
+    highlight: "iOS & Android",
+    timeline: "Ongoing",
+    clientType: "Mobile Applications",
+    group: "mobile",
+  },
+  {
+    title: "Jose Madrid Salsa",
+    image: "/images/projects/josemadrid.png",
+    subtitle: "Mobile Shopping App (iOS & Android)",
+    description:
+      "A mobile commerce experience for the Ohio-made gourmet salsa brand. Browse by heat level, reorder favorites in a tap, and check out fast with a native, mobile-first storefront for iOS and Android.",
+    features: [
+      "Heat-level guided browsing (Mild, Medium, Hot)",
+      "One-tap reorder and saved favorites",
+      "Native mobile checkout flow",
+      "Order tracking and push notifications",
+      "Fundraising and wholesale entry points",
+    ],
+    deliverables: [
+      "Cross-platform mobile app (iOS & Android)",
+      "Product catalog and cart UX",
+      "Checkout and payment integration",
+      "Push notification setup",
+      "App store release preparation",
+    ],
+    tech: ["React Native", "Expo", "TypeScript", "iOS", "Android", "Stripe", "Node.js"],
+    github: "https://github.com/jordolang/josemadrid",
+    live: "https://josemadrid.net",
+    gradient: "from-rose-600 to-red-600",
+    status: "In Development",
+    category: "Mobile App",
+    highlight: "iOS & Android",
+    timeline: "2026",
+    clientType: "Mobile Applications",
+    group: "mobile",
+  },
+  {
+    title: "Radius",
+    image: "/images/projects/radius.png",
+    subtitle: "Proximity-Based Connection App (iOS & Android)",
+    description:
+      "A proximity-based mobile app built around mutual consent. When two nearby users are a potential match, each receives a discreet proximity alert and they only connect if both opt in — turning real-world nearness into spontaneous, consent-first introductions.",
+    features: [
+      "Real-time proximity detection between nearby users",
+      "Mutual opt-in — connections only form when both agree",
+      "Discreet, privacy-first proximity alerts",
+      "Location handling designed with user safety in mind",
+      "Native, mobile-first experience for iOS & Android",
+    ],
+    deliverables: [
+      "Cross-platform mobile app (iOS & Android)",
+      "Real-time proximity and matching system",
+      "Consent and double opt-in flow",
+      "Location and privacy controls",
+      "Authentication and account management",
+    ],
+    tech: ["React Native", "Expo", "TypeScript", "iOS", "Android", "Geolocation", "WebSockets", "Node.js"],
+    github: "",
+    live: "",
+    gradient: "from-pink-600 to-rose-600",
+    status: "In Development",
+    category: "Mobile App",
+    highlight: "iOS & Android",
+    timeline: "2026",
+    clientType: "Mobile Applications",
+    group: "mobile",
+  },
 ];
 
 const containerVariants = {
@@ -605,7 +759,9 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export default function ProjectsSection() {
-  const [featured, ...rest] = projects;
+  const desktopProjects = projects.filter((project) => project.group !== "mobile");
+  const mobileProjects = projects.filter((project) => project.group === "mobile");
+  const [featured, ...desktopRest] = desktopProjects;
 
   return (
     <m.section
@@ -642,15 +798,29 @@ export default function ProjectsSection() {
           {/* Featured project */}
           <FeaturedProject project={featured} />
 
-          {/* More projects — 3 across */}
+          {/* Desktop Web Apps — 3 across */}
           <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mt-12 md:mt-16 mb-6 md:mb-8">
-            More Projects
+            Desktop Web Apps
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {rest.map((project) => (
+            {desktopRest.map((project) => (
               <ProjectCard key={project.title} project={project} />
             ))}
           </div>
+
+          {/* Mobile Applications — 3 across */}
+          {mobileProjects.length > 0 && (
+            <>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mt-12 md:mt-16 mb-6 md:mb-8">
+                Mobile Applications (iOS &amp; Android)
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {mobileProjects.map((project) => (
+                  <ProjectCard key={project.title} project={project} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Call to Action */}
