@@ -7,6 +7,9 @@ This directory contains screenshots for each project displayed in the portfolio.
 Screenshots should be named using kebab-case matching the project title:
 
 - `jose-madrid-salsa.png` - Jose Madrid Salsa project
+- `muskingum-materials.png` - Muskingum Materials project
+- `salsadocs.png` - SalsaDocs project
+- `jessica-asp.png` - Jessica ASP project
 - `amplinks.png` - Amplinks project
 - `zanesville-store.png` - Zanesville.store project
 - `homesh-app.png` - Homesh.app project
