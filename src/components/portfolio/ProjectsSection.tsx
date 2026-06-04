@@ -147,7 +147,7 @@ const projects: Project[] = [
     ],
     tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Node.js", "MongoDB", "Stripe", "Vercel", "Figma", "Local SEO", "PWA", "Analytics"],
     github: "https://github.com/jordanlang/zanesville-store",
-    live: "https://www.zanesville.store",
+    live: "https://pallets.sale",
     gradient: "from-emerald-600 to-teal-600",
     status: "In Development",
     category: "Web Design",
