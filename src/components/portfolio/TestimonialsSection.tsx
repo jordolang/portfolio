@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import SectionHeader from "./SectionHeader";
 
@@ -87,7 +87,7 @@ const TestimonialCard = ({ testimonial, index, isHovered, onHover }: Testimonial
   const borderGradient = borderGradients[index % borderGradients.length];
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -96,7 +96,7 @@ const TestimonialCard = ({ testimonial, index, isHovered, onHover }: Testimonial
       onMouseLeave={() => onHover(null)}
       className="h-full w-full group"
     >
-      <motion.div
+      <m.div
         className={`h-full w-full rounded-2xl relative overflow-hidden transition-all duration-500 border-0 ${isHovered === index
           ? 'transform scale-105 shadow-2'
           : 'shadow-lg hover:shadow-xlkk'
@@ -119,7 +119,7 @@ const TestimonialCard = ({ testimonial, index, isHovered, onHover }: Testimonial
             {/* Rating with Animation */}
             <div className="flex items-center gap-1 mb-6">
               {Array.from({ length: testimonial.rating }).map((_, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -129,7 +129,7 @@ const TestimonialCard = ({ testimonial, index, isHovered, onHover }: Testimonial
                     icon="solar:star-bold"
                     className="text-yellow-500 text-2xl drop-shadow-sm"
                   />
-                </motion.div>
+                </m.div>
               ))}
               <span className="ml-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                 {testimonial.rating}.0
@@ -169,13 +169,13 @@ const TestimonialCard = ({ testimonial, index, isHovered, onHover }: Testimonial
 
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 };
 
 const FeaturedTestimonial = ({ testimonial }: FeaturedTestimonialProps) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
@@ -210,7 +210,7 @@ const FeaturedTestimonial = ({ testimonial }: FeaturedTestimonialProps) => (
       {/* Rating with Animation */}
       <div className="flex items-center justify-center gap-1 mb-6">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
-          <motion.div
+          <m.div
             key={i}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -220,7 +220,7 @@ const FeaturedTestimonial = ({ testimonial }: FeaturedTestimonialProps) => (
               icon="solar:star-bold"
               className="text-yellow-500 text-2xl drop-shadow-sm"
             />
-          </motion.div>
+          </m.div>
         ))}
         <span className="ml-2 text-sm font-medium text-gray-600 dark:text-gray-400">
           {testimonial.rating}.0
@@ -243,7 +243,7 @@ const FeaturedTestimonial = ({ testimonial }: FeaturedTestimonialProps) => (
         </div>
       </div>
     </div>
-  </motion.div>
+  </m.div>
 );
 
 export default function TestimonialsSection() {
@@ -256,7 +256,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <motion.section
+    <m.section
       id="testimonials"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -313,6 +313,6 @@ export default function TestimonialsSection() {
 
 
       </div>
-    </motion.section>
+    </m.section>
   );
 } 

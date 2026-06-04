@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 
 export default function OverviewSection() {
@@ -29,20 +29,8 @@ export default function OverviewSection() {
     },
   };
 
-  const floatVariants = {
-    animate: {
-      y: [-15, 15, -15],
-      x: [-5, 5, -5],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
-    <motion.section
+    <m.section
       id="overview"
       className="mb-16 md:mb-24 lg:mb-32 relative"
       initial={{ opacity: 0 }}
@@ -52,26 +40,20 @@ export default function OverviewSection() {
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          variants={floatVariants}
-          animate="animate"
+        <div
           className="absolute top-10 md:top-20 right-4 md:right-16 w-16 md:w-24 h-16 md:h-24 bg-gradient-to-br from-blue-400/20 md:from-blue-400/30 to-purple-400/20 md:to-purple-400/30 rounded-full blur-xl md:blur-4xl"
         />
-        <motion.div
-          variants={floatVariants}
-          animate="animate"
+        <div
           style={{ animationDelay: "3s" }}
           className="absolute bottom-8 md:bottom-16 left-4 md:left-16 w-24 md:w-40 h-24 md:h-40 bg-gradient-to-br from-green-400/15 md:from-green-400/20 to-cyan-400/15 md:to-cyan-400/20 rounded-full blur-xl md:blur-2xl"
         />
-        <motion.div
-          variants={floatVariants}
-          animate="animate"
+        <div
           style={{ animationDelay: "6s" }}
           className="hidden md:block absolute top-1/2 left-1/3 w-16 h-16 bg-gradient-to-br from-pink-400/25 to-orange-400/25 rounded-full blur-xl"
         />
       </div>
 
-      <motion.div
+      <m.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -92,7 +74,7 @@ export default function OverviewSection() {
         <div className="grid lg:grid-cols-12 gap-6 md:gap-8 items-start px-4">
 
           {/* Main Profile Section */}
-          <motion.div
+          <m.div
             variants={itemVariants}
             className="lg:col-span-8"
           >
@@ -142,7 +124,7 @@ export default function OverviewSection() {
                     </h4>
                     <div className="flex flex-wrap gap-2 md:gap-3">
                       {["Adobe Creative Suite", "HTML/CSS", "Javascript", "Full Stack Development", "Brand Identity", "Small-Business Marketing", "Digital Media (TV/Radio/Print)", "Responsive Design", "User Experience", "WordPress"].map((skill, index) => (
-                        <motion.span
+                        <m.span
                           key={skill}
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
@@ -152,7 +134,7 @@ export default function OverviewSection() {
                           className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 text-gray-800 dark:text-gray-200 rounded-lg md:rounded-xl border border-blue-200/50 dark:border-blue-800/30 hover:shadow-lg transition-all duration-300"
                         >
                           {skill}
-                        </motion.span>
+                        </m.span>
                       ))}
                     </div>
                   </div>
@@ -165,7 +147,7 @@ export default function OverviewSection() {
                     </h4>
                     <div className="flex flex-wrap gap-2 md:gap-3">
                       {["AI/Machine Learning", "Cloud Computing", "DevOps", "Mobile Development", "Progressive Web Apps", "Open-Source Projects", "Self-Hosted Solutions", "Small-Business Technology Independence", "FREE FOREVER TECHNOLOGY"].map((skill, index) => (
-                        <motion.span
+                        <m.span
                           key={skill}
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
@@ -175,7 +157,7 @@ export default function OverviewSection() {
                           className="px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-medium bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 text-gray-800 dark:text-gray-200 rounded-lg md:rounded-xl border border-orange-200/50 dark:border-orange-800/30 hover:shadow-lg transition-all duration-300"
                         >
                           {skill}
-                        </motion.span>
+                        </m.span>
                       ))}
                     </div>
                   </div>
@@ -183,10 +165,10 @@ export default function OverviewSection() {
               </div>
 
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Enhanced Sidebar */}
-          <motion.div variants={itemVariants} className="lg:col-span-4 space-y-6 mt-6 lg:mt-0">
+          <m.div variants={itemVariants} className="lg:col-span-4 space-y-6 mt-6 lg:mt-0">
             {/* Contact Card */}
             <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-50/90 to-pink-50/90 dark:from-purple-950/30 dark:to-pink-950/30 backdrop-blur-sm border border-white/30 dark:border-gray-700/40 shadow-xl">
               <h4 className="font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
@@ -194,7 +176,7 @@ export default function OverviewSection() {
                 Let&apos;s Connect
               </h4>
               <div className="space-y-3">
-                <motion.a
+                <m.a
                   href="mailto:jordolang@gmail.com"
                   whileHover={{ scale: 1.02, x: 4 }}
                   whileTap={{ scale: 0.98 }}
@@ -206,9 +188,9 @@ export default function OverviewSection() {
                   <div>
                     <div className="text-sm font-bold text-gray-900 dark:text-white break-all">jordolang@gmail.com</div>
                   </div>
-                </motion.a>
+                </m.a>
 
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.02, x: 4 }}
                   className="flex items-center gap-3 p-3 rounded-lg bg-white/70 dark:bg-gray-800/30 border border-white/20 dark:border-gray-700/30"
                 >
@@ -218,9 +200,9 @@ export default function OverviewSection() {
                   <div>
                     <div className="text-sm font-bold text-gray-900 dark:text-white">jlang.dev</div>
                   </div>
-                </motion.div>
+                </m.div>
 
-                <motion.div
+                <m.div
                   whileHover={{ scale: 1.02, x: 4 }}
                   className="flex items-center gap-3 p-3 rounded-lg bg-white/70 dark:bg-gray-800/30"
                 >
@@ -230,7 +212,7 @@ export default function OverviewSection() {
                   <div>
                     <div className="text-sm font-bold text-gray-900 dark:text-white">Zanesville, OH</div>
                   </div>
-                </motion.div>
+                </m.div>
               </div>
             </div>
 
@@ -246,7 +228,7 @@ export default function OverviewSection() {
                   { icon: "solar:palette-bold", text: "98% Client Satisfaction Rate", color: "text-blue-600" },
                   { icon: "solar:code-square-bold", text: "10+ Websites Deployed", color: "text-green-600" },
                 ].map((achievement, index) => (
-                  <motion.div
+                  <m.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -255,7 +237,7 @@ export default function OverviewSection() {
                   >
                     <Icon icon={achievement.icon} className={`${achievement.color} w-5 h-5`} width={20} height={20} />
                     <span className="text-sm font-medium text-gray-800 dark:text-gray-300">{achievement.text}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
@@ -267,7 +249,7 @@ export default function OverviewSection() {
                 Available for Hire
               </h4>
               <div className="space-y-3.5">
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 2.0 }}
@@ -275,8 +257,8 @@ export default function OverviewSection() {
                 >
                   <Icon icon="solar:check-circle-bold" className="text-green-600 w-5 h-5" width={20} height={20} />
                   <span className="text-sm font-medium text-gray-800 dark:text-gray-300">Open to New Opportunities</span>
-                </motion.div>
-                <motion.div
+                </m.div>
+                <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 2.2 }}
@@ -284,8 +266,8 @@ export default function OverviewSection() {
                 >
                   <Icon icon="solar:map-point-bold" className="text-cyan-600 w-5 h-5" width={20} height={20} />
                   <span className="text-sm font-medium text-gray-800 dark:text-gray-300">On-site Service in Zanesville, OH</span>
-                </motion.div>
-                <motion.div
+                </m.div>
+                <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 2.4 }}
@@ -293,14 +275,14 @@ export default function OverviewSection() {
                 >
                   <Icon icon="solar:global-bold" className="text-blue-600 w-5 h-5" width={20} height={20} />
                   <span className="text-sm font-medium text-gray-800 dark:text-gray-300">Remote Service Nationwide</span>
-                </motion.div>
+                </m.div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Professional Role - Full Width */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.6 }}
@@ -329,8 +311,8 @@ export default function OverviewSection() {
               <span className="font-semibold text-blue-600 dark:text-blue-400">50+ Satisfied Tech Clients</span>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+        </m.div>
+      </m.div>
+    </m.section>
   );
 } 

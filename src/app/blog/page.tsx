@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { Icon } from "@iconify/react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
@@ -179,7 +179,7 @@ return (
       {/* Blog Posts Grid */}
       <main className="max-w-7xl mx-auto px-4 py-12">
         {filteredPosts.length === 0 ? (
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-20"
@@ -200,10 +200,10 @@ return (
                 <span>Clear Filters</span>
               </button>
             )}
-          </motion.div>
+          </m.div>
         ) : (
           <AnimatePresence mode="wait">
-            <motion.div 
+            <m.div 
               key={`${searchQuery}-${selectedTag}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -212,7 +212,7 @@ return (
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
               {filteredPosts.map((post, index) => (
-              <motion.article
+              <m.article
                 key={post.slug}
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -296,9 +296,9 @@ return (
                     </div>
                   </div>
                 </Link>
-              </motion.article>
+              </m.article>
               ))}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         )}
       </main>

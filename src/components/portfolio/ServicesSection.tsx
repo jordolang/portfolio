@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
@@ -141,7 +141,7 @@ export default function ServicesSection() {
   };
 
   return (
-    <motion.section
+    <m.section
       id="services"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -158,7 +158,7 @@ export default function ServicesSection() {
       />
 
       {/* Featured Offer */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -221,24 +221,24 @@ export default function ServicesSection() {
 
             <div className="mt-8">
               <Link href="/services">
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => trackEvent(AnalyticsEvents.PRICING_CTA_CLICKED, { package: "enterprise", location: "featured" })}
                   className="px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-700 hover:to-cyan-700 text-white font-semibold shadow-lg shadow-indigo-500/30 transition-all duration-300"
                 >
                   Learn More About Custom Integration
-                </motion.button>
+                </m.button>
               </Link>
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Pricing Cards */}
       <div className="grid md:grid-cols-3 gap-8 mb-16">
         {pricingPackages.map((pkg, index) => (
-          <motion.div
+          <m.div
             key={pkg.name}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -307,7 +307,7 @@ export default function ServicesSection() {
               </ul>
 
               <Link href={`/services?package=${pkg.name.toLowerCase()}`}>
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => trackEvent(AnalyticsEvents.PRICING_CTA_CLICKED, { package: pkg.name.toLowerCase(), location: "pricing_card" })}
@@ -318,15 +318,15 @@ export default function ServicesSection() {
                   }`}
                 >
                   Choose {pkg.name}
-                </motion.button>
+                </m.button>
               </Link>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 
       {/* Additional Features Section */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.7 }}
@@ -376,7 +376,7 @@ export default function ServicesSection() {
                 href={`/services?package=launchpad&feature=${encodeURIComponent(feature.name)}`}
                 onClick={() => trackEvent(AnalyticsEvents.FEATURE_CLICKED, { feature_name: feature.name, feature_price: feature.price })}
               >
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.8 + (index * 0.02) }}
@@ -406,12 +406,12 @@ export default function ServicesSection() {
                       +${feature.price}
                     </span>
                   </div>
-                </motion.div>
+                </m.div>
               </Link>
             ))}
           </div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.2 }}
@@ -426,12 +426,12 @@ export default function ServicesSection() {
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Click any feature to add it to your project request form
             </p>
-          </motion.div>
+          </m.div>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* FAQ Section */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
@@ -449,7 +449,7 @@ export default function ServicesSection() {
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div
+            <m.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -464,7 +464,7 @@ export default function ServicesSection() {
                 <span className="font-semibold text-gray-900 dark:text-white pr-4">
                   {faq.question}
                 </span>
-                <motion.div
+                <m.div
                   animate={{ rotate: expandedFaq === index ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -474,10 +474,10 @@ export default function ServicesSection() {
                     width={24} 
                     height={24} 
                   />
-                </motion.div>
+                </m.div>
               </button>
               
-              <motion.div
+              <m.div
                 initial={false}
                 animate={{
                   height: expandedFaq === index ? "auto" : 0,
@@ -489,12 +489,12 @@ export default function ServicesSection() {
                 <div className="px-6 pb-4 pt-2 text-gray-600 dark:text-gray-400 leading-relaxed">
                   {faq.answer}
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.3 }}
@@ -505,16 +505,16 @@ export default function ServicesSection() {
             Still have questions? Let&apos;s chat!
           </p>
           <Link href="/services">
-            <motion.button
+            <m.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold shadow-lg shadow-indigo-500/30 transition-all duration-300"
             >
               Start Your Project
-            </motion.button>
+            </m.button>
           </Link>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+        </m.div>
+      </m.div>
+    </m.section>
   );
 }

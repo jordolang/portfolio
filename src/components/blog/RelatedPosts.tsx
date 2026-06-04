@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 interface Post {
   slug: string;
@@ -55,7 +55,7 @@ export default function RelatedPosts({ currentSlug, currentTags, allPosts }: Rel
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {relatedPosts.map((post, index) => (
-          <motion.article
+          <m.article
             key={post.slug}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ export default function RelatedPosts({ currentSlug, currentTags, allPosts }: Rel
                 </div>
               </div>
             </Link>
-          </motion.article>
+          </m.article>
         ))}
       </div>
     </div>

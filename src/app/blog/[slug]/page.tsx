@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
@@ -137,7 +137,7 @@ export default function BlogPostPage() {
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-12">
             {/* Main Content */}
-            <motion.article
+            <m.article
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -237,7 +237,7 @@ export default function BlogPostPage() {
                   <span className="text-gray-700 dark:text-gray-300 font-medium">View All Posts</span>
                 </Link>
               </div>
-            </motion.article>
+            </m.article>
 
             {/* Table of Contents Sidebar */}
             <TableOfContents content={post.content} />

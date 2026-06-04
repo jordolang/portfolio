@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState } from "react";
 import SectionHeader from "./SectionHeader";
 
@@ -254,7 +254,7 @@ export default function TechStackSection() {
     : techStackData[activeCategory] || [];
 
   return (
-    <motion.section
+    <m.section
       id="stack"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -293,7 +293,7 @@ export default function TechStackSection() {
         // Categorized view
         <div className="space-y-8">
           {Object.entries(techStackData).map(([categoryName, techs]) => (
-            <motion.div
+            <m.div
               key={categoryName}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -312,7 +312,7 @@ export default function TechStackSection() {
                   />
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       ) : (
@@ -327,7 +327,7 @@ export default function TechStackSection() {
           ))}
         </div>
       )}
-    </motion.section>
+    </m.section>
   );
 }
 
@@ -371,7 +371,7 @@ function TechCard({
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       transition={{
@@ -457,6 +457,6 @@ function TechCard({
           />
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 } 

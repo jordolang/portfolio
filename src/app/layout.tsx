@@ -1,5 +1,6 @@
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { MotionProvider } from "@/components/MotionProvider";
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import Script from "next/script";
@@ -45,8 +46,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <PostHogProvider>
           <ThemeProvider>
-            {/* <AnimatedBackground /> */}
-            {children}
+            <MotionProvider>
+              {children}
+            </MotionProvider>
           </ThemeProvider>
         </PostHogProvider>
         {/* Google tag (gtag.js) — loaded after the page is interactive to avoid blocking render */}

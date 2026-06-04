@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -238,21 +238,9 @@ export default function CertificationsSection() {
     },
   };
 
-  const floatVariants = {
-    animate: {
-      y: [-10, 10, -10],
-      x: [-5, 5, -5],
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
     <>
-      <motion.section
+      <m.section
         id="certifications"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -262,20 +250,14 @@ export default function CertificationsSection() {
       >
         {/* Enhanced Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            variants={floatVariants}
-            animate="animate"
+          <div
             className="absolute top-20 right-16 w-32 h-32 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-full blur-2xl"
           />
-          <motion.div
-            variants={floatVariants}
-            animate="animate"
+          <div
             style={{ animationDelay: "3s" }}
             className="absolute bottom-16 left-16 w-48 h-48 bg-gradient-to-br from-green-400/25 to-cyan-400/25 rounded-full blur-2xl"
           />
-          <motion.div
-            variants={floatVariants}
-            animate="animate"
+          <div
             style={{ animationDelay: "6s" }}
             className="absolute top-1/2 left-1/3 w-20 h-20 bg-gradient-to-br from-pink-400/30 to-orange-400/30 rounded-full blur-xl"
           />
@@ -292,7 +274,7 @@ export default function CertificationsSection() {
             centered={true}
           />
 
-          <motion.div
+          <m.div
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -300,7 +282,7 @@ export default function CertificationsSection() {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4"
           >
             {certifications.map((cert, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 variants={itemVariants}
                 whileHover={{
@@ -410,19 +392,19 @@ export default function CertificationsSection() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
           {/* Enhanced Summary Stats */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
             className="text-center mt-12 md:mt-16 px-4 mb-12"
           >
-            <motion.div
+            <m.div
               whileHover={{ scale: 1.02, y: -2 }}
               className="inline-flex items-center gap-6 px-8 py-4 bg-gradient-to-r from-blue-50/90 to-purple-50/90 dark:from-blue-900/30 dark:to-purple-900/30 backdrop-blur-sm border border-blue-200/50 dark:border-blue-800/50 hover:border-blue-300/70 dark:hover:border-blue-600/70 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500"
             >
@@ -441,22 +423,22 @@ export default function CertificationsSection() {
                   Verified by Industry Leaders
                 </span>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
-      </motion.section>
+      </m.section>
 
       {/* Enhanced Certificate Preview Modal */}
       <AnimatePresence>
         {selectedCertificate && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4"
             onClick={() => setSelectedCertificate(null)}
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -474,14 +456,14 @@ export default function CertificationsSection() {
                     {selectedCertificate.provider} • {selectedCertificate.issued}
                   </p>
                 </div>
-                <motion.button
+                <m.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={() => setSelectedCertificate(null)}
                   className="p-3 hover:bg-gray-100/80 dark:hover:bg-gray-800/80 rounded-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50"
                 >
                   <Icon icon="solar:close-outline" className="text-gray-500" width={20} height={20} />
-                </motion.button>
+                </m.button>
               </div>
 
               {/* Certificate Image */}
@@ -504,7 +486,7 @@ export default function CertificationsSection() {
                   Credential ID: <span className="text-gray-800 dark:text-gray-200">{selectedCertificate.credentialId}</span>
                 </div>
                 <div className="flex gap-3">
-                  <motion.button
+                  <m.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedCertificate(null)}
@@ -512,8 +494,8 @@ export default function CertificationsSection() {
                   >
                     <Icon icon="solar:close-circle-bold" className="text-white" width={20} height={20} />
                     Close
-                  </motion.button>
-                  <motion.a
+                  </m.button>
+                  <m.a
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     href={selectedCertificate.certificatePreview || ""}
@@ -522,11 +504,11 @@ export default function CertificationsSection() {
                   >
                     <Icon icon="solar:download-bold" width={16} height={16} />
                     Download
-                  </motion.a>
+                  </m.a>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

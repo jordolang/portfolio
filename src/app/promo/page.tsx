@@ -2,7 +2,7 @@
 
 import { Background, Footer, Navigation } from "@/components/portfolio";
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
@@ -383,13 +383,13 @@ ${formData.projectDescription}
       <Navigation />
 
       <div className="max-w-6xl mx-auto px-6 pt-32 pb-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           {/* Promotional Banner */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -418,11 +418,11 @@ ${formData.projectDescription}
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Header */}
           <div className="text-center mb-16">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
@@ -430,30 +430,30 @@ ${formData.projectDescription}
             >
               <Icon icon="solar:document-add-bold" width={20} height={20} className="text-indigo-600 dark:text-indigo-400" />
               <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">Start Your Project</span>
-            </motion.div>
+            </m.div>
 
-            <motion.h1
+            <m.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent"
             >
               Let&apos;s Build Something Amazing
-            </motion.h1>
+            </m.h1>
 
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto"
             >
               Fill out the form below to claim your exclusive discount. I&apos;ll review your requirements and get back to you within 24 hours.
-            </motion.p>
+            </m.p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Order Form */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -630,21 +630,21 @@ ${formData.projectDescription}
                           By checking this box, I agree to allow <strong>Jlang.dev</strong> to include a small &quot;Powered by Jlang.dev&quot; attribution link in my website&apos;s footer. This helps promote their services and earns me an additional <strong className="text-green-600 dark:text-green-400">$50 discount</strong> on my project!
                         </p>
                         {allowPromotion && (
-                          <motion.div
+                          <m.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             className="mt-3 flex items-center gap-2 text-sm font-semibold text-green-700 dark:text-green-300"
                           >
                             <Icon icon="solar:check-circle-bold" width={18} height={18} />
                             <span>Great choice! You&apos;re saving an extra $50</span>
-                          </motion.div>
+                          </m.div>
                         )}
                       </div>
                     </div>
                   </div>
 
                   {/* Submit Button */}
-                  <motion.button
+                  <m.button
                     type="submit"
                     disabled={isSubmitting}
                     whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
@@ -663,11 +663,11 @@ ${formData.projectDescription}
                     ) : (
                       'Claim Your Discount & Submit Request'
                     )}
-                  </motion.button>
+                  </m.button>
 
                   {/* Status Messages */}
                   {submitStatus === 'success' && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="p-4 rounded-xl bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700"
@@ -679,11 +679,11 @@ ${formData.projectDescription}
                           <p className="text-sm text-green-700 dark:text-green-400">I&apos;ll review your project and get back to you within 24 hours with your discounted quote.</p>
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
 
                   {submitStatus === 'error' && (
-                    <motion.div
+                    <m.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="p-4 rounded-xl bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700"
@@ -695,14 +695,14 @@ ${formData.projectDescription}
                           <p className="text-sm text-red-700 dark:text-red-400">Please try again or email me directly at jordan@jlang.dev</p>
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </form>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Package Summary Sidebar */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -825,12 +825,12 @@ ${formData.projectDescription}
                   </Link>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Additional Features Section */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
@@ -859,7 +859,7 @@ ${formData.projectDescription}
                 const isLaunchpad = selectedPackage === 'launchpad';
                 
                 return (
-                  <motion.button
+                  <m.button
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -918,12 +918,12 @@ ${formData.projectDescription}
                         </span>
                       )}
                     </div>
-                  </motion.button>
+                  </m.button>
                 );
               })}
             </div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.1 }}
@@ -944,9 +944,9 @@ ${formData.projectDescription}
                   💡 <strong>Professional & Enterprise packages</strong> include most of these features at no additional cost!
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
 
       <Footer />
