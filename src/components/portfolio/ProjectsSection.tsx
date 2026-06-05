@@ -496,7 +496,7 @@ const projects: Project[] = [
   },
   {
     title: "Radius",
-    image: "/images/projects/radius.png",
+    image: "",
     subtitle: "Proximity-Based Connection App (iOS & Android)",
     description:
       "A proximity-based mobile app built around mutual consent. When two nearby users are a potential match, each receives a discreet proximity alert and they only connect if both opt in — turning real-world nearness into spontaneous, consent-first introductions.",
@@ -691,6 +691,8 @@ function FeaturedProject({ project }: { project: Project }) {
 }
 
 function ProjectCard({ project }: { project: Project }) {
+  const isMobile = project.group === "mobile";
+
   return (
     <m.div
       variants={itemVariants}
@@ -699,13 +701,23 @@ function ProjectCard({ project }: { project: Project }) {
       onClick={() => trackEvent(AnalyticsEvents.PROJECT_CLICKED, { project: project.title })}
       className="group flex flex-col bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-2xl border border-white/30 dark:border-gray-700/40 hover:border-gray-300 dark:hover:border-gray-600 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
     >
-      {/* Large image card */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-800">
+      {/* Screenshot — portrait & fully visible for mobile apps, wide crop for web */}
+      <div
+        className={`relative overflow-hidden ${
+          isMobile
+            ? "aspect-[9/16] bg-gray-900"
+            : "aspect-[16/10] bg-gray-100 dark:bg-gray-800"
+        }`}
+      >
         <Image
           src={project.image}
-          alt={`${project.title} screenshot`}
+          alt={`${project.title} app screenshot`}
           fill
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          className={
+            isMobile
+              ? "object-contain"
+              : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          }
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         <div className="absolute top-3 left-3 flex flex-wrap gap-2">
@@ -751,6 +763,86 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
 
         <div className="mt-auto">
+          <ProjectLinks project={project} />
+        </div>
+      </div>
+    </m.div>
+  );
+}
+
+/**
+ * Mobile app card — a large full portrait screenshot fills the top (the majority
+ * of the card), with the project name and a brief, space-saving info block below.
+ */
+function MobileProjectCard({ project }: { project: Project }) {
+  return (
+    <m.div
+      variants={itemVariants}
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300 }}
+      onClick={() => trackEvent(AnalyticsEvents.PROJECT_CLICKED, { project: project.title })}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-white/30 bg-white/80 shadow-lg backdrop-blur-xl transition-all duration-300 hover:border-gray-300 hover:shadow-2xl dark:border-gray-700/40 dark:bg-gray-900/80 dark:hover:border-gray-600"
+    >
+      {/* Full portrait screenshot — the visual majority of the card */}
+      <div className="relative aspect-[9/16] overflow-hidden bg-zinc-950">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={`${project.title} mobile app screenshot`}
+            fill
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <div
+            className={`flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br ${project.gradient} px-5 text-center text-white`}
+          >
+            <Icon icon="solar:smartphone-2-bold" width={52} height={52} className="opacity-90" />
+            <span className="text-xl font-bold leading-tight">{project.title}</span>
+            <span className="rounded-full bg-black/25 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest backdrop-blur-sm">
+              In Development
+            </span>
+          </div>
+        )}
+        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+          <StatusBadge status={project.status} />
+        </div>
+        <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/45 px-2.5 py-1 text-[10px] font-semibold text-white backdrop-blur-sm">
+          <Icon icon="solar:smartphone-2-bold" width={11} height={11} />
+          {project.highlight}
+        </span>
+        <div className={`absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r ${project.gradient}`} />
+      </div>
+
+      {/* Brief info below — name + main points only */}
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="text-lg font-bold leading-tight text-gray-900 dark:text-white">
+          {project.title}
+        </h3>
+        <p className="mt-0.5 text-sm font-medium text-indigo-600 dark:text-indigo-400">
+          {project.subtitle}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-gray-600 line-clamp-2 dark:text-gray-300">
+          {project.description}
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {project.tech.slice(0, 3).map((tech) => (
+            <span
+              key={tech}
+              className="rounded-md border border-gray-200 bg-gray-100 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+            >
+              {tech}
+            </span>
+          ))}
+          {project.tech.length > 3 && (
+            <span className="px-2 py-0.5 text-[11px] font-medium text-gray-400 dark:text-gray-500">
+              +{project.tech.length - 3}
+            </span>
+          )}
+        </div>
+
+        <div className="mt-auto pt-4">
           <ProjectLinks project={project} />
         </div>
       </div>
@@ -808,7 +900,7 @@ export default function ProjectsSection() {
             ))}
           </div>
 
-          {/* Mobile Applications — 3 across */}
+          {/* Mobile Applications — iPhone mockups stacked vertically */}
           {mobileProjects.length > 0 && (
             <>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mt-12 md:mt-16 mb-6 md:mb-8">
@@ -816,7 +908,7 @@ export default function ProjectsSection() {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {mobileProjects.map((project) => (
-                  <ProjectCard key={project.title} project={project} />
+                  <MobileProjectCard key={project.title} project={project} />
                 ))}
               </div>
             </>
