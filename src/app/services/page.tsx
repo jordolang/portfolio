@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 import { AnalyticsEvents, identifyUser, trackEvent } from '@/lib/analytics';
+import { logger } from '@/lib/logger';
 
 interface AdditionalFeature {
   icon: string;
@@ -282,7 +283,7 @@ ${formData.projectDescription}
 💰 Budget: ${formData.budget || 'Not specified'}
 ⏱️ Timeline: ${formData.timeline || 'Not specified'}`;
       
-      const result = await emailjs.send(
+      await emailjs.send(
         serviceId,
         templateId,
         {
@@ -294,9 +295,7 @@ ${formData.projectDescription}
         publicKey
       );
 
-      console.log('Order form sent successfully:', result);
-      
-      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, { 
+      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, {
         package: selectedPackage,
         status: 'success' 
       });
@@ -322,24 +321,9 @@ ${formData.projectDescription}
       });
 
     } catch (error) {
-      console.error('Failed to send order form:', error);
-      console.error('EmailJS Configuration:', {
-        serviceId,
-        templateId,
-        publicKey: publicKey.substring(0, 10) + '...',
-      });
-      console.error('Form data being sent:', {
-        from_name: formData.contactName,
-        from_email: formData.email,
-        business_name: formData.businessName,
-        phone: formData.phone,
-        selected_package: `${packageInfo.name} (${priceDisplay})`,
-        budget: formData.budget || 'Not specified',
-        timeline: formData.timeline || 'Not specified',
-        additional_features: selectedFeaturesList || 'None',
-      });
-      
-      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, { 
+      logger.error('Failed to send order form:', error);
+
+      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, {
         package: selectedPackage,
         status: 'error',
         error_message: error instanceof Error ? error.message : 'Unknown error',

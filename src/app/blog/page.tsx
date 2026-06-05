@@ -6,6 +6,7 @@ import { m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { logger } from "@/lib/logger";
 
 interface BlogPost {
   slug: string;
@@ -43,7 +44,7 @@ useEffect(() => {
         const data = await response.json();
         setPosts(data);
       } catch (error) {
-        console.error('Error fetching blog posts:', error);
+        logger.error('Error fetching blog posts:', error);
         setPosts([]);
       } finally {
         setLoading(false);

@@ -5,6 +5,7 @@ import posthog from "posthog-js"
 import { PostHogProvider as PHProvider, usePostHog } from "posthog-js/react"
 import { Suspense, useEffect } from "react"
 import { initializeVisitorTracking } from "../lib/analytics"
+import { logger } from "../lib/logger"
 import "../lib/registerIcons"
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
@@ -24,7 +25,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       // Initialize visitor tracking after PostHog is ready
       initializeVisitorTracking();
     } else if (process.env.NODE_ENV === "development") {
-      console.warn("PostHog key not found. Analytics will be disabled.")
+      logger.warn("PostHog key not found. Analytics will be disabled.")
     }
   }, [])
 

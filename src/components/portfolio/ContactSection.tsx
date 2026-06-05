@@ -6,6 +6,7 @@ import { m } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { AnalyticsEvents, identifyUser, trackEvent } from '../../lib/analytics';
+import { logger } from '../../lib/logger';
 import SectionHeader from './SectionHeader';
 
 export default function ContactSection() {
@@ -66,8 +67,6 @@ const handleSubmit = async (e: React.FormEvent) => {
         publicKey
       );
 
-      console.log('Email sent successfully:', result);
-      
       // Track successful form submission
       trackEvent(AnalyticsEvents.CONTACT_FORM_SUBMITTED, { status: 'success' });
       
@@ -86,19 +85,9 @@ const handleSubmit = async (e: React.FormEvent) => {
       setSubmittedName(submittedName);
 
     } catch (error) {
-      console.error('Failed to send email:', error);
-      console.error('EmailJS Configuration:', {
-        serviceId,
-        templateId,
-        publicKey: publicKey.substring(0, 10) + '...',
-      });
-      console.error('Form data being sent:', {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: formData.message.substring(0, 50) + '...',
-        to_email: 'jordan@jlang.dev',
-      });
-      
+      logger.error('Failed to send email:', error);
+
+
       // Track form submission failure
       trackEvent(AnalyticsEvents.CONTACT_FORM_SUBMITTED, { 
         status: 'error',

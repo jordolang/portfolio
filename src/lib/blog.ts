@@ -6,6 +6,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { logger } from './logger';
 
 export interface BlogPost {
   slug: string;
@@ -65,7 +66,7 @@ export function getAllBlogPosts(): BlogPost[] {
 
     return posts;
   } catch (error) {
-    console.error('Error reading blog posts:', error);
+    logger.error('Error reading blog posts:', error);
     return [];
   }
 }
@@ -110,7 +111,7 @@ export async function getBlogPost(slug: string) {
       mdxContent,
     };
   } catch (error) {
-    console.error('Error reading blog post:', error);
+    logger.error('Error reading blog post:', error);
     return null;
   }
 }

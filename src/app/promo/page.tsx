@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 import { AnalyticsEvents, identifyUser, trackEvent } from '@/lib/analytics';
+import { logger } from '@/lib/logger';
 
 interface AdditionalFeature {
   icon: string;
@@ -307,7 +308,7 @@ ${formData.projectDescription}
 💰 Budget: ${formData.budget || 'Not specified'}
 ⏱️ Timeline: ${formData.timeline || 'Not specified'}`;
       
-      const result = await emailjs.send(
+      await emailjs.send(
         serviceId,
         templateId,
         {
@@ -319,9 +320,7 @@ ${formData.projectDescription}
         publicKey
       );
 
-      console.log('Promotional order form sent successfully:', result);
-      
-      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, { 
+      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, {
         package: selectedPackage,
         status: 'success',
         source: 'promo_page',
@@ -352,14 +351,9 @@ ${formData.projectDescription}
       setAllowPromotion(false);
 
     } catch (error) {
-      console.error('Failed to send promotional order form:', error);
-      console.error('EmailJS Configuration:', {
-        serviceId,
-        templateId,
-        publicKey: publicKey.substring(0, 10) + '...',
-      });
-      
-      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, { 
+      logger.error('Failed to send promotional order form:', error);
+
+      trackEvent(AnalyticsEvents.SERVICE_ORDER_SUBMITTED, {
         package: selectedPackage,
         status: 'error',
         source: 'promo_page',

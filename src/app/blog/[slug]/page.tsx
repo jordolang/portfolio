@@ -7,6 +7,7 @@ import { m } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+import { logger } from "@/lib/logger";
 import MDXContent from '@/components/blog/MDXContent';
 import ReadingProgress from '@/components/blog/ReadingProgress';
 import TableOfContents from '@/components/blog/TableOfContents';
@@ -72,7 +73,7 @@ export default function BlogPostPage() {
           setNotFound(true);
         }
       } catch (error) {
-        console.error('Error fetching blog post:', error);
+        logger.error('Error fetching blog post:', error);
         setNotFound(true);
       } finally {
         setLoading(false);
