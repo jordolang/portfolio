@@ -496,7 +496,7 @@ const projects: Project[] = [
   },
   {
     title: "Radius",
-    image: "",
+    image: "/images/projects/radius.png",
     subtitle: "Proximity-Based Connection App (iOS & Android)",
     description:
       "A proximity-based mobile app built around mutual consent. When two nearby users are a potential match, each receives a discreet proximity alert and they only connect if both opt in — turning real-world nearness into spontaneous, consent-first introductions.",
