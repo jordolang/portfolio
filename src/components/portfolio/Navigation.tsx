@@ -4,10 +4,43 @@ import { useTheme } from "@/components/ThemeProvider";
 import { Icon } from "@iconify/react";
 import { m } from "framer-motion";
 import Image from "next/image";
+import { useEffect } from "react";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
+
+/** Mount every lazy section, then smoothly scroll to the target once layout settles. */
+function scrollToSection(id: string) {
+  window.dispatchEvent(new CustomEvent("lazymount-all"));
+  // Two frames: let the forced mounts commit and reserve their height so the
+  // target's final position is known before the smooth scroll begins.
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }),
+  );
+}
 
 export default function Navigation() {
   const { theme, toggleTheme } = useTheme();
+
+  // Honor a hash on initial load (e.g. arriving at /#projects from another page).
+  useEffect(() => {
+    if (window.location.pathname !== "/" || !window.location.hash) return;
+    const id = window.location.hash.slice(1);
+    scrollToSection(id);
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: string) => {
+    trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item });
+    if (item === "Services") return; // real route → let the link navigate
+    // On the home page, take over so the jump is instant and reliable even before
+    // the target section has lazily mounted.
+    if (window.location.pathname === "/") {
+      e.preventDefault();
+      const id = item.toLowerCase();
+      history.replaceState(null, "", `/#${id}`);
+      scrollToSection(id);
+    }
+  };
 
   return (
     <nav className="fixed top-0 md:top-4 w-full z-50 ">
@@ -26,7 +59,7 @@ export default function Navigation() {
                 <m.a
                   key={item}
                   href={item === "Services" ? "/services" : `/#${item.toLowerCase()}`}
-                  onClick={() => trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item })}
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, item)}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}

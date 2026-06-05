@@ -5,19 +5,26 @@ import { LazyOnScroll } from "../LazyOnScroll";
 
 // Interactive below-the-fold sections. dynamic(ssr:false) keeps their JS out of
 // the initial bundle; LazyOnScroll defers mounting (and hydration) until each is
-// about to scroll into view. minHeight reserves approximate space so the scroll
-// position stays stable before mount.
+// about to scroll into view (or a nav action requests it). The `loading` fallback
+// reserves height while the chunk loads so layout never collapses, and the anchor
+// `id` lives on the LazyOnScroll wrapper so nav links resolve even before mount.
 
-const BlogSection = dynamic(() => import("./BlogSection"), { ssr: false });
-const TechStackSection = dynamic(() => import("./TechStackSection"), { ssr: false });
-const ProjectsSection = dynamic(() => import("./ProjectsSection"), { ssr: false });
-const ServicesSection = dynamic(() => import("./ServicesSection"), { ssr: false });
-const TestimonialsSection = dynamic(() => import("./TestimonialsSection"), { ssr: false });
-const ContactSection = dynamic(() => import("./ContactSection"), { ssr: false });
+const reserve = (minHeight: number) => {
+  const Spacer = () => <div style={{ minHeight }} aria-hidden />;
+  Spacer.displayName = "SectionSpacer";
+  return Spacer;
+};
+
+const BlogSection = dynamic(() => import("./BlogSection"), { ssr: false, loading: reserve(500) });
+const TechStackSection = dynamic(() => import("./TechStackSection"), { ssr: false, loading: reserve(600) });
+const ProjectsSection = dynamic(() => import("./ProjectsSection"), { ssr: false, loading: reserve(800) });
+const ServicesSection = dynamic(() => import("./ServicesSection"), { ssr: false, loading: reserve(700) });
+const TestimonialsSection = dynamic(() => import("./TestimonialsSection"), { ssr: false, loading: reserve(500) });
+const ContactSection = dynamic(() => import("./ContactSection"), { ssr: false, loading: reserve(500) });
 
 export function LazyBlogSection() {
   return (
-    <LazyOnScroll minHeight={500}>
+    <LazyOnScroll id="blog" minHeight={500}>
       <BlogSection />
     </LazyOnScroll>
   );
@@ -25,7 +32,7 @@ export function LazyBlogSection() {
 
 export function LazyTechStackSection() {
   return (
-    <LazyOnScroll minHeight={600}>
+    <LazyOnScroll id="stack" minHeight={600}>
       <TechStackSection />
     </LazyOnScroll>
   );
@@ -33,7 +40,7 @@ export function LazyTechStackSection() {
 
 export function LazyProjectsSection() {
   return (
-    <LazyOnScroll minHeight={800}>
+    <LazyOnScroll id="projects" minHeight={800}>
       <ProjectsSection />
     </LazyOnScroll>
   );
@@ -41,7 +48,7 @@ export function LazyProjectsSection() {
 
 export function LazyServicesSection() {
   return (
-    <LazyOnScroll minHeight={700}>
+    <LazyOnScroll id="services" minHeight={700}>
       <ServicesSection />
     </LazyOnScroll>
   );
@@ -49,7 +56,7 @@ export function LazyServicesSection() {
 
 export function LazyTestimonialsSection() {
   return (
-    <LazyOnScroll minHeight={500}>
+    <LazyOnScroll id="testimonials" minHeight={500}>
       <TestimonialsSection />
     </LazyOnScroll>
   );
@@ -57,7 +64,7 @@ export function LazyTestimonialsSection() {
 
 export function LazyContactSection() {
   return (
-    <LazyOnScroll minHeight={500}>
+    <LazyOnScroll id="contact" minHeight={500}>
       <ContactSection />
     </LazyOnScroll>
   );

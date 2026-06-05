@@ -857,7 +857,6 @@ export default function ProjectsSection() {
 
   return (
     <m.section
-      id="projects"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.2 }}

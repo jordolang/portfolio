@@ -275,7 +275,6 @@ export default function TestimonialsSection() {
 
   return (
     <m.section
-      id="testimonials"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1 }}

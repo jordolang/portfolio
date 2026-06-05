@@ -81,7 +81,6 @@ export default function BlogSection() {
   if (loading) {
     return (
       <m.section
-        id="blog"
         className="mb-16 md:mb-24 lg:mb-32 relative overflow-hidden"
       >
         <div className="flex justify-center items-center py-20">
@@ -97,7 +96,6 @@ export default function BlogSection() {
 
   return (
     <m.section
-      id="blog"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.2 }}
