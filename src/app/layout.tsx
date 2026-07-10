@@ -3,7 +3,6 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { MotionProvider } from "@/components/MotionProvider";
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
 const inter = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"] });
@@ -60,21 +59,9 @@ export default function RootLayout({
             </MotionProvider>
           </ThemeProvider>
         </PostHogProvider>
-        {/* Google tag (gtag.js) — `lazyOnload` defers it until after the load
-            event / browser idle, so its ~164 kB + main-thread cost lands OUTSIDE
-            the Total Blocking Time window instead of competing with hydration. */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-GEV08XTBLL"
-          strategy="lazyOnload"
-        />
-        <Script id="gtag-init" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-GEV08XTBLL');
-          `}
-        </Script>
+        {/* Google Analytics (gtag.js) is loaded lazily on first interaction from
+            PostHogProvider, alongside PostHog, to keep it out of the Total
+            Blocking Time window. */}
       </body>
     </html>
   );
