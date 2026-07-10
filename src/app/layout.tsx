@@ -39,8 +39,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        {/* Resolve the theme synchronously, before first paint, so the correct
+            theme class is present at SSR-paint time. This prevents a
+            light↔dark flash AND — critically — stops the hero logo from being
+            swapped (and re-downloaded) after hydration, which was wrecking LCP. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");var dark=t?t==="dark":!window.matchMedia("(prefers-color-scheme: light)").matches;if(dark)document.documentElement.classList.add("dark");}catch(e){}})();`,
+          }}
+        />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className={inter.className}>
@@ -51,12 +60,14 @@ export default function RootLayout({
             </MotionProvider>
           </ThemeProvider>
         </PostHogProvider>
-        {/* Google tag (gtag.js) — loaded after the page is interactive to avoid blocking render */}
+        {/* Google tag (gtag.js) — `lazyOnload` defers it until after the load
+            event / browser idle, so its ~164 kB + main-thread cost lands OUTSIDE
+            the Total Blocking Time window instead of competing with hydration. */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-GEV08XTBLL"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="gtag-init" strategy="afterInteractive">
+        <Script id="gtag-init" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
