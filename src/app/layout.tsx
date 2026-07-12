@@ -2,10 +2,7 @@ import { PostHogProvider } from "@/components/PostHogProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { MotionProvider } from "@/components/MotionProvider";
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-
-const inter = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://jlang.dev"),
@@ -51,7 +48,7 @@ export default function RootLayout({
         />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
-      <body className={inter.className}>
+      <body className="font-sans">
         <PostHogProvider>
           <ThemeProvider>
             <MotionProvider>

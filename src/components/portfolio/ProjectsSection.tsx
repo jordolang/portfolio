@@ -24,9 +24,38 @@ interface Project {
   timeline: string;
   clientType: string;
   group?: "desktop" | "mobile";
+  fullPagePreview?: boolean;
 }
 
 const projects: Project[] = [
+  {
+    title: "Stuck On You",
+    subtitle: "Permanent Jewelry Bloomington, IN",
+    description:
+      "A bespoke new home on the web for Stuck On You — elegant design, effortless content editing, and lightning-fast pages. Designed & built by JLang Development.",
+    image: "https://stuckonyou.vercel.app/og.jpg",
+    features: [
+      "Elegant, brand-led website design",
+      "Effortless content editing",
+      "Lightning-fast page performance",
+      "Responsive experience for every screen",
+    ],
+    deliverables: [
+      "Website design and development",
+      "Responsive interface implementation",
+      "Content editing experience",
+      "Production deployment",
+    ],
+    tech: ["Next.js", "React", "TypeScript", "Sanity", "Vercel"],
+    github: "",
+    live: "https://stuckonyoupj.com",
+    gradient: "from-amber-700 to-yellow-600",
+    status: "Live",
+    category: "Web Design",
+    highlight: "Latest Project",
+    timeline: "2026",
+    clientType: "Permanent Jewelry",
+  },
   {
     title: "Muskingum Materials",
     subtitle: "Aggregate & Construction Materials Supplier",
@@ -57,7 +86,7 @@ const projects: Project[] = [
     clientType: "Construction Materials",
   },
   {
-    title: "Drug Finder",
+    title: "Safety Screen",
     image: "/images/projects/drug-finder.png",
     subtitle: "Medication Search & Information Web App",
     description:
@@ -357,6 +386,7 @@ const projects: Project[] = [
     highlight: "Featured",
     timeline: "2 months",
     clientType: "Construction Services",
+    fullPagePreview: true,
   },
   {
     title: "First Baptist Church",
@@ -692,6 +722,7 @@ function FeaturedProject({ project }: { project: Project }) {
 
 function ProjectCard({ project }: { project: Project }) {
   const isMobile = project.group === "mobile";
+  const isFullPagePreview = project.fullPagePreview === true;
 
   return (
     <m.div
@@ -703,27 +734,46 @@ function ProjectCard({ project }: { project: Project }) {
     >
       {/* Screenshot — portrait & fully visible for mobile apps, wide crop for web */}
       <div
-        className={`relative overflow-hidden ${
+        className={`relative ${
           isMobile
-            ? "aspect-[9/16] bg-gray-900"
-            : "aspect-[16/10] bg-gray-100 dark:bg-gray-800"
+            ? "aspect-[9/16] overflow-hidden bg-gray-900"
+            : isFullPagePreview
+              ? "aspect-[16/10] overflow-y-auto bg-gray-100 dark:bg-gray-800"
+              : "aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-800"
         }`}
       >
-        <Image
-          src={project.image}
-          alt={`${project.title} app screenshot`}
-          fill
-          className={
-            isMobile
-              ? "object-contain"
-              : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          }
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
+        {isFullPagePreview ? (
+          <Image
+            src={project.image}
+            alt={`${project.title} – full page screenshot`}
+            width={1440}
+            height={12000}
+            className="h-auto w-full"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={`${project.title} app screenshot`}
+            fill
+            className={
+              isMobile
+                ? "object-contain"
+                : "object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            }
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        )}
         <div className="absolute top-3 left-3 flex flex-wrap gap-2">
           <StatusBadge status={project.status} />
         </div>
         <div className={`absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r ${project.gradient}`} />
+        {isFullPagePreview && (
+          <span className="pointer-events-none sticky bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-black/55 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-sm">
+            <Icon icon="solar:mouse-bold" width={12} height={12} />
+            Scroll to explore full page
+          </span>
+        )}
       </div>
 
       {/* Body: title + brief overview */}

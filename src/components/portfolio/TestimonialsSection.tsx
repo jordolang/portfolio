@@ -2,7 +2,7 @@
 
 import { Icon } from "@iconify/react";
 import { m } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionHeader from "./SectionHeader";
 
 interface Testimonial {
@@ -11,7 +11,7 @@ interface Testimonial {
   role: string;
   company: string;
   rating: number;
-  project: string;
+  project?: string;
   avatar: string;
   featured?: boolean;
 }
@@ -27,7 +27,7 @@ interface FeaturedTestimonialProps {
   testimonial: Testimonial;
 }
 
-const testimonials = [
+const defaultTestimonials: Testimonial[] = [
   {
     content: "Jordan Lang transformed our business with his outstanding web design and strategic insights.",
     author: "Fred Amir",
@@ -266,8 +266,32 @@ const FeaturedTestimonial = ({ testimonial }: FeaturedTestimonialProps) => (
 
 export default function TestimonialsSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
+
+  useEffect(() => {
+    fetch("/api/testimonials")
+      .then((response) => response.json())
+      .then(({ testimonials: managed = [] }) => {
+        if (!Array.isArray(managed) || managed.length === 0) return;
+        const normalized = managed.map((testimonial: Omit<Testimonial, "avatar">) => ({
+          ...testimonial,
+          avatar: testimonial.author
+            .split(/\s+/)
+            .map((part) => part[0])
+            .join("")
+            .slice(0, 2)
+            .toUpperCase(),
+        }));
+        setTestimonials([...normalized, ...defaultTestimonials]);
+      })
+      .catch(() => undefined);
+  }, []);
+
   const featuredTestimonial = testimonials.find(t => t.featured);
   const otherTestimonials = testimonials.filter(t => !t.featured);
+  const overallRating = testimonials.length
+    ? testimonials.reduce((sum, testimonial) => sum + testimonial.rating, 0) / testimonials.length
+    : 0;
 
   if (!featuredTestimonial) {
     return null;
@@ -298,6 +322,14 @@ export default function TestimonialsSection() {
           showUnderline={false}
           centered={true}
         />
+
+        <div className="mx-auto mb-10 flex w-fit items-center gap-3 rounded-full border border-yellow-400/30 bg-yellow-50/80 px-5 py-2.5 shadow-sm dark:bg-yellow-950/20">
+          <div className="flex text-lg text-yellow-500" aria-label={`${overallRating.toFixed(1)} out of 5 stars`}>
+            {Array.from({ length: 5 }).map((_, index) => <span key={index}>★</span>)}
+          </div>
+          <span className="font-bold text-gray-900 dark:text-white">{overallRating.toFixed(1)}</span>
+          <span className="text-sm text-gray-500">from {testimonials.length} reviews</span>
+        </div>
 
         {/* Featured Testimonial */}
         <div className="mb-16">
@@ -332,4 +364,4 @@ export default function TestimonialsSection() {
       </div>
     </m.section>
   );
-} 
+}
