@@ -19,6 +19,7 @@
 		"@radix-ui/react-separator": "^1.1.7",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@radix-ui/react-tooltip": "^1.2.7",
+		"@sanity/vision": "^3.99.0",
 		"@types/mdx": "^2.0.13",
 		"@types/react-syntax-highlighter": "^15.5.13",
 		"class-variance-authority": "^0.7.1",
@@ -28,6 +29,7 @@
 		"lucide-react": "^0.511.0",
 		"next": "^15.5.19",
 		"next-mdx-remote": "^6.0.0",
+		"next-sanity": "^9.12.3",
 		"posthog-js": "^1.257.0",
 		"posthog-node": "^4.18.0",
 		"react": "^18.2.0",
@@ -40,6 +42,9 @@
 		"rehype-highlight": "^7.0.2",
 		"rehype-slug": "^6.0.0",
 		"remark-gfm": "^4.0.1",
+		"resend": "^6.17.2",
+		"sanity": "^3.99.0",
+		"styled-components": "^6.4.3",
 		"tailwind-merge": "^3.3.0"
 	},
 	"devDependencies": {

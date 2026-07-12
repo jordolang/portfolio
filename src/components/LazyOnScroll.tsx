@@ -65,7 +65,12 @@ export function LazyOnScroll({
   }, [rootMargin, visible, id]);
 
   return (
-    <div ref={ref} id={id} style={visible ? undefined : { minHeight }}>
+    <div
+      ref={ref}
+      id={id}
+      className={id ? "scroll-mt-24" : undefined}
+      style={visible ? undefined : { minHeight }}
+    >
       {visible ? children : null}
     </div>
   );

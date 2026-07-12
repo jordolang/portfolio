@@ -7,16 +7,31 @@ import Image from "next/image";
 import { useEffect } from "react";
 import { AnalyticsEvents, trackEvent } from "@/lib/analytics";
 
-/** Mount every lazy section, then smoothly scroll to the target once layout settles. */
+/** Mount every lazy section, then scroll once async sections have settled. */
 function scrollToSection(id: string) {
   window.dispatchEvent(new CustomEvent("lazymount-all"));
-  // Two frames: let the forced mounts commit and reserve their height so the
-  // target's final position is known before the smooth scroll begins.
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }),
-  );
+
+  let lastPageHeight = 0;
+  let stableFrames = 0;
+  let attempts = 0;
+
+  const scrollWhenStable = () => {
+    const target = document.getElementById(id);
+    const pageHeight = document.documentElement.scrollHeight;
+    stableFrames = pageHeight === lastPageHeight ? stableFrames + 1 : 0;
+    lastPageHeight = pageHeight;
+    attempts += 1;
+
+    const targetIsMounted = Boolean(target?.firstElementChild);
+    if ((targetIsMounted && stableFrames >= 3) || attempts >= 180) {
+      target?.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+
+    requestAnimationFrame(scrollWhenStable);
+  };
+
+  requestAnimationFrame(scrollWhenStable);
 }
 
 export default function Navigation() {
@@ -90,4 +105,4 @@ export default function Navigation() {
       </div>
     </nav>
   );
-} 
+}
