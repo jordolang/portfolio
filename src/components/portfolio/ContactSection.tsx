@@ -9,7 +9,16 @@ import { AnalyticsEvents, identifyUser, trackEvent } from '../../lib/analytics';
 import { logger } from '../../lib/logger';
 import SectionHeader from './SectionHeader';
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  /** Where the form is delivered, and the address shown as the direct contact link. */
+  email?: string;
+  publicEmail?: string;
+  heading?: { tagText?: string; tagIcon?: string; heading?: string; description?: string };
+}
+
+export default function ContactSection({ email, publicEmail, heading }: ContactSectionProps) {
+  const recipient = email || 'jordan@jlang.dev';
+  const directEmail = publicEmail || 'jordolang@gmail.com';
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,7 +71,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
-          to_email: 'jordan@jlang.dev', // Your email
+          to_email: recipient,
         },
         publicKey
       );
@@ -117,12 +126,14 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
         <SectionHeader
-          heading="Let's Work Together"
-          description="Ready to bring your ideas to life? I'm always excited to work on interesting projects and collaborate with amazing people. Let's create something extraordinary together."
-          tagIcon='solar:chat-line-bold'
-          tagText='Contact'
+          heading={heading?.heading ?? "Let's Work Together"}
+          description={
+            heading?.description ??
+            "Ready to bring your ideas to life? I'm always excited to work on interesting projects and collaborate with amazing people. Let's create something extraordinary together."
+          }
+          tagIcon={heading?.tagIcon ?? 'solar:chat-line-bold'}
+          tagText={heading?.tagText ?? 'Contact'}
           centered={true}
-
         />
 
         {/* Contact Form */}
@@ -281,7 +292,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     <span className="font-medium">Failed to send message</span>
                   </div>
                   <p className="text-red-600 text-left dark:text-red-500 text-sm mt-1">
-                    Please try again or contact me directly at jordan@jlang.dev
+                    Please try again or contact me directly at {recipient}
                   </p>
                   {/* add a button to close the message */}
                   <button
@@ -308,7 +319,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <m.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
-                href="mailto:jordolang@gmail.com"
+                href={`mailto:${directEmail}`}
                 onClick={() => trackEvent(AnalyticsEvents.SOCIAL_LINK_CLICKED, { platform: 'email', method: 'email_link' })}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 border-2 border-gray-300 hover:border-gray-400 dark:border-gray-600 dark:hover:border-gray-500 rounded-xl font-medium transition-all duration-300 shadow-md hover:shadow-lg"
               >

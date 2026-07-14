@@ -29,12 +29,19 @@ function formatDate(dateString: string): string {
   });
 }
 
-export default function BlogSection() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+interface BlogSectionProps {
+  /** Posts fetched on the server. When omitted the section fetches them itself. */
+  posts?: BlogPost[];
+  heading?: { tagText?: string; tagIcon?: string; heading?: string; description?: string };
+}
+
+export default function BlogSection({ posts: serverPosts, heading }: BlogSectionProps) {
+  const [posts, setPosts] = useState<BlogPost[]>(serverPosts ?? []);
+  const [loading, setLoading] = useState(!serverPosts);
 
   useEffect(() => {
-    // Fetch blog posts from API route
+    if (serverPosts) return; // already have them from the server
+
     async function fetchPosts() {
       try {
         const response = await fetch('/api/blog');
@@ -52,7 +59,7 @@ export default function BlogSection() {
     }
 
     fetchPosts();
-  }, []);
+  }, [serverPosts]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -122,10 +129,10 @@ export default function BlogSection() {
       >
         {/* Section Header */}
         <SectionHeader
-          tagText="Latest Insights"
-          tagIcon="solar:document-text-bold"
-          heading="Blog Posts"
-          description="Thoughts on web development, self-hosting, mobile apps, and technology trends"
+          tagText={heading?.tagText ?? "Latest Insights"}
+          tagIcon={heading?.tagIcon ?? "solar:document-text-bold"}
+          heading={heading?.heading ?? "Blog Posts"}
+          description={heading?.description ?? "Thoughts on web development, self-hosting, mobile apps, and technology trends"}
           showUnderline={true}
           centered={true}
         />

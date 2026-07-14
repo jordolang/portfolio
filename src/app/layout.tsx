@@ -2,32 +2,51 @@ import { PostHogProvider } from "@/components/PostHogProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { MotionProvider } from "@/components/MotionProvider";
 import type { Metadata } from "next";
+import { getSiteSettings } from "@/lib/cms";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://jlang.dev"),
-  title: "Jordan Lang | Web Developer & IT Specialist Portfolio",
-  description: "Portfolio of Jordan Lang, a passionate web developer and IT specialist focused on contract web design and IT projects, creating modern digital solutions.",
-  keywords: "Jordan Lang, Web Developer, IT Specialist, Contract Web Design, Portfolio, Frontend Development",
-  authors: [{ name: "Jordan Lang" }],
-  alternates: {
-    canonical: "/",
-  },
-  icons: {
-    icon: "/favicon.png",
-  },
-  openGraph: {
-    title: "Jordan Lang - Web Developer & IT Specialist",
-    description: "Portfolio of Jordan Lang, specializing in contract web design and IT projects with modern technologies.",
-    type: "website",
-    images: [{
-      url: "/jlangdev.png",
-      width: 1200,
-      height: 630,
-      alt: "Jordan Lang - Web Developer & IT Specialist",
-    }],
-  },
-};
+const DEFAULT_TITLE = "Jordan Lang | Web Developer & IT Specialist Portfolio";
+const DEFAULT_DESCRIPTION =
+  "Portfolio of Jordan Lang, a passionate web developer and IT specialist focused on contract web design and IT projects, creating modern digital solutions.";
+const DEFAULT_KEYWORDS = "Jordan Lang, Web Developer, IT Specialist, Contract Web Design, Portfolio, Frontend Development";
+const DEFAULT_OG_TITLE = "Jordan Lang - Web Developer & IT Specialist";
+const DEFAULT_OG_DESCRIPTION =
+  "Portfolio of Jordan Lang, specializing in contract web design and IT projects with modern technologies.";
+
+/** SEO comes from Sanity when it's there; the values above are the fallback. */
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const title = settings?.seoTitle || DEFAULT_TITLE;
+  const description = settings?.seoDescription || DEFAULT_DESCRIPTION;
+  const ogTitle = settings?.ogTitle || DEFAULT_OG_TITLE;
+  const ogDescription = settings?.ogDescription || DEFAULT_OG_DESCRIPTION;
+  const ogImage = settings?.ogImage || "/jlangdev.png";
+
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://jlang.dev"),
+    title,
+    description,
+    keywords: settings?.seoKeywords?.length ? settings.seoKeywords.join(", ") : DEFAULT_KEYWORDS,
+    authors: [{ name: settings?.name || "Jordan Lang" }],
+    alternates: {
+      canonical: "/",
+    },
+    icons: {
+      icon: "/favicon.png",
+    },
+    openGraph: {
+      title: ogTitle,
+      description: ogDescription,
+      type: "website",
+      images: [{
+        url: ogImage,
+        width: 1200,
+        height: 630,
+        alt: ogTitle,
+      }],
+    },
+  };
+}
 
 export default function RootLayout({
   children,

@@ -2,7 +2,7 @@
 
 import { Icon } from "@iconify/react";
 import { m } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SectionHeader from "./SectionHeader";
 
 interface Testimonial {
@@ -27,7 +27,7 @@ interface FeaturedTestimonialProps {
   testimonial: Testimonial;
 }
 
-const defaultTestimonials: Testimonial[] = [
+export const defaultTestimonials: Testimonial[] = [
   {
     content: "Jordan Lang transformed our business with his outstanding web design and strategic insights.",
     author: "Fred Amir",
@@ -264,28 +264,31 @@ const FeaturedTestimonial = ({ testimonial }: FeaturedTestimonialProps) => (
   </m.div>
 );
 
-export default function TestimonialsSection() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [testimonials, setTestimonials] = useState<Testimonial[]>(defaultTestimonials);
+interface TestimonialsSectionProps {
+  /** Approved testimonials from Sanity, fetched on the server. */
+  testimonials?: Omit<Testimonial, "avatar">[];
+  heading?: { tagText?: string; tagIcon?: string; heading?: string; description?: string };
+}
 
-  useEffect(() => {
-    fetch("/api/testimonials")
-      .then((response) => response.json())
-      .then(({ testimonials: managed = [] }) => {
-        if (!Array.isArray(managed) || managed.length === 0) return;
-        const normalized = managed.map((testimonial: Omit<Testimonial, "avatar">) => ({
-          ...testimonial,
-          avatar: testimonial.author
-            .split(/\s+/)
-            .map((part) => part[0])
-            .join("")
-            .slice(0, 2)
-            .toUpperCase(),
-        }));
-        setTestimonials([...normalized, ...defaultTestimonials]);
-      })
-      .catch(() => undefined);
-  }, []);
+/** Initials, e.g. "Fred Amir" -> "FA". */
+function initials(author: string): string {
+  return author
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+export default function TestimonialsSection({ testimonials: managed, heading }: TestimonialsSectionProps) {
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  // The CMS is the source of truth once it has reviews — the bundled ones (which are also
+  // seeded into Sanity) are only a backstop for an empty or unreachable CMS. Concatenating
+  // the two would show every seeded quote twice.
+  const testimonials: Testimonial[] = managed?.length
+    ? managed.map((t) => ({ ...t, avatar: initials(t.author) }))
+    : defaultTestimonials;
 
   const featuredTestimonial = testimonials.find(t => t.featured);
   const otherTestimonials = testimonials.filter(t => !t.featured);
@@ -315,10 +318,10 @@ export default function TestimonialsSection() {
       <div className="relative z-10">
         {/* Header */}
         <SectionHeader
-          tagText="Client Stories"
-          tagIcon="solar:users-group-rounded-outline"
-          heading="Testimonials Wall"
-          description="Real feedback from real clients who trusted me with their projects"
+          tagText={heading?.tagText ?? "Client Stories"}
+          tagIcon={heading?.tagIcon ?? "solar:users-group-rounded-outline"}
+          heading={heading?.heading ?? "Testimonials Wall"}
+          description={heading?.description ?? "Real feedback from real clients who trusted me with their projects"}
           showUnderline={false}
           centered={true}
         />

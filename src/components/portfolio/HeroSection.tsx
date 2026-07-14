@@ -10,12 +10,52 @@ import TypewriterRole from "./TypewriterRole";
 // paints immediately instead of waiting for framer-motion to hydrate — the fix
 // that keeps FCP/LCP fast. Hover/tap feedback uses Tailwind transforms, so this
 // component ships no framer-motion JS on the critical path.
-export default function HeroSection() {
+export interface HeroContent {
+  name?: string;
+  tagline?: string;
+  logoLight?: string | null;
+  logoDark?: string | null;
+  typewriterRoles?: string[];
+  availabilityBanner?: string;
+  resumeCommand?: string;
+  resumeCopyCommand?: string;
+  socials?: { label: string; href: string; icon: string; color: string }[];
+  skillsPreview?: { label: string; icon: string }[];
+}
+
+const DEFAULT_SOCIALS = [
+  { href: "https://facebook.com/jordolang", icon: "simple-icons:facebook", label: "Facebook", color: "hover:text-blue-600" },
+  { href: "https://x.com/jordolang", icon: "simple-icons:x", label: "X (Twitter)", color: "hover:text-gray-900 dark:hover:text-white" },
+  { href: "https://linkedin.com/in/jordolang", icon: "simple-icons:linkedin", label: "LinkedIn", color: "hover:text-blue-700" },
+  { href: "https://github.com/jordolang", icon: "simple-icons:github", label: "GitHub", color: "hover:text-gray-900 dark:hover:text-white" },
+  { href: "mailto:jordan@jlang.dev", icon: "material-icon-theme:email", label: "Email", color: "hover:text-green-600" },
+];
+
+const DEFAULT_SKILLS = [
+  { icon: "skill-icons:html", label: "HTML/CSS" },
+  { icon: "skill-icons:wordpress", label: "WordPress" },
+  { icon: "vscode-icons:file-type-figma", label: "UI/UX Design" },
+  { icon: "material-symbols:responsive-layout", label: "Responsive Design" },
+  { icon: "mdi:web-check", label: "Web Accessibility" },
+];
+
+const DEFAULT_COPY_COMMAND = "curl https://jlang.dev/api/resume/launch.sh | bash";
+
+export default function HeroSection({ content }: { content?: HeroContent }) {
+  const name = content?.name || "Jordan Lang";
+  const tagline = content?.tagline || "Creating beautiful, accessible websites that engage users and drive results";
+  const logoLight = content?.logoLight || "/JLang-Development.png";
+  const logoDark = content?.logoDark || "/JLang-Development-Black.png";
+  const availability = content?.availabilityBanner || "Available for contract web design & App Development & Various IT projects";
+  const resumeCommand = content?.resumeCommand || "curl jlang.dev/resume | bash";
+  const resumeCopyCommand = content?.resumeCopyCommand || DEFAULT_COPY_COMMAND;
+  const socials = content?.socials?.length ? content.socials : DEFAULT_SOCIALS;
+  const skills = content?.skillsPreview?.length ? content.skillsPreview : DEFAULT_SKILLS;
+
   const copyResumeCommand = () => {
-    navigator.clipboard.writeText("curl https://jlang.dev/api/resume/launch.sh | bash");
+    navigator.clipboard.writeText(resumeCopyCommand);
     const notification = document.createElement("div");
-    notification.textContent =
-      "Command copied to clipboard: curl https://jlang.dev/api/resume/launch.sh | bash";
+    notification.textContent = `Command copied to clipboard: ${resumeCopyCommand}`;
     notification.className =
       "fixed top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 text-sm max-w-md";
     document.body.appendChild(notification);
@@ -51,7 +91,7 @@ export default function HeroSection() {
             LCP image. */}
         <div className="hero-reveal flex justify-center mb-6">
           <Image
-            src="/JLang-Development.png"
+            src={logoLight}
             alt="JLang Development"
             width={1254}
             height={1254}
@@ -61,7 +101,7 @@ export default function HeroSection() {
             className="w-full max-w-[260px] h-auto rounded-2xl shadow-lg dark:hidden"
           />
           <Image
-            src="/JLang-Development-Black.png"
+            src={logoDark}
             alt="JLang Development"
             width={1254}
             height={1254}
@@ -73,19 +113,19 @@ export default function HeroSection() {
         {/* Name */}
         <h1 className="hero-reveal text-5xl md:text-6xl font-bold mb-4" style={{ animationDelay: "0.05s" }}>
           <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-gray-100 dark:to-white bg-clip-text text-transparent z-10">
-            Jordan Lang
+            {name}
           </span>
         </h1>
 
         {/* Typewriter Role Component */}
-        <TypewriterRole />
+        <TypewriterRole roles={content?.typewriterRoles} />
 
         {/* Tagline */}
         <p
           className="hero-reveal text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed"
           style={{ animationDelay: "0.1s" }}
         >
-          Creating beautiful, accessible websites that engage users and drive results
+          {tagline}
         </p>
 
         {/* CLI Resume Button */}
@@ -96,19 +136,13 @@ export default function HeroSection() {
           >
             <Icon icon="material-symbols:terminal" width={20} height={20} />
             <span>Try My CLI Resume</span>
-            <code className="text-xs bg-white/20 px-2 py-1 rounded font-mono">curl jlang.dev/resume | bash</code>
+            <code className="text-xs bg-white/20 px-2 py-1 rounded font-mono">{resumeCommand}</code>
           </button>
         </div>
 
         {/* Social Links */}
         <div className="hero-reveal flex flex-wrap gap-3 justify-center mb-12" style={{ animationDelay: "0.2s" }}>
-          {[
-            { href: "https://facebook.com/jordolang", icon: "simple-icons:facebook", label: "Facebook", color: "hover:text-blue-600" },
-            { href: "https://x.com/jordolang", icon: "simple-icons:x", label: "X (Twitter)", color: "hover:text-gray-900 dark:hover:text-white" },
-            { href: "https://linkedin.com/in/jordolang", icon: "simple-icons:linkedin", label: "LinkedIn", color: "hover:text-blue-700" },
-            { href: "https://github.com/jordolang", icon: "simple-icons:github", label: "GitHub", color: "hover:text-gray-900 dark:hover:text-white" },
-            { href: "mailto:jordan@jlang.dev", icon: "material-icon-theme:email", label: "Email", color: "hover:text-green-600" }
-          ].map((link) => (
+          {socials.map((link) => (
             <Link
               key={link.label}
               href={link.href}
@@ -123,13 +157,7 @@ export default function HeroSection() {
 
         {/* Skills Preview */}
         <div className="hero-reveal flex flex-wrap justify-center gap-3 mb-10" style={{ animationDelay: "0.25s" }}>
-          {[
-            { icon: "skill-icons:html", label: "HTML/CSS" },
-            { icon: "skill-icons:wordpress", label: "WordPress" },
-            { icon: "vscode-icons:file-type-figma", label: "UI/UX Design" },
-            { icon: "material-symbols:responsive-layout", label: "Responsive Design" },
-            { icon: "mdi:web-check", label: "Web Accessibility" }
-          ].map((skill) => (
+          {skills.map((skill) => (
             <div
               key={skill.label}
               className="flex items-center gap-2 px-3 py-2 bg-gray-50/80 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/30 transition-transform duration-300 hover:scale-105"
@@ -148,7 +176,7 @@ export default function HeroSection() {
           <div className="w-2 h-2 bg-green-500 rounded-full" />
           <Link href="#contact">
             <span className="text-green-700 dark:text-green-300 text-sm font-medium">
-              Available for contract web design & App Development & Various IT projects
+              {availability}
             </span>
           </Link>
         </div>

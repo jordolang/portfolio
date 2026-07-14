@@ -2,7 +2,7 @@ import { Icon } from "@/components/Icon";
 import { Reveal } from "@/components/Reveal";
 import SectionHeader from "./SectionHeader";
 
-const experience = [
+export const experience = [
   {
     role: "Web Designer",
     company: "Neff Paving",
@@ -69,7 +69,33 @@ const experience = [
   }
 ];
 
-export default function ExperienceSection() {
+export interface ExperienceItem {
+  role: string;
+  company: string;
+  period: string;
+  type?: string;
+  companyColor: string;
+  companyIcon: string;
+  description: string;
+  achievements: string[];
+  technologies: string[];
+}
+
+export interface ExperienceStats {
+  yearsExperience?: string;
+  websitesCreated?: string;
+  clientSatisfaction?: string;
+}
+
+interface ExperienceSectionProps {
+  /** Roles from Sanity. Falls back to the list above when the CMS has none. */
+  items?: ExperienceItem[];
+  stats?: ExperienceStats;
+  heading?: { tagText?: string; tagIcon?: string; heading?: string; description?: string };
+}
+
+export default function ExperienceSection({ items, stats, heading }: ExperienceSectionProps) {
+  const experienceItems = items?.length ? items : experience;
   return (
     <section id="experience" className="mb-16 relative overflow-hidden">
       {/* Enhanced Background Elements */}
@@ -81,16 +107,16 @@ export default function ExperienceSection() {
 
       <div className="relative z-10">
         <SectionHeader
-          tagText="Professional Journey"
-          tagIcon="solar:case-bold"
-          heading="Experience"
+          tagText={heading?.tagText ?? "Professional Journey"}
+          tagIcon={heading?.tagIcon ?? "solar:case-bold"}
+          heading={heading?.heading ?? "Experience"}
           showUnderline={false}
-          description="My professional journey and the impact I've made across different domains"
+          description={heading?.description ?? "My professional journey and the impact I've made across different domains"}
           centered={true}
         />
 
         <div className="max-w-5xl mx-auto space-y-6 md:space-y-12 px-4 md:px-6">
-          {experience.map((exp, index) => (
+          {experienceItems.map((exp, index) => (
             <Reveal key={index} className="relative group" delay={index * 0.05}>
               <div className="flex flex-col sm:flex-row sm:items-start gap-6 md:gap-8 lg:gap-12">
                 {/* Company Icon & Info */}
@@ -189,17 +215,17 @@ export default function ExperienceSection() {
         <Reveal className="mt-16 md:mt-24 text-center px-4 md:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-4xl mx-auto">
             <div className="group p-6 md:p-8 rounded-xl md:rounded-2xl bg-gradient-to-br from-blue-50/50 to-blue-100/30 dark:from-blue-950/20 dark:to-blue-900/10 border border-blue-200/30 dark:border-blue-800/20 hover:border-blue-300/50 dark:hover:border-blue-600/30 hover:scale-105 hover:-translate-y-1 transition-all duration-500">
-              <div className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">4+</div>
+              <div className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">{stats?.yearsExperience ?? "4+"}</div>
               <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Years Experience</div>
             </div>
 
             <div className="group p-6 md:p-8 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-50/50 to-green-100/30 dark:from-green-950/20 dark:to-green-900/10 border border-green-200/30 dark:border-green-800/20 hover:border-green-300/50 dark:hover:border-green-600/30 hover:scale-105 hover:-translate-y-1 transition-all duration-500">
-              <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">25+</div>
+              <div className="text-4xl md:text-5xl font-bold text-green-600 dark:text-green-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">{stats?.websitesCreated ?? "25+"}</div>
               <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Websites Created</div>
             </div>
 
             <div className="group p-6 md:p-8 rounded-xl md:rounded-2xl bg-gradient-to-br from-purple-50/50 to-purple-100/30 dark:from-purple-950/20 dark:to-purple-900/10 border border-purple-200/30 dark:border-purple-800/20 hover:border-purple-300/50 dark:hover:border-purple-600/30 hover:scale-105 hover:-translate-y-1 transition-all duration-500 sm:col-span-2 lg:col-span-1">
-              <div className="text-4xl md:text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">100%</div>
+              <div className="text-4xl md:text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2 md:mb-3 group-hover:scale-110 transition-transform duration-300">{stats?.clientSatisfaction ?? "100%"}</div>
               <div className="text-gray-600 dark:text-gray-400 font-medium text-base md:text-lg">Client Satisfaction</div>
             </div>
           </div>
