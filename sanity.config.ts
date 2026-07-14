@@ -27,7 +27,9 @@ export default defineConfig({
       if (singletons.includes(context.schemaType)) {
         return previous.filter(({ action }) => action !== "duplicate" && action !== "delete" && action !== "unpublish");
       }
-      return context.schemaType === "reviewRequest" ? [...previous, SendReviewRequestAction] : previous;
+      // Studio shows only the first action as a button; the rest hide behind the chevron.
+      // Put this one first so it's visible — Publish stays available in the dropdown.
+      return context.schemaType === "reviewRequest" ? [SendReviewRequestAction, ...previous] : previous;
     },
   },
 });
