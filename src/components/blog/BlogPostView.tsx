@@ -40,7 +40,7 @@ interface BlogPostViewProps {
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  return date.toLocaleDateString('en-US', { year: "numeric", month: "long", day: "numeric", timeZone: 'UTC' });
 }
 
 export default function BlogPostView({ post, allPosts, previousPost, nextPost, tocSource }: BlogPostViewProps) {

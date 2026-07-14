@@ -25,8 +25,7 @@ function formatDate(dateString: string): string {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
-  });
+    day: 'numeric', timeZone: 'UTC' });
 }
 
 interface BlogSectionProps {
