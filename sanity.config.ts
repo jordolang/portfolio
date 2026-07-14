@@ -1,11 +1,11 @@
 "use client";
 
-import { defineConfig } from "sanity";
+import { defineConfig, type AssetSource } from "sanity";
 import { structureTool } from "sanity/structure";
 import { presentationTool } from "sanity/presentation";
 import { visionTool } from "@sanity/vision";
 import { assist } from "@sanity/assist";
-import { media, mediaAssetSource } from "sanity-plugin-media";
+import { media, mediaAssetSource as untypedMediaAssetSource } from "sanity-plugin-media";
 import { schemaTypes, SINGLETON_TYPES } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 import { locations } from "./src/sanity/presentation/locations";
@@ -14,6 +14,10 @@ import { DraftWithClaudeAction } from "./src/sanity/actions/DraftWithClaudeActio
 import { dataset, projectId } from "./src/sanity/env";
 
 const singletons: readonly string[] = SINGLETON_TYPES;
+
+// The plugin's icon is a forwardRef component, which doesn't structurally match Sanity's
+// ComponentType<EmptyProps> under React 18 types. Harmless at runtime; assert past it.
+const mediaAssetSource = untypedMediaAssetSource as unknown as AssetSource;
 
 export default defineConfig({
   name: "jlang-development",
