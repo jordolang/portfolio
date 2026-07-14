@@ -25,6 +25,9 @@ interface Project {
   clientType: string;
   group?: "desktop" | "mobile";
   fullPagePreview?: boolean;
+  /** Intrinsic size of `image`. Required for full-page captures so the scroll container renders them at true aspect ratio. */
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 const projects: Project[] = [
@@ -33,7 +36,10 @@ const projects: Project[] = [
     subtitle: "Permanent Jewelry Bloomington, IN",
     description:
       "A bespoke new home on the web for Stuck On You — elegant design, effortless content editing, and lightning-fast pages. Designed & built by JLang Development.",
-    image: "https://stuckonyou.vercel.app/og.jpg",
+    image: "/images/projects/stuck-on-you.jpg",
+    imageWidth: 1440,
+    imageHeight: 7237,
+    fullPagePreview: true,
     features: [
       "Elegant, brand-led website design",
       "Effortless content editing",
@@ -62,6 +68,8 @@ const projects: Project[] = [
     description:
       "The newest build: a clean, conversion-focused marketing site for a Muskingum County aggregate and construction materials supplier. Showcases products, service areas, and capabilities with a fast, mobile-first experience deployed on Vercel.",
     image: "/images/projects/muskingum-materials.jpg",
+    imageWidth: 1280,
+    imageHeight: 7101,
     features: [
       "Product and materials catalog presentation",
       "Service-area and capabilities overview",
@@ -387,6 +395,8 @@ const projects: Project[] = [
     timeline: "2 months",
     clientType: "Construction Services",
     fullPagePreview: true,
+    imageWidth: 1440,
+    imageHeight: 12000,
   },
   {
     title: "First Baptist Church",
@@ -701,8 +711,8 @@ function FeaturedProject({ project }: { project: Project }) {
               <Image
                 src={project.image}
                 alt={`${project.title} – full page screenshot`}
-                width={1280}
-                height={7101}
+                width={project.imageWidth ?? 1280}
+                height={project.imageHeight ?? 7101}
                 className="w-full h-auto"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority
@@ -746,8 +756,8 @@ function ProjectCard({ project }: { project: Project }) {
           <Image
             src={project.image}
             alt={`${project.title} – full page screenshot`}
-            width={1440}
-            height={12000}
+            width={project.imageWidth ?? 1440}
+            height={project.imageHeight ?? 12000}
             className="h-auto w-full"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
