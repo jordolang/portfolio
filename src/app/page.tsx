@@ -7,6 +7,7 @@ import Footer from "@/components/portfolio/Footer";
 import {
   LazyBlogSection,
   LazyTechStackSection,
+  LazyCertificationsSection,
   LazyProjectsSection,
   LazyServicesSection,
   LazyTestimonialsSection,
@@ -14,6 +15,7 @@ import {
 } from "@/components/portfolio/LazySections";
 import {
   getAboutContent,
+  getCertifications,
   getExperience,
   getFaqs,
   getProjects,
@@ -28,19 +30,31 @@ import { getApprovedTestimonials } from "@/lib/reviews";
 export default async function Portfolio() {
   // One server-side pass for the whole page. Anything the CMS doesn't have comes back
   // null/empty and each section falls back to the content bundled in the component.
-  const [settings, about, headings, projects, experience, techStack, packages, faqs, posts, testimonials] =
-    await Promise.all([
-      getSiteSettings(),
-      getAboutContent(),
-      getSectionHeadings(),
-      getProjects(),
-      getExperience(),
-      getTechStack(),
-      getServicePackages(),
-      getFaqs(),
-      getLatestBlogPosts(3),
-      getApprovedTestimonials(),
-    ]);
+  const [
+    settings,
+    about,
+    headings,
+    projects,
+    experience,
+    techStack,
+    certifications,
+    packages,
+    faqs,
+    posts,
+    testimonials,
+  ] = await Promise.all([
+    getSiteSettings(),
+    getAboutContent(),
+    getSectionHeadings(),
+    getProjects(),
+    getExperience(),
+    getTechStack(),
+    getCertifications(),
+    getServicePackages(),
+    getFaqs(),
+    getLatestBlogPosts(3),
+    getApprovedTestimonials(),
+  ]);
 
   return (
     <div className="min-h-screen text-gray-900 dark:text-white relative">
@@ -67,6 +81,10 @@ export default async function Portfolio() {
           items={experience ?? undefined}
           stats={about?.stats ?? undefined}
           heading={headings?.experience}
+        />
+        <LazyCertificationsSection
+          items={certifications ?? undefined}
+          heading={headings?.certifications}
         />
         <LazyProjectsSection projects={projects ?? undefined} heading={headings?.projects} />
         <LazyServicesSection
