@@ -7,7 +7,8 @@ import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import type { PortableTextBlock } from '@portabletext/react';
-import { sanityClient, sanityIsConfigured } from '@/sanity/lib/client';
+import { getSanityClient, sanityIsConfigured } from '@/sanity/lib/client';
+import { isDraftMode } from './cms';
 import { urlForImage, type SanityImageRef } from '@/sanity/lib/image';
 import { logger } from './logger';
 
@@ -80,11 +81,17 @@ function normalizeSanityPost(post: RawSanityPost): BlogPost {
 
 async function getSanityBlogPosts(): Promise<BlogPost[]> {
   if (!sanityIsConfigured) return [];
+  const draft = await isDraftMode();
+  // In Presentation, an unpublished post is exactly the thing the editor wants to look at, so the
+  // `published` gate only applies to the live site.
+  const filter = draft
+    ? `*[_type == "blogPost" && defined(slug.current)]`
+    : `*[_type == "blogPost" && published == true && defined(slug.current)]`;
   try {
-    const posts = await sanityClient.fetch<RawSanityPost[]>(
-      `*[_type == "blogPost" && published == true && defined(slug.current)] | order(date desc) ${POST_PROJECTION}`,
+    const posts = await getSanityClient(draft).fetch<RawSanityPost[]>(
+      `${filter} | order(date desc) ${POST_PROJECTION}`,
       {},
-      { next: { revalidate: 60, tags: ['blogPosts'] } },
+      draft ? { cache: 'no-store' } : { next: { revalidate: 60, tags: ['blogPosts'] } },
     );
     return (posts ?? []).map(normalizeSanityPost);
   } catch (error) {

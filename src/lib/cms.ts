@@ -1,6 +1,7 @@
 import "server-only";
 
-import { sanityClient, sanityIsConfigured } from "@/sanity/lib/client";
+import { draftMode } from "next/headers";
+import { getSanityClient, sanityIsConfigured } from "@/sanity/lib/client";
 import { dimensionsForImage, urlForImage, type SanityImageRef } from "@/sanity/lib/image";
 
 /**
@@ -13,10 +14,28 @@ import { dimensionsForImage, urlForImage, type SanityImageRef } from "@/sanity/l
 
 const IMAGE_PROJECTION = `{ asset->{ _id, url, metadata { dimensions } } }`;
 
+/**
+ * `draftMode()` throws outside a request scope (sitemap, robots, build-time metadata). Those are
+ * never previews, so treat the absence of a request as "not a draft" instead of failing the query.
+ */
+export async function isDraftMode(): Promise<boolean> {
+  try {
+    return (await draftMode()).isEnabled;
+  } catch {
+    return false;
+  }
+}
+
 async function query<T>(groq: string, tags: string[], params: Record<string, unknown> = {}): Promise<T | null> {
   if (!sanityIsConfigured) return null;
+  const draft = await isDraftMode();
   try {
-    return await sanityClient.fetch<T>(groq, params, { next: { revalidate: 60, tags } });
+    // Previews must never be served from the ISR cache, or the editor edits and sees nothing change.
+    return await getSanityClient(draft).fetch<T>(
+      groq,
+      params,
+      draft ? { cache: "no-store" } : { next: { revalidate: 60, tags } },
+    );
   } catch (error) {
     console.error(`[cms] query failed (${tags.join(",")}):`, error);
     return null;
