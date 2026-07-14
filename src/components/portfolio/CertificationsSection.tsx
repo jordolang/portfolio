@@ -22,7 +22,7 @@ type Certificate = {
   platformIconSize: number;
 };
 
-const certifications: Certificate[] = [
+export const certifications: Certificate[] = [
   {
     title: "DevOps Essentials",
     provider: "IBM",

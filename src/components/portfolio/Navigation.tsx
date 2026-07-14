@@ -34,8 +34,30 @@ function scrollToSection(id: string) {
   requestAnimationFrame(scrollWhenStable);
 }
 
-export default function Navigation() {
+export interface NavItem {
+  label: string;
+  href: string;
+}
+
+const defaultNavItems: NavItem[] = [
+  { label: "Overview", href: "/#overview" },
+  { label: "Blog", href: "/#blog" },
+  { label: "Stack", href: "/#stack" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Services", href: "/services" },
+  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Contact", href: "/#contact" },
+];
+
+interface NavigationProps {
+  /** Nav items from Sanity. Falls back to the list above when the CMS has none. */
+  items?: NavItem[];
+}
+
+export default function Navigation({ items }: NavigationProps) {
   const { theme, toggleTheme } = useTheme();
+  const navItems = items?.length ? items : defaultNavItems;
 
   // Honor a hash on initial load (e.g. arriving at /#projects from another page).
   useEffect(() => {
@@ -44,14 +66,14 @@ export default function Navigation() {
     scrollToSection(id);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: string) => {
-    trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item });
-    if (item === "Services") return; // real route → let the link navigate
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
+    trackEvent(AnalyticsEvents.NAVIGATION_CLICKED, { item: item.label });
+    if (!item.href.startsWith("/#")) return; // real route → let the link navigate
     // On the home page, take over so the jump is instant and reliable even before
     // the target section has lazily mounted.
     if (window.location.pathname === "/") {
       e.preventDefault();
-      const id = item.toLowerCase();
+      const id = item.href.slice(2);
       history.replaceState(null, "", `/#${id}`);
       scrollToSection(id);
     }
@@ -70,17 +92,17 @@ export default function Navigation() {
           </m.div>
           <div className="flex items-center space-x-8">
             <div className="hidden md:flex items-center space-x-8">
-              {["Overview", "Blog", "Stack", "Experience", "Projects", "Services", "Testimonials", "Contact"].map((item, index) => (
+              {navItems.map((item, index) => (
                 <m.a
-                  key={item}
-                  href={item === "Services" ? "/services" : `/#${item.toLowerCase()}`}
+                  key={item.label}
+                  href={item.href}
                   onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleNavClick(e, item)}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-300 text-sm font-medium"
                 >
-                  {item}
+                  {item.label}
                 </m.a>
               ))}
             </div>

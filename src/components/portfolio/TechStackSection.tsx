@@ -14,7 +14,7 @@ interface TechItem {
   yearsUsed?: number;
 }
 
-const techStackData: Record<string, TechItem[]> = {
+export const techStackData: Record<string, TechItem[]> = {
   "Backend": [
     {
       name: "Node.js",
@@ -244,14 +244,21 @@ const techStackData: Record<string, TechItem[]> = {
   ],
 };
 
-export default function TechStackSection() {
+interface TechStackSectionProps {
+  /** Tech grouped by category, from Sanity. Falls back to the map above when the CMS has none. */
+  stack?: Record<string, TechItem[]>;
+  heading?: { tagText?: string; tagIcon?: string; heading?: string; description?: string };
+}
+
+export default function TechStackSection({ stack, heading }: TechStackSectionProps) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
-  const categories = ["All", ...Object.keys(techStackData)];
+  const techStack = stack && Object.keys(stack).length > 0 ? stack : techStackData;
+  const categories = ["All", ...Object.keys(techStack)];
 
   const filteredTech = activeCategory === "All"
-    ? Object.values(techStackData).flat()
-    : techStackData[activeCategory] || [];
+    ? Object.values(techStack).flat()
+    : techStack[activeCategory] || [];
 
   return (
     <m.section
@@ -262,10 +269,10 @@ export default function TechStackSection() {
       className="mb-16"
     >
       <SectionHeader
-        tagText="Tech Arsenal"
-        tagIcon="solar:settings-bold"
-        heading="Technology Stack"
-        description="Technologies I use to bring ideas to life"
+        tagText={heading?.tagText ?? "Tech Arsenal"}
+        tagIcon={heading?.tagIcon ?? "solar:settings-bold"}
+        heading={heading?.heading ?? "Technology Stack"}
+        description={heading?.description ?? "Technologies I use to bring ideas to life"}
         showUnderline={false}
         centered={true}
       />
@@ -291,7 +298,7 @@ export default function TechStackSection() {
       {activeCategory === "All" ? (
         // Categorized view
         <div className="space-y-8">
-          {Object.entries(techStackData).map(([categoryName, techs]) => (
+          {Object.entries(techStack).map(([categoryName, techs]) => (
             <m.div
               key={categoryName}
               initial={{ opacity: 0, y: 20 }}

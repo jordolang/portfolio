@@ -4,7 +4,7 @@ import { logger } from '@/lib/logger';
 
 export async function GET() {
   try {
-    const posts = getAllBlogPosts();
+    const posts = await getAllBlogPosts();
     return NextResponse.json(posts);
   } catch (error) {
     logger.error('Error fetching blog posts:', error);

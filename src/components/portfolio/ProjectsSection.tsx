@@ -30,7 +30,7 @@ interface Project {
   imageHeight?: number;
 }
 
-const projects: Project[] = [
+export const projects: Project[] = [
   {
     title: "Stuck On You",
     subtitle: "Permanent Jewelry Bloomington, IN",
@@ -567,6 +567,20 @@ const projects: Project[] = [
   },
 ];
 
+export interface SectionHeading {
+  tagText?: string;
+  tagIcon?: string;
+  heading?: string;
+  description?: string;
+  ctaText?: string;
+}
+
+interface ProjectsSectionProps {
+  /** Projects from Sanity. Falls back to the list above when the CMS has none. */
+  projects?: Project[];
+  heading?: SectionHeading;
+}
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -910,9 +924,10 @@ function MobileProjectCard({ project }: { project: Project }) {
   );
 }
 
-export default function ProjectsSection() {
-  const desktopProjects = projects.filter((project) => project.group !== "mobile");
-  const mobileProjects = projects.filter((project) => project.group === "mobile");
+export default function ProjectsSection({ projects: cmsProjects, heading }: ProjectsSectionProps) {
+  const allProjects = cmsProjects?.length ? cmsProjects : projects;
+  const desktopProjects = allProjects.filter((project) => project.group !== "mobile");
+  const mobileProjects = allProjects.filter((project) => project.group === "mobile");
   const [featured, ...desktopRest] = desktopProjects;
 
   return (
@@ -937,10 +952,13 @@ export default function ProjectsSection() {
         className="relative z-10"
       >
         <SectionHeader
-          tagText="Portfolio Showcase"
-          tagIcon="solar:code-square-bold"
-          heading="Featured Projects"
-          description="Explore my web design portfolio featuring modern, responsive websites and digital solutions for diverse industries"
+          tagText={heading?.tagText ?? "Portfolio Showcase"}
+          tagIcon={heading?.tagIcon ?? "solar:code-square-bold"}
+          heading={heading?.heading ?? "Featured Projects"}
+          description={
+            heading?.description ??
+            "Explore my web design portfolio featuring modern, responsive websites and digital solutions for diverse industries"
+          }
           showUnderline={true}
           centered={true}
         />
@@ -983,7 +1001,7 @@ export default function ProjectsSection() {
             >
               <Icon icon="solar:programming-bold" className="text-blue-500 dark:text-purple-400 w-5 h-5 md:w-6 md:h-6" />
               <span className="text-gray-700 dark:text-gray-300 font-medium text-sm md:text-base text-center">
-                Interested in working together? Let&apos;s create something amazing!
+                {heading?.ctaText ?? "Interested in working together? Let's create something amazing!"}
               </span>
             </m.div>
           </Link>

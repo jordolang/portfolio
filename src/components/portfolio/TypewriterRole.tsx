@@ -3,17 +3,14 @@
 import { m } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
 
-export default function TypewriterRole() {
+const DEFAULT_ROLES = ["Web Designer", "UI/UX Designer", "WordPress Developer", "Digital Creative"];
+
+export default function TypewriterRole({ roles: cmsRoles }: { roles?: string[] }) {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const roles = useMemo(() => [
-    "Web Designer",
-    "UI/UX Designer",
-    "WordPress Developer",
-    "Digital Creative"
-  ], []);
+  const roles = useMemo(() => (cmsRoles?.length ? cmsRoles : DEFAULT_ROLES), [cmsRoles]);
 
   // Typewriter effect
   useEffect(() => {

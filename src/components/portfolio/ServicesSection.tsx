@@ -28,7 +28,7 @@ interface PricingPackage {
   popular: boolean;
 }
 
-const pricingPackages: PricingPackage[] = [
+export const pricingPackages: PricingPackage[] = [
   {
     name: "Launchpad",
     price: "$499",
@@ -161,7 +161,7 @@ const pricingPackages: PricingPackage[] = [
   },
 ];
 
-const faqs = [
+export const faqs = [
   {
     question: "How long does a typical project take?",
     answer:
@@ -299,9 +299,19 @@ function PricingDialog({ pkg, onClose }: { pkg: PricingPackage; onClose: () => v
   );
 }
 
-export default function ServicesSection() {
+interface ServicesSectionProps {
+  /** Packages and FAQs from Sanity. Each falls back to the lists above when the CMS has none. */
+  packages?: PricingPackage[];
+  faqs?: { question: string; answer: string }[];
+  heading?: { tagText?: string; tagIcon?: string; heading?: string; description?: string };
+}
+
+export default function ServicesSection({ packages, faqs: cmsFaqs, heading }: ServicesSectionProps) {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [detailsPackage, setDetailsPackage] = useState<PricingPackage | null>(null);
+
+  const packageList = packages?.length ? packages : pricingPackages;
+  const faqList = cmsFaqs?.length ? cmsFaqs : faqs;
 
   const toggleFaq = (index: number) => {
     setExpandedFaq(expandedFaq === index ? null : index);
@@ -322,10 +332,10 @@ export default function ServicesSection() {
       className="mb-16 md:mb-24"
     >
       <SectionHeader
-        heading="Web Design & Development Services"
-        description="Custom web solutions tailored to your business — pick a package and order in minutes."
-        tagIcon="solar:code-square-bold"
-        tagText="Services"
+        heading={heading?.heading ?? "Web Design & Development Services"}
+        description={heading?.description ?? "Custom web solutions tailored to your business — pick a package and order in minutes."}
+        tagIcon={heading?.tagIcon ?? "solar:code-square-bold"}
+        tagText={heading?.tagText ?? "Services"}
         centered={true}
       />
 
@@ -371,7 +381,7 @@ export default function ServicesSection() {
 
       {/* Pricing Cards — short highlights + Choose / details, add-ons on cheaper tiers */}
       <div className="mb-14 grid items-stretch gap-8 md:grid-cols-3">
-        {pricingPackages.map((pkg, index) => (
+        {packageList.map((pkg, index) => (
           <m.div
             key={pkg.name}
             initial={{ opacity: 0, y: 30 }}
@@ -501,7 +511,7 @@ export default function ServicesSection() {
         </div>
 
         <div className="space-y-3">
-          {faqs.map((faq, index) => (
+          {faqList.map((faq, index) => (
             <div
               key={index}
               className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
