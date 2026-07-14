@@ -1,7 +1,10 @@
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { MotionProvider } from "@/components/MotionProvider";
+import { DisableDraftMode } from "@/components/DisableDraftMode";
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity";
 import { getSiteSettings } from "@/lib/cms";
 import "./globals.css";
 
@@ -48,11 +51,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isEnabled: isDraft } = await draftMode();
+
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
@@ -75,6 +80,13 @@ export default function RootLayout({
             </MotionProvider>
           </ThemeProvider>
         </PostHogProvider>
+        {/* Only mounted in draft mode, so the overlay bundle never reaches real visitors. */}
+        {isDraft && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
         {/* Google Analytics (gtag.js) is loaded lazily on first interaction from
             PostHogProvider, alongside PostHog, to keep it out of the Total
             Blocking Time window. */}
